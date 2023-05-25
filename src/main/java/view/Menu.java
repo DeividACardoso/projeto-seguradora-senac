@@ -60,7 +60,7 @@ public class Menu {
 		menuBar.setBackground(new Color(26, 158, 230));
 		frmMenu.setJMenuBar(menuBar);
 		
-		JMenu mnItemCliente = new JMenu("    ");
+		JMenu mnItemCliente = new JMenu("Cliente");
 		mnItemCliente.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-cliente-64 (3).png")));
 		menuBar.add(mnItemCliente);
 		
