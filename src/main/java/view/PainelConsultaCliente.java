@@ -33,7 +33,7 @@ public class PainelConsultaCliente extends JPanel {
 		setLayout(null);
 
 		txtNome = new JTextField();
-		txtNome.setBounds(108, 72, 261, 26);
+		txtNome.setBounds(97, 71, 261, 26);
 		add(txtNome);
 		txtNome.setColumns(10);
 
@@ -45,19 +45,19 @@ public class PainelConsultaCliente extends JPanel {
 
 		txtCpf = new JTextField();
 		txtCpf.setColumns(10);
-		txtCpf.setBounds(437, 72, 204, 26);
+		txtCpf.setBounds(410, 72, 182, 26);
 		add(txtCpf);
 
 		txtDtnascimentoLsitc = new JTextField();
 		txtDtnascimentoLsitc.setColumns(10);
-		txtDtnascimentoLsitc.setBounds(238, 118, 403, 26);
+		txtDtnascimentoLsitc.setBounds(223, 117, 369, 26);
 		add(txtDtnascimentoLsitc);
 
 		txtAte = new JTextField();
 		txtAte.setColumns(10);
-		txtAte.setBounds(238, 160, 403, 26);
+		txtAte.setBounds(223, 160, 369, 26);
 		add(txtAte);
-		tableListagem.setBounds(52, 252, 589, 312);
+		tableListagem.setBounds(52, 252, 540, 312);
 		add(tableListagem);
 		tableListagem.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -72,7 +72,7 @@ public class PainelConsultaCliente extends JPanel {
 		lblCpfList = new JLabel("Cpf:");
 		lblCpfList.setForeground(Color.WHITE);
 		lblCpfList.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		lblCpfList.setBounds(395, 64, 46, 32);
+		lblCpfList.setBounds(368, 67, 46, 32);
 		add(lblCpfList);
 		
 		lblDtNascList = new JLabel("Data de nascimento. De:");
@@ -88,11 +88,11 @@ public class PainelConsultaCliente extends JPanel {
 		add(lblAt);
 		
 		JButton btnBuscarTodos = new JButton("BuscarTodos");
-		btnBuscarTodos.setBounds(238, 209, 157, 32);
+		btnBuscarTodos.setBounds(223, 209, 157, 32);
 		add(btnBuscarTodos);
 		
 		JButton btnGerarPlanilha = new JButton("GerarPlanilha");
-		btnGerarPlanilha.setBounds(484, 209, 157, 32);
+		btnGerarPlanilha.setBounds(435, 209, 157, 32);
 		add(btnGerarPlanilha);
 		
 
