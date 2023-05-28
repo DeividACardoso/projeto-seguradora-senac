@@ -121,7 +121,7 @@ public class TelaCadastroCliente {
 		
 		txtEndereco = new JTextField();
 		txtEndereco.setColumns(10);
-		frmCadstroClientes.getContentPane().add(txtEndereco, "14, 6, 7, 1, fill, default");
+		frmCadstroClientes.getContentPane().add(txtEndereco, "14, 6, 8, 1, fill, default");
 		
 		JLabel lblDocumentoCpf = new JLabel("DOCUMENTO CPF");
 		lblDocumentoCpf.setForeground(Color.WHITE);
@@ -139,7 +139,7 @@ public class TelaCadastroCliente {
 		
 		txtTelefone = new JTextField();
 		txtTelefone.setColumns(10);
-		frmCadstroClientes.getContentPane().add(txtTelefone, "14, 10, 7, 1, fill, default");
+		frmCadstroClientes.getContentPane().add(txtTelefone, "14, 10, 8, 1, fill, default");
 		
 		JLabel lblDataDeNascimento = new JLabel("DATA DE NASCIMENTO");
 		lblDataDeNascimento.setForeground(Color.WHITE);
