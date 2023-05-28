@@ -17,9 +17,9 @@ public class PainelConsultaSeguro extends JPanel {
 	private JTable table_1;
 	private final JTable tableListaSeguros = new JTable();
 
-	/**
+	   /**
 	 * Create the panel.
-	 */
+	 */  
 	public PainelConsultaSeguro() {
 		setBackground(new Color(26, 158, 230));
 		setLayout(null);
@@ -44,6 +44,7 @@ public class PainelConsultaSeguro extends JPanel {
 		add(lblVigenciaIFim);
 		
 		txtNumeroProposta = new JTextField();
+		txtNumeroProposta.setBackground(new Color(255, 255, 255));
 		txtNumeroProposta.setBounds(172, 69, 420, 26);
 		add(txtNumeroProposta);
 		txtNumeroProposta.setColumns(10);
@@ -57,7 +58,9 @@ public class PainelConsultaSeguro extends JPanel {
 		txtFimVigencia.setColumns(10);
 		txtFimVigencia.setBounds(217, 160, 375, 26);
 		add(txtFimVigencia);
-		tableListaSeguros.setBounds(46, 251, 546, 315);
+		tableListaSeguros.setForeground(new Color(0, 0, 0));
+		tableListaSeguros.setBackground(new Color(255, 255, 255));
+		tableListaSeguros.setBounds(46, 251, 546, 257);
 		add(tableListaSeguros);
 		tableListaSeguros.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -69,12 +72,24 @@ public class PainelConsultaSeguro extends JPanel {
 		));
 		
 		JButton btnBuscarTodos = new JButton("BuscarTodos");
+		btnBuscarTodos.setBackground(new Color(231, 200, 24));
 		btnBuscarTodos.setBounds(217, 208, 147, 32);
 		add(btnBuscarTodos);
 		
 		JButton btnGerarPlanilha = new JButton("Gerar Planilha");
+		btnGerarPlanilha.setBackground(new Color(231, 200, 24));
 		btnGerarPlanilha.setBounds(445, 208, 147, 32);
 		add(btnGerarPlanilha);
+		
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.setBackground(new Color(231, 200, 24));
+		btnEditar.setBounds(217, 519, 147, 32);
+		add(btnEditar);
+		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setBackground(new Color(231, 200, 24));
+		btnExcluir.setBounds(445, 519, 147, 32);
+		add(btnExcluir);
 		
 		
 		

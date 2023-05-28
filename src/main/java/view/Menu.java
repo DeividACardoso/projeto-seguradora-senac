@@ -14,6 +14,7 @@ import com.privatejgoodies.forms.layout.FormLayout;
 import com.privatejgoodies.forms.layout.RowSpec;
 import javax.swing.JMenuItem;
 import java.awt.Font;
+import javax.swing.JCheckBoxMenuItem;
 
 
 
@@ -52,7 +53,7 @@ public class Menu {
 		frmMenu.getContentPane().setBackground(new Color(26, 156, 238));
 		frmMenu.setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/icones/icons8-cardápio-64.png")));
 		frmMenu.setTitle("Menu");
-		frmMenu.setBounds(100, 100, 511, 569);
+		frmMenu.setBounds(100, 100, 631, 569);
 		frmMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -72,22 +73,30 @@ public class Menu {
 		mnItemCadastroCliente.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-adicionar-usu\u00E1rio-masculino-64.png")));
 		mnItemCliente.add(mnItemCadastroCliente);
 		
-		JMenu mnSinistro = new JMenu("Seguros");
-		mnSinistro.setBackground(new Color(26, 158, 230));
-		mnSinistro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-alerta-64 (1).png")));
-		menuBar.add(mnSinistro);
+		JMenu mnSeguros = new JMenu("Seguros");
+		mnSeguros.setBackground(new Color(26, 158, 230));
+		mnSeguros.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-alerta-64 (1).png")));
+		menuBar.add(mnSeguros);
 		
 		JMenuItem mnItemConsultaSeguro = new JMenuItem("Consulta");
 		mnItemConsultaSeguro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
-		mnSinistro.add(mnItemConsultaSeguro);
+		mnSeguros.add(mnItemConsultaSeguro);
 		
 		JMenuItem mnItemCadastroSeguro = new JMenuItem("Cadastro");
 		mnItemCadastroSeguro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-carro-64 (1).png")));
-		mnSinistro.add(mnItemCadastroSeguro);
+		mnSeguros.add(mnItemCadastroSeguro);
 		
-		JMenuItem mnItemSinistor = new JMenuItem("Sinistro");
-		mnItemSinistor.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-servi\u00E7o-de-carro-64.png")));
-		mnSinistro.add(mnItemSinistor);
+		JMenu mnSinistro = new JMenu("Sinistro");
+		mnSinistro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-servi\u00E7o-de-carro-64.png")));
+		menuBar.add(mnSinistro);
+		
+		JMenuItem mnItemCadastroSinistro = new JMenuItem("Cadastrar");
+		mnItemCadastroSinistro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-adicionar-64.png")));
+		mnSinistro.add(mnItemCadastroSinistro);
+		
+		JMenuItem mnItemConsultarSinistro = new JMenuItem("Consultar");
+		mnItemConsultarSinistro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
+		mnSinistro.add(mnItemConsultarSinistro);
 		
 		JMenu mnRelatorios = new JMenu("Relatórios");
 		mnRelatorios.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-partilhar-2-64 (1).png")));

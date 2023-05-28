@@ -57,7 +57,7 @@ public class PainelConsultaCliente extends JPanel {
 		txtAte.setColumns(10);
 		txtAte.setBounds(223, 160, 369, 26);
 		add(txtAte);
-		tableListagem.setBounds(52, 252, 540, 312);
+		tableListagem.setBounds(52, 252, 540, 246);
 		add(tableListagem);
 		tableListagem.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -88,12 +88,24 @@ public class PainelConsultaCliente extends JPanel {
 		add(lblAt);
 		
 		JButton btnBuscarTodos = new JButton("BuscarTodos");
+		btnBuscarTodos.setBackground(new Color(231, 200, 24));
 		btnBuscarTodos.setBounds(223, 209, 157, 32);
 		add(btnBuscarTodos);
 		
 		JButton btnGerarPlanilha = new JButton("GerarPlanilha");
+		btnGerarPlanilha.setBackground(new Color(231, 200, 24));
 		btnGerarPlanilha.setBounds(435, 209, 157, 32);
 		add(btnGerarPlanilha);
+		
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.setBackground(new Color(231, 200, 24));
+		btnEditar.setBounds(223, 519, 157, 32);
+		add(btnEditar);
+		
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setBackground(new Color(231, 200, 24));
+		btnExcluir.setBounds(435, 519, 157, 32);
+		add(btnExcluir);
 		
 
 	}
