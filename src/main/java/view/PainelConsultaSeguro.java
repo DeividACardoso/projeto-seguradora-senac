@@ -8,6 +8,8 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class PainelConsultaSeguro extends JPanel {
 	private JTextField txtNumeroProposta;
@@ -72,23 +74,28 @@ public class PainelConsultaSeguro extends JPanel {
 		));
 		
 		JButton btnBuscarTodos = new JButton("BuscarTodos");
+		btnBuscarTodos.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-lupa-50.png")));
 		btnBuscarTodos.setBackground(new Color(231, 200, 24));
-		btnBuscarTodos.setBounds(217, 208, 147, 32);
+		btnBuscarTodos.setBounds(217, 202, 147, 38);
 		add(btnBuscarTodos);
 		
 		JButton btnGerarPlanilha = new JButton("Gerar Planilha");
+		btnGerarPlanilha.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-planilha-50.png")));
 		btnGerarPlanilha.setBackground(new Color(231, 200, 24));
-		btnGerarPlanilha.setBounds(445, 208, 147, 32);
+		btnGerarPlanilha.setBounds(423, 202, 169, 38);
 		add(btnGerarPlanilha);
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-editar-48.png")));
 		btnEditar.setBackground(new Color(231, 200, 24));
-		btnEditar.setBounds(217, 519, 147, 32);
+		btnEditar.setBounds(217, 519, 147, 38);
 		add(btnEditar);
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setHorizontalAlignment(SwingConstants.LEFT);
+		btnExcluir.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-excluir-48.png")));
 		btnExcluir.setBackground(new Color(231, 200, 24));
-		btnExcluir.setBounds(445, 519, 147, 32);
+		btnExcluir.setBounds(459, 519, 133, 38);
 		add(btnExcluir);
 		
 		

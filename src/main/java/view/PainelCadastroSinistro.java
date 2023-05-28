@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 
 public class PainelCadastroSinistro extends JPanel {
 	private JTextField txtNumeroSinistro;
@@ -166,7 +167,7 @@ public class PainelCadastroSinistro extends JPanel {
 		
 		txtValorFranquia = new JTextField();
 		txtValorFranquia.setColumns(10);
-		add(txtValorFranquia, "30, 6, 11, 1, fill, default");
+		add(txtValorFranquia, "30, 6, 11, 2, fill, default");
 		
 		JLabel lblValorPago = new JLabel("Valor Pago:");
 		lblValorPago.setForeground(Color.WHITE);
@@ -175,7 +176,7 @@ public class PainelCadastroSinistro extends JPanel {
 		
 		txtValorPago = new JTextField();
 		txtValorPago.setColumns(10);
-		add(txtValorPago, "45, 6, 5, 1, fill, default");
+		add(txtValorPago, "45, 6, 5, 2, fill, default");
 		
 		JLabel lblTipoSinistro = new JLabel("Tipo Sinistro:");
 		lblTipoSinistro.setForeground(Color.WHITE);
@@ -193,7 +194,7 @@ public class PainelCadastroSinistro extends JPanel {
 		
 		txtValorOrçado = new JTextField();
 		txtValorOrçado.setColumns(10);
-		add(txtValorOrçado, "30, 10, 10, 1, fill, default");
+		add(txtValorOrçado, "30, 9, 10, 2, fill, default");
 		
 		JLabel lblSegurado = new JLabel("Segurado:");
 		lblSegurado.setForeground(Color.WHITE);
@@ -211,7 +212,7 @@ public class PainelCadastroSinistro extends JPanel {
 		
 		txtPlaca = new JTextField();
 		txtPlaca.setColumns(10);
-		add(txtPlaca, "30, 14, 10, 1, fill, default");
+		add(txtPlaca, "30, 13, 10, 2, fill, default");
 		
 		JLabel lblData = new JLabel("Data Sinistro:");
 		lblData.setForeground(Color.WHITE);
@@ -249,16 +250,18 @@ public class PainelCadastroSinistro extends JPanel {
 		add(cbSituação, "6, 23, 20, 2, fill, default");
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-salvar-50.png")));
 		btnSalvar.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		btnSalvar.setBackground(new Color(231, 200, 24));
 		btnSalvar.setForeground(new Color(0, 0, 0));
-		add(btnSalvar, "7, 29, 19, 2");
+		add(btnSalvar, "7, 28, 19, 3");
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-voltar-50.png")));
 		btnVoltar.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		btnVoltar.setForeground(Color.BLACK);
 		btnVoltar.setBackground(new Color(231, 200, 24));
-		add(btnVoltar, "30, 29, 14, 2");
+		add(btnVoltar, "30, 28, 14, 3");
 
 	}
 }
