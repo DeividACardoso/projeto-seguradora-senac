@@ -14,11 +14,11 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
 public class PainelCadastroSeguro extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField txtNumeroProposta;
+	private JTextField txtVigencia;
+	private JTextField txtVigenciaFim;
+	private JTextField txtNome;
+	private JTextField txtPlaca;
 
 	/**
 	 * Create the panel.
@@ -48,6 +48,8 @@ public class PainelCadastroSeguro extends JPanel {
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -132,47 +134,47 @@ public class PainelCadastroSeguro extends JPanel {
 		lblTItulo.setIcon(new ImageIcon(PainelCadastroSeguro.class.getResource("/icones/icons8-adicionar-64.png")));
 		lblTItulo.setForeground(new Color(255, 255, 255));
 		lblTItulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
-		add(lblTItulo, "8, 4, 16, 1, center, default");
+		add(lblTItulo, "8, 4, 23, 1, center, default");
 		
 		JLabel lblNumeroProposta = new JLabel("N\u00FAmero Proposta:");
 		lblNumeroProposta.setForeground(new Color(255, 255, 255));
 		lblNumeroProposta.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblNumeroProposta, "4, 8, right, default");
 		
-		textField = new JTextField();
-		add(textField, "6, 8, 35, 2, fill, default");
-		textField.setColumns(10);
+		txtNumeroProposta = new JTextField();
+		add(txtNumeroProposta, "6, 8, 37, 2, fill, default");
+		txtNumeroProposta.setColumns(10);
 		
 		JLabel lblDataDeVigncia = new JLabel("Data de vig\u00EAncia:");
 		lblDataDeVigncia.setForeground(Color.WHITE);
 		lblDataDeVigncia.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblDataDeVigncia, "4, 12, right, default");
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		add(textField_1, "6, 11, 15, 2, fill, default");
+		txtVigencia = new JTextField();
+		txtVigencia.setColumns(10);
+		add(txtVigencia, "6, 11, 21, 2, fill, default");
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		add(textField_2, "24, 11, 11, 2, fill, default");
+		txtVigenciaFim = new JTextField();
+		txtVigenciaFim.setColumns(10);
+		add(txtVigenciaFim, "29, 11, 4, 2, fill, default");
 		
 		JLabel lblNomeSegurado = new JLabel("Nome Segurado:");
 		lblNomeSegurado.setForeground(Color.WHITE);
 		lblNomeSegurado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblNomeSegurado, "4, 16, right, default");
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		add(textField_3, "6, 15, 35, 2, fill, default");
-		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		add(textField_4, "34, 19, 7, 2, fill, default");
+		txtNome = new JTextField();
+		txtNome.setColumns(10);
+		add(txtNome, "6, 15, 37, 2, fill, default");
 		
 		JLabel lblVeculoPlaca = new JLabel("Placa Ve\u00EDculo:");
 		lblVeculoPlaca.setForeground(Color.WHITE);
 		lblVeculoPlaca.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblVeculoPlaca, "30, 20, right, default");
+		add(lblVeculoPlaca, "32, 20, right, default");
+		
+		txtPlaca = new JTextField();
+		txtPlaca.setColumns(10);
+		add(txtPlaca, "34, 20, 9, 1, fill, default");
 		
 		JLabel lblCoberturas = new JLabel("Coberturas");
 		lblCoberturas.setForeground(Color.WHITE);
@@ -229,7 +231,7 @@ public class PainelCadastroSeguro extends JPanel {
 		btnVoltar.setIcon(new ImageIcon(PainelCadastroSeguro.class.getResource("/icones/icons8-voltar-50.png")));
 		btnVoltar.setForeground(Color.BLACK);
 		btnVoltar.setBackground(new Color(227, 218, 28));
-		add(btnVoltar, "31, 35, 10, 4");
+		add(btnVoltar, "33, 35, 10, 4");
 
 	}
 

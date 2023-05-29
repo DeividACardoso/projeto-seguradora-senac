@@ -151,7 +151,7 @@ public class PainelCadastroSinistro extends JPanel {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
-		JLabel lblTitulo = new JLabel("Novo Seguro");
+		JLabel lblTitulo = new JLabel("Novo Sinistro");
 		lblTitulo.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-adicionar-64.png")));
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
