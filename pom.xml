@@ -34,6 +34,11 @@
 		<artifactId>LGoodDatePicker</artifactId>
 		<version>10.3.1</version>
 	</dependency>
-  </dependencies>
+	<dependency>
+		<groupId>senac-dd-2023-exemplos</groupId>
+		<artifactId>senac-dd-2023-exemplos</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+   </dependencies>
 </project>
   	

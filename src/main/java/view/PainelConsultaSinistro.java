@@ -100,15 +100,9 @@ public class PainelConsultaSinistro extends JPanel {
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("21px"),
-				RowSpec.decode("244px"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("24px"),
-				RowSpec.decode("38px"),}));
+				FormSpecs.DEFAULT_ROWSPEC,}));
 		
 		JLabel lblTItulo = new JLabel("Consulta Sinistro");
 		lblTItulo.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-lupa-48.png")));
