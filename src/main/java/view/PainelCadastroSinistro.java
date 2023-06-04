@@ -22,7 +22,7 @@ public class PainelCadastroSinistro extends JPanel {
 	private JTextField txtHora;
 	private JTextField txtValorFranquia;
 	private JTextField txtValorPago;
-	private JTextField txtValorOrçado;
+	private JTextField txtValorOrcado;
 	private JTextField txtMotivo;
 	private JTextField txtSegurado;
 	private JTextField txtPlaca;
@@ -193,14 +193,14 @@ public class PainelCadastroSinistro extends JPanel {
 		txtTipoSinistro.setColumns(10);
 		add(txtTipoSinistro, "6, 9, 20, 2, fill, default");
 		
-		JLabel lblValorOrçado = new JLabel("Valor Or\u00E7ado:");
-		lblValorOrçado.setForeground(Color.WHITE);
-		lblValorOrçado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblValorOrçado, "28, 10, right, default");
+		JLabel lblValorOrcado = new JLabel("Valor Or\u00E7ado:");
+		lblValorOrcado.setForeground(Color.WHITE);
+		lblValorOrcado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(lblValorOrcado, "28, 10, right, default");
 		
-		txtValorOrçado = new JTextField();
-		txtValorOrçado.setColumns(10);
-		add(txtValorOrçado, "30, 9, 10, 2, fill, default");
+		txtValorOrcado = new JTextField();
+		txtValorOrcado.setColumns(10);
+		add(txtValorOrcado, "30, 9, 10, 2, fill, default");
 		
 		JLabel lblSegurado = new JLabel("Segurado:");
 		lblSegurado.setForeground(Color.WHITE);
@@ -247,13 +247,13 @@ public class PainelCadastroSinistro extends JPanel {
 		txtMotivo.setColumns(10);
 		add(txtMotivo, "30, 20, 20, 5, fill, default");
 		
-		JLabel lblSituaçãoSinistro = new JLabel("Situa\u00E7\u00E3o:");
-		lblSituaçãoSinistro.setForeground(Color.WHITE);
-		lblSituaçãoSinistro.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblSituaçãoSinistro, "4, 24, right, default");
+		JLabel lblSituacaoSinistro = new JLabel("Situa\u00E7\u00E3o:");
+		lblSituacaoSinistro.setForeground(Color.WHITE);
+		lblSituacaoSinistro.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(lblSituacaoSinistro, "4, 24, right, default");
 		
-		JComboBox cbSituação = new JComboBox();
-		add(cbSituação, "6, 23, 20, 2, fill, default");
+		JComboBox cbSituacao = new JComboBox();
+		add(cbSituacao, "6, 23, 20, 2, fill, default");
 		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-salvar-50.png")));
