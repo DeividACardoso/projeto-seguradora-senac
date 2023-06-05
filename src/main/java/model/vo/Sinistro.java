@@ -2,7 +2,7 @@ package model.vo;
 
 import java.time.LocalDate;
 
-public class SinistroVO {
+public class Sinistro {
 
 	private Integer id;
 	private Integer idPessoa;
@@ -16,11 +16,11 @@ public class SinistroVO {
 	private String situacao;
 	private String motivo;
 
-	public SinistroVO() {
+	public Sinistro() {
 
 	}
 
-	public SinistroVO(Integer id, Integer idPessoa, int numeroSinistro, int nomeSegurado, String placaVeiculo,
+	public Sinistro(Integer id, Integer idPessoa, int numeroSinistro, int nomeSegurado, String placaVeiculo,
 			LocalDate dt_sinistro, int valor_franquia, int valor_orcado, int valor_pago, String situacao,
 			String motivo) {
 		super();

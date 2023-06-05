@@ -1,16 +1,16 @@
 package model.vo;
 
-public class VeiculoVO {
+public class Veiculo {
 
 	private Integer id;
 	private Integer idSeguro;
 	private String placaVeiculo;
 	private String modelo;
 	
-	public VeiculoVO() {
+	public Veiculo() {
 		
 	}
-	public VeiculoVO(Integer id, Integer idSeguro, String placaVeiculo, String modelo) {
+	public Veiculo(Integer id, Integer idSeguro, String placaVeiculo, String modelo) {
 		super();
 		this.id = id;
 		this.idSeguro = idSeguro;

@@ -2,7 +2,10 @@ package model.vo;
 
 import java.time.LocalDate;
 
-public class PessoaVO {
+import model.vo.Endereco;
+
+public class Pessoa {
+
 	
 	private Integer id;
 	private String nome;
@@ -11,10 +14,8 @@ public class PessoaVO {
 	private int telefone;
 	private Endereco endereco;
 	
-	public PessoaVO() {
-		
-	}
-	public PessoaVO(Integer id, String nome, String cpf, LocalDate data_nascimento, int telefone, Endereco endereco) {
+
+	public Pessoa(Integer id, String nome, String cpf, LocalDate data_nascimento, int telefone, Endereco endereco) {
 		super();
 		this.id = id;
 		this.nome = nome;

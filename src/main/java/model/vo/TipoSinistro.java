@@ -1,6 +1,6 @@
 package model.vo;
 
-public enum TipoSinistroVO {
+public enum TipoSinistro {
 
 	COLISAO,
 	ROUBO_FURTO,
