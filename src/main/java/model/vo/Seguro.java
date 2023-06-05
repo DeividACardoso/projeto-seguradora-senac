@@ -6,7 +6,7 @@ public class Seguro {
 	
 	private Integer id;
 	private Integer idPessoa;
-	private int nomeSegurado;
+	private String nomeSegurado;
 	private int numero_proposta;
 	private LocalDate dt_inicio_vigencia;
 	private LocalDate dt_fim_vigencia;
@@ -21,7 +21,7 @@ public class Seguro {
 		
 	}
 
-	public Seguro(Integer id, Integer idPessoa, int nomeSegurado, int numero_proposta, LocalDate dt_inicio_vigencia,
+	public Seguro(Integer id, Integer idPessoa, String nomeSegurado, int numero_proposta, LocalDate dt_inicio_vigencia,
 			LocalDate dt_fim_vigencia, String placaVeiculo, int rcf_danos_materiais, int rcf_danos_corporais,
 			String franquia, String assistencia, int carroReserva) {
 		super();
@@ -55,11 +55,11 @@ public class Seguro {
 		this.idPessoa = idPessoa;
 	}
 
-	public int getNomeSegurado() {
+	public String getNomeSegurado() {
 		return nomeSegurado;
 	}
 
-	public void setNomeSegurado(int nomeSegurado) {
+	public void setNomeSegurado(String nomeSegurado) {
 		this.nomeSegurado = nomeSegurado;
 	}
 
