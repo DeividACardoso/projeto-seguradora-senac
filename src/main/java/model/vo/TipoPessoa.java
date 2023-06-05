@@ -1,6 +1,6 @@
 package model.vo;
 
-public enum TipoPessoaVO {
+public enum TipoPessoa {
 
 	CORRETOR,
 	SEGURADO

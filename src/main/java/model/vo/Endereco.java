@@ -1,6 +1,6 @@
 package model.vo;
 
-public class EnderecoVO {
+public class Endereco {
 	
 	private Integer id;
 	private String rua;
@@ -10,10 +10,10 @@ public class EnderecoVO {
 	private String cidade;
 	private String estado;
 	
-	public EnderecoVO() {
+	public Endereco() {
 		
 	};
-	public EnderecoVO(Integer id, String rua, String numero, String cep, String bairro, String cidade, String estado) {
+	public Endereco(Integer id, String rua, String numero, String cep, String bairro, String cidade, String estado) {
 		super();
 		this.id = id;
 		this.rua = rua;

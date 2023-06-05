@@ -2,7 +2,7 @@ package model.vo;
 
 import java.time.LocalDate;
 
-public class SeguroVO {
+public class Seguro {
 	
 	private Integer id;
 	private Integer idPessoa;
@@ -17,11 +17,11 @@ public class SeguroVO {
 	private String assistencia;
 	private int carroReserva;
 	
-	public SeguroVO() {
+	public Seguro() {
 		
 	}
 
-	public SeguroVO(Integer id, Integer idPessoa, int nomeSegurado, int numero_proposta, LocalDate dt_inicio_vigencia,
+	public Seguro(Integer id, Integer idPessoa, int nomeSegurado, int numero_proposta, LocalDate dt_inicio_vigencia,
 			LocalDate dt_fim_vigencia, String placaVeiculo, int rcf_danos_materiais, int rcf_danos_corporais,
 			String franquia, String assistencia, int carroReserva) {
 		super();
