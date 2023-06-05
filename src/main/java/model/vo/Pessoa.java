@@ -2,21 +2,20 @@ package model.vo;
 
 import java.time.LocalDate;
 
-import model.vo.EnderecoVO;
+import model.vo.Endereco;
 
-public class PessoaVO {
+public class Pessoa {
+
 	
 	private Integer id;
 	private String nome;
 	private String cpf;
 	private LocalDate data_nascimento;
 	private int telefone;
-	private EnderecoVO endereco;
+	private Endereco endereco;
 	
-	public PessoaVO() {
-		
-	}
-	public PessoaVO(Integer id, String nome, String cpf, LocalDate data_nascimento, int telefone, EnderecoVO endereco) {
+
+	public Pessoa(Integer id, String nome, String cpf, LocalDate data_nascimento, int telefone, Endereco endereco) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -55,10 +54,10 @@ public class PessoaVO {
 	public void setTelefone(int telefone) {
 		this.telefone = telefone;
 	}
-	public EnderecoVO getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
-	public void setEndereco(EnderecoVO endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 	
