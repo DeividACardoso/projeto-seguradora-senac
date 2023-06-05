@@ -2,8 +2,6 @@ package model.vo;
 
 import java.time.LocalDate;
 
-import model.vo.EnderecoVO;
-
 public class PessoaVO {
 	
 	private Integer id;

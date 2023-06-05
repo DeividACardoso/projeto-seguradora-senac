@@ -8,13 +8,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import com.privatejgoodies.forms.layout.ColumnSpec;
 import com.privatejgoodies.forms.layout.FormLayout;
 import com.privatejgoodies.forms.layout.RowSpec;
-import javax.swing.JMenuItem;
-import java.awt.Font;
-import javax.swing.JCheckBoxMenuItem;
 
 
 
@@ -51,7 +49,7 @@ public class Menu {
 	private void initialize() {
 		frmMenu = new JFrame();
 		frmMenu.getContentPane().setBackground(new Color(26, 156, 238));
-		frmMenu.setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/icones/icons8-cardápio-64.png")));
+		frmMenu.setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/icones/icons8-cardï¿½pio-64.png")));
 		frmMenu.setTitle("Menu");
 		frmMenu.setBounds(100, 100, 631, 569);
 		frmMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,7 +96,7 @@ public class Menu {
 		mnItemConsultarSinistro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
 		mnSinistro.add(mnItemConsultarSinistro);
 		
-		JMenu mnRelatorios = new JMenu("Relatórios");
+		JMenu mnRelatorios = new JMenu("RelatÃ³rios");
 		mnRelatorios.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-partilhar-2-64 (1).png")));
 		menuBar.add(mnRelatorios);
 		

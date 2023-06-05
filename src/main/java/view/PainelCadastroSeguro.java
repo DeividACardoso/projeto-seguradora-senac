@@ -134,7 +134,7 @@ public class PainelCadastroSeguro extends JPanel {
 		lblTItulo.setIcon(new ImageIcon(PainelCadastroSeguro.class.getResource("/icones/icons8-adicionar-64.png")));
 		lblTItulo.setForeground(new Color(255, 255, 255));
 		lblTItulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
-		add(lblTItulo, "8, 4, 23, 1, center, default");
+		add(lblTItulo, "8, 4, 28, 1, center, default");
 		
 		JLabel lblNumeroProposta = new JLabel("N\u00FAmero Proposta:");
 		lblNumeroProposta.setForeground(new Color(255, 255, 255));
@@ -174,7 +174,7 @@ public class PainelCadastroSeguro extends JPanel {
 		
 		txtPlaca = new JTextField();
 		txtPlaca.setColumns(10);
-		add(txtPlaca, "34, 20, 9, 1, fill, default");
+		add(txtPlaca, "34, 19, 9, 2, fill, default");
 		
 		JLabel lblCoberturas = new JLabel("Coberturas");
 		lblCoberturas.setForeground(Color.WHITE);

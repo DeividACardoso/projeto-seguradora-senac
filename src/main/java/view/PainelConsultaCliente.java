@@ -16,11 +16,7 @@ public class PainelConsultaCliente extends JPanel {
 	private JTextField txtCpf;
 	private JTextField txtDtnascimentoLsitc;
 	private JTextField txtAte;
-	private JTable table;
-	private JTable table_1;
-	private JTable table_2;
-	private JTable table_3;
-	private JTable table_4;
+
 	private final JTable tableListagem = new JTable();
 	private JLabel lblCpfList;
 	private JLabel lblDtNascList;
