@@ -13,22 +13,22 @@ public class SeguroDAO {
 
 	public Seguro inserir(Seguro novoSeguro) {
 		Connection conexao = Banco.getConnection();
-		String sql = " INSERT INTO SEGURO(ID_PESSOA, NOMESEGURADO, NUMERO_PROPOSTA, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, PLACAVEICULO, "
-				+ " RCF_DANOS_MATERIAIS, RCF_DANOS_CORPORAIS, FRANQUIA, ASSISTENCIA, CARRORESERVA ) "
-				+ " VALUES (?,?,?,?,?,?,?,?,?,?,?) ";
+		String sql = " INSERT INTO SEGURO(NOME_SEGURADO, NUMERO_PROPOSTA, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, PLACA_VEICULO, "
+				+ " RCF_DANOS_MATERIAIS, RCF_DANOS_CORPORAIS, FRANQUIA, ASSISTENCIA, CARRO_RESERVA ) "
+				+ " VALUES (?,?,?,?,?,?,?,?,?,?) ";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conexao, sql);
 		try {
-			stmt.setInt(1, novoSeguro.getIdPessoa() == null ? 0 : novoSeguro.getIdPessoa());
-			stmt.setString(2, novoSeguro.getNomeSegurado());
-			stmt.setInt(3, novoSeguro.getNumero_proposta());
-			stmt.setDate(4, java.sql.Date.valueOf(novoSeguro.getDt_inicio_vigencia()));
-			stmt.setDate(5, java.sql.Date.valueOf(novoSeguro.getDt_fim_vigencia()));
-			stmt.setString(6, novoSeguro.getPlacaVeiculo());
-			stmt.setInt(7, novoSeguro.getRcf_danos_materiais());
-			stmt.setInt(8, novoSeguro.getRcf_danos_corporais());
-			stmt.setString(9, novoSeguro.getFranquia());
-			stmt.setString(10, novoSeguro.getAssistencia());
-			stmt.setInt(11, novoSeguro.getCarroReserva());
+		//	stmt.setInt(1, novoSeguro.getIdSegurado() == null ? 0 : novoSeguro.getIdSegurado());
+			stmt.setString(1, novoSeguro.getNomeSegurado());
+			stmt.setInt(2, novoSeguro.getNumero_proposta());
+			stmt.setDate(3, java.sql.Date.valueOf(novoSeguro.getDt_inicio_vigencia()));
+			stmt.setDate(4, java.sql.Date.valueOf(novoSeguro.getDt_fim_vigencia()));
+			stmt.setString(5, novoSeguro.getPlacaVeiculo());
+			stmt.setDouble(6, novoSeguro.getRcf_danos_materiais());
+			stmt.setDouble(7, novoSeguro.getRcf_danos_corporais());
+			stmt.setString(8, novoSeguro.getFranquia());
+			stmt.setString(9, novoSeguro.getAssistencia());
+			stmt.setInt(10, novoSeguro.getCarroReserva());
 			stmt.execute();
 
 			// Preencher o id gerado no banco no objeto
@@ -51,24 +51,24 @@ public class SeguroDAO {
 	public boolean atualizar(Seguro seguroAtualizado) {
 		boolean atualizou = false;
 		Connection conexao = Banco.getConnection();
-		String sql = " UPDATE SEGURO " + " SET ID_PESSOA = ?, NOMESEGURADO = ?, NUMERO_PROPOSTA = ?, "
+		String sql = " UPDATE SEGURO " + " SET NOME_SEGURADO = ?, NUMERO_PROPOSTA = ?, "
 				+ " DT_INICIO_VIGENCIA = ?,"
-				+ " DT_FIM_VIGENCIA = ?, PLACAVEICULO = ?, RCF_DANOS_MATERIAIS = ?, RCF_DANOS_CORPORAIS = ?, FRANQUIA = ?, ASSISTENCIA = ?, CARRORESERVA = ? "
+				+ " DT_FIM_VIGENCIA = ?, PLACA_VEICULO = ?, RCF_DANOS_MATERIAIS = ?, RCF_DANOS_CORPORAIS = ?, FRANQUIA = ?, ASSISTENCIA = ?, CARRO_RESERVA = ? "
 				+ " WHERE ID = ? ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
 		try {
-			stmt.setInt(1, seguroAtualizado.getIdPessoa());
-			stmt.setString(2, seguroAtualizado.getNomeSegurado());
-			stmt.setInt(3, seguroAtualizado.getNumero_proposta());
-			stmt.setDate(4, java.sql.Date.valueOf(seguroAtualizado.getDt_inicio_vigencia()));
-			stmt.setDate(5, java.sql.Date.valueOf(seguroAtualizado.getDt_fim_vigencia()));
-			stmt.setString(6, seguroAtualizado.getPlacaVeiculo());
-			stmt.setInt(7, seguroAtualizado.getRcf_danos_materiais());
-			stmt.setInt(8, seguroAtualizado.getRcf_danos_corporais());
-			stmt.setString(9, seguroAtualizado.getFranquia());
-			stmt.setString(10, seguroAtualizado.getAssistencia());
-			stmt.setInt(11, seguroAtualizado.getCarroReserva());
-			stmt.setInt(6, seguroAtualizado.getId());
+		//	stmt.setInt(1, seguroAtualizado.getIdSegurado());
+			stmt.setString(1, seguroAtualizado.getNomeSegurado());
+			stmt.setInt(2, seguroAtualizado.getNumero_proposta());
+			stmt.setDate(3, java.sql.Date.valueOf(seguroAtualizado.getDt_inicio_vigencia()));
+			stmt.setDate(4, java.sql.Date.valueOf(seguroAtualizado.getDt_fim_vigencia()));
+			stmt.setString(5, seguroAtualizado.getPlacaVeiculo());
+			stmt.setDouble(6, seguroAtualizado.getRcf_danos_materiais());
+			stmt.setDouble(7, seguroAtualizado.getRcf_danos_corporais());
+			stmt.setString(8, seguroAtualizado.getFranquia());
+			stmt.setString(9, seguroAtualizado.getAssistencia());
+			stmt.setInt(10, seguroAtualizado.getCarroReserva());
+			stmt.setInt(11, seguroAtualizado.getId());
 
 			int quantidadeLinhasAtualizadas = stmt.executeUpdate();
 			atualizou = quantidadeLinhasAtualizadas > 0;
@@ -150,17 +150,17 @@ public class SeguroDAO {
 	private Seguro converterDeResultSetParaEntidade(ResultSet resultado) throws SQLException {
 		Seguro seguroConsultado = new Seguro();
 		seguroConsultado.setId(resultado.getInt("id"));
-		seguroConsultado.setIdPessoa(resultado.getInt("id_pessoa"));
-		seguroConsultado.setNomeSegurado(resultado.getString("nomeSegurado"));
+		//seguroConsultado.setIdSegurado(resultado.getInt("id_segurado"));
+		seguroConsultado.setNomeSegurado(resultado.getString("nome_Segurado"));
 		seguroConsultado.setNumero_proposta(resultado.getInt("numero_proposta"));
 		seguroConsultado.setDt_inicio_vigencia(resultado.getTimestamp("dt_inicio_vigencia").toLocalDateTime().toLocalDate());
 		seguroConsultado.setDt_fim_vigencia(resultado.getTimestamp("dt_fim_vigencia").toLocalDateTime().toLocalDate());
-		seguroConsultado.setPlacaVeiculo(resultado.getString("placaVeiculo"));
-		seguroConsultado.setRcf_danos_materiais(resultado.getInt("rcf_danos_materiais"));
-		seguroConsultado.setRcf_danos_corporais(resultado.getInt("rcf_danos_corporais"));
+		seguroConsultado.setPlacaVeiculo(resultado.getString("placa_Veiculo"));
+		seguroConsultado.setRcf_danos_materiais(resultado.getDouble("rcf_danos_materiais"));
+		seguroConsultado.setRcf_danos_corporais(resultado.getDouble("rcf_danos_corporais"));
 		seguroConsultado.setFranquia(resultado.getString("franquia"));
 		seguroConsultado.setAssistencia(resultado.getString("assistencia"));
-		seguroConsultado.setCarroReserva(resultado.getInt("carroReserva"));
+		seguroConsultado.setCarroReserva(resultado.getInt("carro_Reserva"));
 		return seguroConsultado;
 	}
 
