@@ -3,13 +3,11 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
 import javax.swing.AbstractButton;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -143,13 +141,4 @@ public class PainelConsultaSeguro extends JPanel {
 		return seguroSelecionado;
 	}
 
-	public AbstractButton getBtnEditar() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public LayoutManager getSeguroSelecionado() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
