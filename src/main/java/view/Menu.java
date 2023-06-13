@@ -52,7 +52,7 @@ public class Menu {
 		frmMenu = new JFrame();
 		frmMenu.getContentPane().setBackground(new Color(26, 156, 238));
 		frmMenu.setIconImage(
-				Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/icones/icons8-card�pio-64.png")));
+				Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/icones/icons8-cardï¿½pio-64.png")));
 		frmMenu.setTitle("Menu");
 		frmMenu.setBounds(100, 100, 631, 569);
 		frmMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,6 +102,7 @@ public class Menu {
 				painelConsultaSeguroDF.getBtnEditar().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//painelCadastroSeguro = new PainelCadastroSeguro(painelConsultaSeguroDF.getSeguroSelecionado());
+
 						painelCadastroSeguro.setVisible(true);
 						registrarCliqueBotaoEditarDoPainelConsultaSeguro();
 						//Atualiza a tela principal
@@ -135,7 +136,8 @@ public class Menu {
 				painelCadastroSeguro.getbtnVoltar().addActionListener(new ActionListener() {
 
 					public void actionPerformed(ActionEvent e) {
-						// L�gica do clique no bot�o Voltar
+
+						// Lógica do clique no botão Voltar
 						// Mostra o painel de listagem de clientes
 						painelConsultaSeguroDF = new PainelConsultaSeguro();
 						painelConsultaSeguroDF.setVisible(true);
@@ -144,7 +146,6 @@ public class Menu {
 						frmMenu.revalidate();
 
 					}
-
 					private void registrarCliqueBotaoEditarDoPainelConsultaSeguro() {
 						// TODO Auto-generated method stub
 						
@@ -171,7 +172,7 @@ public class Menu {
 				new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
 		mnSinistro.add(mnItemConsultarSinistro);
 
-		JMenu mnRelatorios = new JMenu("Relatórios");
+		JMenu mnRelatorios = new JMenu("RelatÃ³rios");
 		mnRelatorios.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-partilhar-2-64 (1).png")));
 		menuBar.add(mnRelatorios);
 

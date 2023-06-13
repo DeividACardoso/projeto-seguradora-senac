@@ -3,30 +3,30 @@ package model.vo;
 import java.time.LocalDate;
 
 public class Seguro {
-	
+
 	private Integer id;
-	private Integer idPessoa;
-	private int nomeSegurado;
+	//private Integer idSegurado;
+	private String nomeSegurado;
 	private int numero_proposta;
 	private LocalDate dt_inicio_vigencia;
 	private LocalDate dt_fim_vigencia;
 	private String placaVeiculo;
-	private int rcf_danos_materiais;
-	private int rcf_danos_corporais;
+	private double rcf_danos_materiais;
+	private double rcf_danos_corporais;
 	private String franquia;
 	private String assistencia;
 	private int carroReserva;
-	
+
 	public Seguro() {
-		
+
 	}
 
-	public Seguro(Integer id, Integer idPessoa, int nomeSegurado, int numero_proposta, LocalDate dt_inicio_vigencia,
-			LocalDate dt_fim_vigencia, String placaVeiculo, int rcf_danos_materiais, int rcf_danos_corporais,
+	public Seguro(Integer id, String nomeSegurado, int numero_proposta, LocalDate dt_inicio_vigencia,
+			LocalDate dt_fim_vigencia, String placaVeiculo, double rcf_danos_materiais, double rcf_danos_corporais,
 			String franquia, String assistencia, int carroReserva) {
 		super();
 		this.id = id;
-		this.idPessoa = idPessoa;
+	//	this.idSegurado = idSegurado;
 		this.nomeSegurado = nomeSegurado;
 		this.numero_proposta = numero_proposta;
 		this.dt_inicio_vigencia = dt_inicio_vigencia;
@@ -47,19 +47,19 @@ public class Seguro {
 		this.id = id;
 	}
 
-	public Integer getIdPessoa() {
-		return idPessoa;
-	}
+	//public Integer getIdSegurado() {
+	//	return idSegurado;
+	//}
 
-	public void setIdPessoa(Integer idPessoa) {
-		this.idPessoa = idPessoa;
-	}
+	//public void setIdSegurado(Integer idSegurado) {
+	//	this.idSegurado = idSegurado;
+	//}
 
-	public int getNomeSegurado() {
+	public String getNomeSegurado() {
 		return nomeSegurado;
 	}
 
-	public void setNomeSegurado(int nomeSegurado) {
+	public void setNomeSegurado(String nomeSegurado) {
 		this.nomeSegurado = nomeSegurado;
 	}
 
@@ -95,19 +95,19 @@ public class Seguro {
 		this.placaVeiculo = placaVeiculo;
 	}
 
-	public int getRcf_danos_materiais() {
+	public double getRcf_danos_materiais() {
 		return rcf_danos_materiais;
 	}
 
-	public void setRcf_danos_materiais(int rcf_danos_materiais) {
+	public void setRcf_danos_materiais(double rcf_danos_materiais) {
 		this.rcf_danos_materiais = rcf_danos_materiais;
 	}
 
-	public int getRcf_danos_corporais() {
+	public double getRcf_danos_corporais() {
 		return rcf_danos_corporais;
 	}
 
-	public void setRcf_danos_corporais(int rcf_danos_corporais) {
+	public void setRcf_danos_corporais(double rcf_danos_corporais) {
 		this.rcf_danos_corporais = rcf_danos_corporais;
 	}
 
@@ -134,7 +134,5 @@ public class Seguro {
 	public void setCarroReserva(int carroReserva) {
 		this.carroReserva = carroReserva;
 	}
-	
-}
 
-	
+}
