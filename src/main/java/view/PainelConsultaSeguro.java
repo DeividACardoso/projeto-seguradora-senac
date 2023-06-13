@@ -2,9 +2,13 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.LayoutManager;
+
+import javax.swing.JTextField;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import javax.swing.AbstractButton;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -105,7 +109,7 @@ public class PainelConsultaSeguro extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int linhaSelecionadaNaTabela = tblListaSeguros.getSelectedRow();
 				Seguro seguroSelecionado = seguros.get(linhaSelecionadaNaTabela - 1);
-				JOptionPane.showMessageDialog(null, "Chamar a tela de edição e passar o objeto seguroSelecionado...");
+				JOptionPane.showMessageDialog(null, "Chamar a tela de ediÃ§Ã£o e passar o objeto seguroSelecionado...");
 			}
 		});
 
@@ -137,5 +141,15 @@ public class PainelConsultaSeguro extends JPanel {
 
 	public Seguro getSeguroSelecionado() {
 		return seguroSelecionado;
+	}
+
+	public AbstractButton getBtnEditar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public LayoutManager getSeguroSelecionado() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
