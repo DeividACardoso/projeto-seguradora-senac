@@ -4,10 +4,13 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.LayoutManager;
+
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
@@ -109,5 +112,15 @@ public class PainelConsultaSeguro extends JPanel {
 		
 		
 
+	}
+
+	public AbstractButton getBtnEditar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public LayoutManager getSeguroSelecionado() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

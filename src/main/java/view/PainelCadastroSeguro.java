@@ -11,6 +11,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 
 public class PainelCadastroSeguro extends JPanel {
@@ -233,6 +234,11 @@ public class PainelCadastroSeguro extends JPanel {
 		btnVoltar.setBackground(new Color(227, 218, 28));
 		add(btnVoltar, "33, 35, 10, 4");
 
+	}
+
+	public AbstractButton getbtnVoltar() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
