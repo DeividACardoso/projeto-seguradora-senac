@@ -11,7 +11,7 @@ import java.util.List;
 import model.vo.Pessoa;
 import model.vo.Endereco;
 
-public class ClienteDAO {
+public class PessoaDAO {
 
 	public Pessoa inserir(Pessoa novaPessoa) {
 		Connection conexao = Banco.getConnection();
