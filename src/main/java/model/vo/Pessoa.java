@@ -14,7 +14,6 @@ public class Pessoa {
 	private int telefone;
 	private Endereco endereco;
 	
-
 	public Pessoa(Integer id, String nome, String cpf, LocalDate data_nascimento, int telefone, Endereco endereco) {
 		super();
 		this.id = id;
@@ -24,42 +23,67 @@ public class Pessoa {
 		this.telefone = telefone;
 		this.endereco = endereco;
 	}
+		
+	public Pessoa() {
+		super();
+	}
+
 	public Integer getId() {
 		return id;
 	}
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
 	public String getNome() {
 		return nome;
 	}
+	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 	public String getCpf() {
 		return cpf;
 	}
+	
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	
 	public LocalDate getData_nascimento() {
 		return data_nascimento;
 	}
+	
 	public void setData_nascimento(LocalDate data_nascimento) {
 		this.data_nascimento = data_nascimento;
 	}
+	
 	public int getTelefone() {
 		return telefone;
 	}
+	
 	public void setTelefone(int telefone) {
 		this.telefone = telefone;
 	}
+	
 	public Endereco getEndereco() {
 		return endereco;
 	}
+	
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
 
+	@Override
+	public String toString() {
+		return "Id: " + id 
+				+ "\nNome: " + nome 
+				+ "\nCpf: " + cpf 
+				+ "\nData de nascimento: " + data_nascimento
+				+ "\nTelefone: " + telefone 
+				+ "\nEndereco: " + endereco;
+	}
+	
 }
