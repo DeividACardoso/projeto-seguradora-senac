@@ -15,31 +15,77 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
+
+import com.github.lgooddatepicker.components.DatePicker;
 
 import controller.SeguroController;
+import model.seletor.SeguroSeletor;
 import model.vo.Seguro;
+
 
 public class PainelConsultaSeguro extends JPanel {
 
-	private ArrayList<Seguro> seguros;
-	private JTextField txtNumeroProposta;
-	private JTextField txtIncioVigencia;
-	private JTextField txtFimVigencia;
+	private DatePicker dtVigenciaInicial;
+	private DatePicker dtVigenciaFinal;
+	
 	private JTable tblListaSeguros;
+	private ArrayList<Seguro> seguros;
+	private String[] nomesColunas = { "Segurado", "Veículo", "Coberturas", "Vigência" };
+	private JTextField txtNumeroProposta;
 	private JLabel lnlNumeroProposta;
 	private JLabel lblVigenciaInicio;
-	private JLabel lblVigenciaIFim;
+	private JLabel lblAte;
 	private JButton btnBuscarTodos;
 	private JButton btnGerarPlanilha;
 	private JButton btnExcluir;
 	private JButton BtnEditar;
+	
+	private MaskFormatter mascaraData;
+	
 
 	private SeguroController controller = new SeguroController();
 	private Seguro seguroSelecionado;
 
-	/**
-	 * Create the panel.
-	 */
+	
+	
+	//Atributos para a PAGINAÇÃO
+		private final int TAMANHO_PAGINA = 5;
+		private int paginaAtual = 1;
+		private int totalPaginas = 0;
+
+		private SeguroSeletor seletor = new SeguroSeletor();
+		private JButton btnVoltarPagina;
+		private JButton btnAvancarPagina;
+		private JLabel lblPaginacao;
+		
+		
+		private void limparTabelaSeguros() {
+			tblListaSeguros.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
+		}
+
+		private void atualizarTabelaSeguros() {
+			this.limparTabelaSeguros();
+
+			DefaultTableModel model = (DefaultTableModel) tblListaSeguros.getModel();
+
+			for (Seguro s : seguros) {
+				Object[] novaLinhaDaTabela = new Object[5];
+				novaLinhaDaTabela[0] = s.getNomeSegurado();
+				novaLinhaDaTabela[1] = s.getPlacaVeiculo();
+				novaLinhaDaTabela[2] = s.getRcf_danos_corporais();
+				novaLinhaDaTabela[3] = s.getRcf_danos_materiais();
+				novaLinhaDaTabela[4] = s.getFranquia();
+				novaLinhaDaTabela[5] = s.getAssistencia();
+				novaLinhaDaTabela[6] = s.getCarroReserva();
+				novaLinhaDaTabela[7] = s.getDt_inicio_vigencia();
+				novaLinhaDaTabela[8] = s.getDt_fim_vigencia();
+				
+
+				model.addRow(novaLinhaDaTabela);
+			}
+		}
+	
 	public PainelConsultaSeguro() {
 		setBackground(new Color(26, 158, 230));
 		setLayout(null);
@@ -51,53 +97,65 @@ public class PainelConsultaSeguro extends JPanel {
 		lnlNumeroProposta.setBounds(46, 109, 133, 19);
 		add(lnlNumeroProposta);
 
-		lblVigenciaInicio = new JLabel("Data inic\u00EDo vig\u00EAncia. De:");
-		lblVigenciaInicio.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		lblVigenciaInicio.setForeground(new Color(255, 255, 255));
-		lblVigenciaInicio.setBounds(46, 157, 174, 19);
-		add(lblVigenciaInicio);
-
-		lblVigenciaIFim = new JLabel("At\u00E9:");
-		lblVigenciaIFim.setForeground(Color.WHITE);
-		lblVigenciaIFim.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		lblVigenciaIFim.setBounds(185, 196, 47, 19);
-		add(lblVigenciaIFim);
 
 		txtNumeroProposta = new JTextField();
 		txtNumeroProposta.setBackground(new Color(255, 255, 255));
 		txtNumeroProposta.setBounds(172, 107, 420, 26);
 		add(txtNumeroProposta);
 		txtNumeroProposta.setColumns(10);
-
-		txtIncioVigencia = new JTextField();
-		txtIncioVigencia.setColumns(10);
-		txtIncioVigencia.setBounds(217, 155, 375, 26);
-		add(txtIncioVigencia);
-
-		txtFimVigencia = new JTextField();
-		txtFimVigencia.setColumns(10);
-		txtFimVigencia.setBounds(217, 194, 375, 26);
-		add(txtFimVigencia);
 		
-		tblListaSeguros.setForeground(new Color(0, 0, 0));
-		tblListaSeguros.setBackground(new Color(255, 255, 255));
-		tblListaSeguros.setBounds(46, 280, 546, 257);
+		
+		lblVigenciaInicio = new JLabel("Data inic\u00EDo vig\u00EAncia. De:");
+		add(lblVigenciaInicio);
+		lblVigenciaInicio.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		lblVigenciaInicio.setForeground(new Color(255, 255, 255));
+		lblVigenciaInicio.setBounds(46, 157, 174, 19);
+		
+		dtVigenciaInicial = new DatePicker();
+		dtVigenciaInicial.getComponentToggleCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		
+		dtVigenciaInicial.setBounds(217, 157, 324, 26);
+		this.add(dtVigenciaInicial);
+		
+		lblAte = new JLabel("At\u00E9:");
+		lblAte.setForeground(Color.WHITE);
+		lblAte.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		lblAte.setBounds(173, 196, 47, 19);
+		add(lblAte);
+		
+		dtVigenciaFinal = new DatePicker();
+		dtVigenciaFinal.setBounds(217, 194, 324, 26);
+		this.add(dtVigenciaFinal);
+		
+		tblListaSeguros = new JTable();
+		tblListaSeguros.setBounds(46, 282, 546, 242);
 		add(tblListaSeguros);
-		tblListaSeguros.setModel(
-				new DefaultTableModel(new Object[][] { { "Segurado", "Ve\u00EDculo", "Vig\u00EAncia", "Coberturas" }, },
-						new String[] { "Segurado", "Ve\u00EDculo", "Vig\u00EAncia", "Coberturas" }));
+		tblListaSeguros
+				.setModel(new DefaultTableModel(new Object[][] { { "Segurado", "Veículo", "Coberturas", "Vigência" }, },
+						new String[] { "Segurado", "Veículo", "Coberturas", "Vigência" }));
 
 		btnBuscarTodos = new JButton("BuscarTodos");
+		btnBuscarTodos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscarSegurosComFiltros();
+			
+			
+			}
+		});
 		btnBuscarTodos.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-lupa-50.png")));
 		btnBuscarTodos.setBackground(new Color(231, 200, 24));
-		btnBuscarTodos.setBounds(217, 231, 147, 38);
+		btnBuscarTodos.setBounds(217, 231, 181, 38);
 		add(btnBuscarTodos);
 
 		btnGerarPlanilha = new JButton("Gerar Planilha");
 		btnGerarPlanilha
 				.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-planilha-50.png")));
 		btnGerarPlanilha.setBackground(new Color(231, 200, 24));
-		btnGerarPlanilha.setBounds(423, 231, 169, 38);
+		btnGerarPlanilha.setBounds(408, 231, 184, 38);
 		add(btnGerarPlanilha);
 
 		BtnEditar = new JButton("Editar");
@@ -105,20 +163,24 @@ public class PainelConsultaSeguro extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int linhaSelecionadaNaTabela = tblListaSeguros.getSelectedRow();
 				Seguro seguroSelecionado = seguros.get(linhaSelecionadaNaTabela - 1);
-				JOptionPane.showMessageDialog(null, "Chamar a tela de edição e passar o objeto seguroSelecionado...");
-			}
+				 JOptionPane.showMessageDialog(null, "Chamar a tela de edição para o seguro com ID: " + seguroSelecionado.getId());
+	        }
+
+		
+
+			       
 		});
 
 		BtnEditar.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-editar-48.png")));
 		BtnEditar.setBackground(new Color(231, 200, 24));
-		BtnEditar.setBounds(217, 562, 147, 38);
+		BtnEditar.setBounds(217, 583, 147, 38);
 		add(BtnEditar);
 
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.setHorizontalAlignment(SwingConstants.LEFT);
 		btnExcluir.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-excluir-48.png")));
 		btnExcluir.setBackground(new Color(231, 200, 24));
-		btnExcluir.setBounds(459, 562, 133, 38);
+		btnExcluir.setBounds(459, 583, 133, 38);
 		add(btnExcluir);
 
 		JLabel lblIconeTitulo = new JLabel("Consultar Seguro");
@@ -127,9 +189,70 @@ public class PainelConsultaSeguro extends JPanel {
 		lblIconeTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
 		lblIconeTitulo.setBounds(217, 24, 181, 47);
 		add(lblIconeTitulo);
+		
+		btnVoltarPagina = new JButton("<< Voltar");
+		btnVoltarPagina.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				paginaAtual--;
+				buscarSegurosComFiltros();
+				lblPaginacao.setText(paginaAtual + " / " + totalPaginas);
+				btnVoltarPagina.setEnabled(paginaAtual > 1);
+				btnAvancarPagina.setEnabled(paginaAtual < totalPaginas);
+			}
+		});
+		btnVoltarPagina.setBounds(217, 528, 123, 23);
+		add(btnVoltarPagina);
+		
+		btnAvancarPagina = new JButton("Avançar >>");
+		btnAvancarPagina.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				paginaAtual++;
+				buscarSegurosComFiltros();
+				lblPaginacao.setText(paginaAtual + " / " + totalPaginas);
+				btnVoltarPagina.setEnabled(paginaAtual > 1);
+				btnAvancarPagina.setEnabled(paginaAtual < totalPaginas);
+			}
+		});
+		btnAvancarPagina.setBounds(469, 528, 123, 23);
+		add(btnAvancarPagina);
+		
+		lblPaginacao = new JLabel("1 / 0");
+		lblPaginacao.setForeground(new Color(255, 255, 255));
+		lblPaginacao.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblPaginacao.setBounds(395, 532, 46, 14);
+		add(lblPaginacao);
 
 	}
+	
+	private void atualizarQuantidadePaginas() {
+		//Cálculo do total de páginas (poderia ser feito no backend)
+		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);
+		
+		//QUOCIENTE da divisão inteira
+		totalPaginas = totalRegistros / TAMANHO_PAGINA;
+		
+		//RESTO da divisão inteira
+		if(totalRegistros % TAMANHO_PAGINA > 0) { 
+			totalPaginas++;
+		}
+		
+		lblPaginacao.setText(paginaAtual + " / " + totalPaginas);
+	}
+	
+	protected void buscarSegurosComFiltros() {
+		seletor = new SeguroSeletor();
+		seletor.setLimite(TAMANHO_PAGINA);
+		seletor.setPagina(paginaAtual);
+		seletor.setNumero_proposta(Integer.parseInt(txtNumeroProposta.getText()));
+		
+		seletor.setDt_inicio_vigencia(dtVigenciaInicial.getDate());
+		seletor.setDt_fim_vigencia(dtVigenciaFinal.getDate());
+		seguros = (ArrayList<Seguro>) controller.consultarComFiltros(seletor);
+		atualizarTabelaSeguros();
+		atualizarQuantidadePaginas();
+	}
 
+	
 	public JButton getBtnEditar() {
 		return BtnEditar;
 

@@ -1,11 +1,9 @@
-package model.vo;
+package model.seletor;
 
 import java.time.LocalDate;
 
-public class Seguro {
+public class SeguroSeletor extends BaseSeletor {
 
-	private Integer id;
-	//private Integer idSegurado;
 	private String nomeSegurado;
 	private int numero_proposta;
 	private LocalDate dt_inicio_vigencia;
@@ -15,37 +13,20 @@ public class Seguro {
 	private double rcf_danos_corporais;
 	private String franquia;
 	private String assistencia;
-	private String carroReserva;
-	private Coberturas coberturas;
+	private int carroReserva;
 
-	public Seguro() {
-
-	}
-
-	public Seguro(Integer id, String nomeSegurado, int numero_proposta, LocalDate dt_inicio_vigencia,
-			LocalDate dt_fim_vigencia, String placaVeiculo, double rcf_danos_materiais, double rcf_danos_corporais,
-			String franquia, String assistencia, String carroReserva, Coberturas coberturas) {
-		super();
-		this.id = id;
-		this.nomeSegurado = nomeSegurado;
-		this.numero_proposta = numero_proposta;
-		this.dt_inicio_vigencia = dt_inicio_vigencia;
-		this.dt_fim_vigencia = dt_fim_vigencia;
-		this.placaVeiculo = placaVeiculo;
-		this.rcf_danos_materiais = rcf_danos_materiais;
-		this.rcf_danos_corporais = rcf_danos_corporais;
-		this.franquia = franquia;
-		this.assistencia = assistencia;
-		this.carroReserva = carroReserva;
-		this.coberturas = coberturas;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	@Override
+	public boolean temFiltro() {
+		return (this.nomeSegurado != null && this.nomeSegurado.trim().length() > 0)
+	            || (this.numero_proposta != 0 && this.numero_proposta > 0)
+	            || (this.placaVeiculo != null && this.placaVeiculo.trim().length() > 0)
+	            || (this.franquia != null && this.franquia.trim().length() > 0)
+	            || (this.assistencia != null && this.assistencia.trim().length() > 0)
+	            || (this.carroReserva != 0 && String.valueOf(this.carroReserva).trim().length() > 0)
+	            || (this.rcf_danos_materiais != 0)
+	            || (this.rcf_danos_corporais != 0)
+	            || (this.dt_inicio_vigencia != null)
+	            || (this.dt_fim_vigencia != null);
 	}
 
 	public String getNomeSegurado() {
@@ -120,21 +101,12 @@ public class Seguro {
 		this.assistencia = assistencia;
 	}
 
-	public String getCarroReserva() {
+	public int getCarroReserva() {
 		return carroReserva;
 	}
 
-	public void setCarroReserva(String carroReserva) {
+	public void setCarroReserva(int carroReserva) {
 		this.carroReserva = carroReserva;
 	}
 
-	public Coberturas getCoberturas() {
-		return coberturas;
-	}
-
-	public void setCoberturas(Coberturas coberturas) {
-		this.coberturas = coberturas;
-	}
-
-	
 }

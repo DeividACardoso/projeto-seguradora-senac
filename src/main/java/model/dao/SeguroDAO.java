@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.seletor.SeguroSeletor;
 import model.vo.Seguro;
 
 public class SeguroDAO {
@@ -18,7 +19,8 @@ public class SeguroDAO {
 				+ " VALUES (?,?,?,?,?,?,?,?,?,?) ";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conexao, sql);
 		try {
-		//	stmt.setInt(1, novoSeguro.getIdSegurado() == null ? 0 : novoSeguro.getIdSegurado());
+			// stmt.setInt(1, novoSeguro.getIdSegurado() == null ? 0 :
+			// novoSeguro.getIdSegurado());
 			stmt.setString(1, novoSeguro.getNomeSegurado());
 			stmt.setInt(2, novoSeguro.getNumero_proposta());
 			stmt.setDate(3, java.sql.Date.valueOf(novoSeguro.getDt_inicio_vigencia()));
@@ -28,7 +30,7 @@ public class SeguroDAO {
 			stmt.setDouble(7, novoSeguro.getRcf_danos_corporais());
 			stmt.setString(8, novoSeguro.getFranquia());
 			stmt.setString(9, novoSeguro.getAssistencia());
-			stmt.setInt(10, novoSeguro.getCarroReserva());
+			stmt.setString(10, novoSeguro.getCarroReserva());
 			stmt.execute();
 
 			// Preencher o id gerado no banco no objeto
@@ -51,13 +53,12 @@ public class SeguroDAO {
 	public boolean atualizar(Seguro seguroAtualizado) {
 		boolean atualizou = false;
 		Connection conexao = Banco.getConnection();
-		String sql = " UPDATE SEGURO " + " SET NOME_SEGURADO = ?, NUMERO_PROPOSTA = ?, "
-				+ " DT_INICIO_VIGENCIA = ?,"
+		String sql = " UPDATE SEGURO " + " SET NOME_SEGURADO = ?, NUMERO_PROPOSTA = ?, " + " DT_INICIO_VIGENCIA = ?,"
 				+ " DT_FIM_VIGENCIA = ?, PLACA_VEICULO = ?, RCF_DANOS_MATERIAIS = ?, RCF_DANOS_CORPORAIS = ?, FRANQUIA = ?, ASSISTENCIA = ?, CARRO_RESERVA = ? "
 				+ " WHERE ID = ? ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
 		try {
-		//	stmt.setInt(1, seguroAtualizado.getIdSegurado());
+			// stmt.setInt(1, seguroAtualizado.getIdSegurado());
 			stmt.setString(1, seguroAtualizado.getNomeSegurado());
 			stmt.setInt(2, seguroAtualizado.getNumero_proposta());
 			stmt.setDate(3, java.sql.Date.valueOf(seguroAtualizado.getDt_inicio_vigencia()));
@@ -67,7 +68,7 @@ public class SeguroDAO {
 			stmt.setDouble(7, seguroAtualizado.getRcf_danos_corporais());
 			stmt.setString(8, seguroAtualizado.getFranquia());
 			stmt.setString(9, seguroAtualizado.getAssistencia());
-			stmt.setInt(10, seguroAtualizado.getCarroReserva());
+			stmt.setString(10, seguroAtualizado.getCarroReserva());
 			stmt.setInt(11, seguroAtualizado.getId());
 
 			int quantidadeLinhasAtualizadas = stmt.executeUpdate();
@@ -150,17 +151,18 @@ public class SeguroDAO {
 	private Seguro converterDeResultSetParaEntidade(ResultSet resultado) throws SQLException {
 		Seguro seguroConsultado = new Seguro();
 		seguroConsultado.setId(resultado.getInt("id"));
-		//seguroConsultado.setIdSegurado(resultado.getInt("id_segurado"));
+		// seguroConsultado.setIdSegurado(resultado.getInt("id_segurado"));
 		seguroConsultado.setNomeSegurado(resultado.getString("nome_Segurado"));
 		seguroConsultado.setNumero_proposta(resultado.getInt("numero_proposta"));
-		seguroConsultado.setDt_inicio_vigencia(resultado.getTimestamp("dt_inicio_vigencia").toLocalDateTime().toLocalDate());
+		seguroConsultado
+				.setDt_inicio_vigencia(resultado.getTimestamp("dt_inicio_vigencia").toLocalDateTime().toLocalDate());
 		seguroConsultado.setDt_fim_vigencia(resultado.getTimestamp("dt_fim_vigencia").toLocalDateTime().toLocalDate());
 		seguroConsultado.setPlacaVeiculo(resultado.getString("placa_Veiculo"));
 		seguroConsultado.setRcf_danos_materiais(resultado.getDouble("rcf_danos_materiais"));
 		seguroConsultado.setRcf_danos_corporais(resultado.getDouble("rcf_danos_corporais"));
 		seguroConsultado.setFranquia(resultado.getString("franquia"));
 		seguroConsultado.setAssistencia(resultado.getString("assistencia"));
-		seguroConsultado.setCarroReserva(resultado.getInt("carro_Reserva"));
+		seguroConsultado.setCarroReserva(resultado.getString("carro_Reserva"));
 		return seguroConsultado;
 	}
 
@@ -187,4 +189,131 @@ public class SeguroDAO {
 		return seguros;
 	}
 
+	@SuppressWarnings("finally")
+	public List<Seguro> consultarComFiltros(SeguroSeletor seletor) {
+		List<Seguro> seguros = new ArrayList<Seguro>();
+		Connection conexao = Banco.getConnection();
+		String sql = " select * from seguro ";
+
+		if (seletor.temFiltro()) {
+			sql = preencherFiltros(sql, seletor);
+		}
+		if (seletor.temPaginacao()) {
+			sql += " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
+		}
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			ResultSet resultado = query.executeQuery();
+
+			while (resultado.next()) {
+				Seguro seguroBuscado = montarSeguroComResultadoDoBanco(resultado);
+				seguros.add(seguroBuscado);
+			}
+
+		} catch (Exception e) {
+			System.out.println("Erro ao buscar todos os seguros. \n Causa:" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+			return seguros;
+		}
+
+	}
+
+	private Seguro montarSeguroComResultadoDoBanco(ResultSet resultado) throws SQLException {
+		Seguro seguroBuscado = new Seguro();
+		seguroBuscado.setId(resultado.getInt("id"));
+		seguroBuscado.setNomeSegurado(resultado.getString("nome_segurado"));
+		seguroBuscado.setPlacaVeiculo(resultado.getString("placa_veiculo"));
+//		seguroBuscado.setCoberturas
+//		seguroBuscado.setDt_inicio_vigencia(resultado.getDate("dt_inicio_vigencia"));
+//		seguroBuscado.setDt_fim_vigencia(resultado.getDate("dt_fim_vigencia"));
+		return seguroBuscado;
+	}
+
+	private String preencherFiltros(String sql, SeguroSeletor seletor) {
+
+		boolean primeiro = true;
+		if (seletor.getNomeSegurado() != null && !seletor.getNomeSegurado().trim().isEmpty()) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+
+			sql += " nome_segurado LIKE '%" + seletor.getNomeSegurado() + "%'";
+			primeiro = false;
+		}
+
+		if (seletor.getNumero_proposta() != 0 && !String.valueOf(seletor.getNumero_proposta()).trim().isEmpty()) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			sql += " numero_proposta LIKE '%" + seletor.getNumero_proposta() + "%'";
+			primeiro = false;
+		}
+
+		if (seletor.getDt_inicio_vigencia() != null && seletor.getDt_inicio_vigencia() != null) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			sql += " DT_INICIO_VIGENCIA BETWEEN '" + seletor.getDt_inicio_vigencia() + "' " + " AND '"
+					+ seletor.getDt_inicio_vigencia() + "' ";
+			primeiro = false;
+		} else {
+			if (seletor.getDt_inicio_vigencia() != null) {
+				if (primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				// CLIENTES QUE NASCERAM 'A PARTIR' DA DATA INICIAL
+				sql += " DT_INICIO_VIGENCIA >= '" + seletor.getDt_inicio_vigencia() + "' ";
+				primeiro = false;
+			}
+
+			if (seletor.getDt_fim_vigencia() != null) {
+				if (primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				// CLIENTES QUE NASCERAM 'ATÉ' A DATA FINAL
+				sql += " DT_FIM_VIGENCIA <= '" + seletor.getDt_fim_vigencia() + "' ";
+				primeiro = false;
+			}
+		}
+
+		return sql;
+	}
+
+	public int contarTotalRegistrosComFiltros(SeguroSeletor seletor) {
+		int total = 0;
+		Connection conexao = Banco.getConnection();
+		String sql = " select count(*) from seguro ";
+
+		if (seletor.temFiltro()) {
+			sql = preencherFiltros(sql, seletor);
+		}
+
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			ResultSet resultado = query.executeQuery();
+
+			if (resultado.next()) {
+				total = resultado.getInt(1);
+			}
+		} catch (Exception e) {
+			System.out.println("Erro contar o total de seguros" + "\n Causa:" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+
+		return total;
+	}
 }
