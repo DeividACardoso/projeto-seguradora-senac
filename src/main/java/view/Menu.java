@@ -52,7 +52,7 @@ public class Menu {
 		frmMenu = new JFrame();
 		frmMenu.getContentPane().setBackground(new Color(26, 156, 238));
 		frmMenu.setIconImage(
-				Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/icones/icons8-card�pio-64.png")));
+				Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/icones/icons8-card\u00E1pio-64.png")));
 		frmMenu.setTitle("Menu");
 		frmMenu.setBounds(100, 100, 631, 569);
 		frmMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,11 +89,6 @@ public class Menu {
 			public void actionPerformed(ActionEvent e) {
 				PainelConsultaSeguro painelConsultaSeguro = new PainelConsultaSeguro();
 				frmMenu.setContentPane(painelConsultaSeguro);
-				// painelConsultaSeguroDF = new PainelConsultaSeguro();
-				// painelConsultaSeguroDF.setVisible(true);
-				// registrarCliqueBotaoEditarDoPainelConsultaSeguro();
-				// frmMenu.setContentPane(painelConsultaSeguroDF);
-				// Atualiza a tela principal
 				frmMenu.revalidate();
 			}
 
@@ -110,7 +105,7 @@ public class Menu {
 					}
 				});
 			}
-		});
+	});
 		mnItemConsultaSeguro.setIcon(
 				new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
 		mnSeguros.add(mnItemConsultaSeguro);
@@ -118,7 +113,7 @@ public class Menu {
 		JMenuItem mnItemCadastroSeguro = new JMenuItem("Cadastro");
 		mnItemCadastroSeguro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				painelCadastroSeguro = new PainelCadastroSeguro();
+				painelCadastroSeguro = new PainelCadastroSeguro(null);
 				painelCadastroSeguro.setVisible(true);
 				registrarCliqueBotaoVoltarDoPainelCadastroSeguro();
 
@@ -129,7 +124,7 @@ public class Menu {
 
 			private void registrarCliqueBotaoVoltarDoPainelCadastroSeguro() {
 				if (painelCadastroSeguro == null) {
-					painelCadastroSeguro = new PainelCadastroSeguro();
+					painelCadastroSeguro = new PainelCadastroSeguro(null);
 				}
 				// Registrar o evento de clique no voltar do PainelCadastroCliente
 				painelCadastroSeguro.getbtnVoltar().addActionListener(new ActionListener() {
@@ -143,6 +138,11 @@ public class Menu {
 						frmMenu.setContentPane(painelConsultaSeguroDF);
 						frmMenu.revalidate();
 
+					}
+
+					private void registrarCliqueBotaoEditarDoPainelConsultaSeguro() {
+						// TODO Auto-generated method stub
+						
 					}
 				});
 			}

@@ -73,8 +73,8 @@ public class PainelConsultaSeguro extends JPanel {
 				Object[] novaLinhaDaTabela = new Object[5];
 				novaLinhaDaTabela[0] = s.getNomeSegurado();
 				novaLinhaDaTabela[1] = s.getPlacaVeiculo();
-				novaLinhaDaTabela[2] = s.getRcf_danos_corporais();
-				novaLinhaDaTabela[3] = s.getRcf_danos_materiais();
+				novaLinhaDaTabela[2] = s.getRcf_danos_materiais();
+				novaLinhaDaTabela[3] = s.getRcf_danos_corporais();
 				novaLinhaDaTabela[4] = s.getFranquia();
 				novaLinhaDaTabela[5] = s.getAssistencia();
 				novaLinhaDaTabela[6] = s.getCarroReserva();
@@ -90,22 +90,22 @@ public class PainelConsultaSeguro extends JPanel {
 		setBackground(new Color(26, 158, 230));
 		setLayout(null);
 
-		lnlNumeroProposta = new JLabel("N\u00FAmero proposta:");
+		lnlNumeroProposta = new JLabel("Número proposta:");
 		lnlNumeroProposta.setForeground(new Color(255, 255, 255));
 		lnlNumeroProposta.setBackground(new Color(255, 255, 255));
 		lnlNumeroProposta.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		lnlNumeroProposta.setBounds(46, 109, 133, 19);
+		lnlNumeroProposta.setBounds(87, 109, 133, 19);
 		add(lnlNumeroProposta);
 
 
 		txtNumeroProposta = new JTextField();
 		txtNumeroProposta.setBackground(new Color(255, 255, 255));
-		txtNumeroProposta.setBounds(172, 107, 420, 26);
+		txtNumeroProposta.setBounds(217, 107, 496, 26);
 		add(txtNumeroProposta);
 		txtNumeroProposta.setColumns(10);
 		
 		
-		lblVigenciaInicio = new JLabel("Data inic\u00EDo vig\u00EAncia. De:");
+		lblVigenciaInicio = new JLabel("Data inicío vigência. De:");
 		add(lblVigenciaInicio);
 		lblVigenciaInicio.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		lblVigenciaInicio.setForeground(new Color(255, 255, 255));
@@ -121,7 +121,7 @@ public class PainelConsultaSeguro extends JPanel {
 		dtVigenciaInicial.setBounds(217, 157, 324, 26);
 		this.add(dtVigenciaInicial);
 		
-		lblAte = new JLabel("At\u00E9:");
+		lblAte = new JLabel("Até:");
 		lblAte.setForeground(Color.WHITE);
 		lblAte.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		lblAte.setBounds(173, 196, 47, 19);
@@ -132,18 +132,31 @@ public class PainelConsultaSeguro extends JPanel {
 		this.add(dtVigenciaFinal);
 		
 		tblListaSeguros = new JTable();
-		tblListaSeguros.setBounds(46, 282, 546, 242);
+		tblListaSeguros.setBounds(33, 282, 948, 235);
 		add(tblListaSeguros);
 		tblListaSeguros
-				.setModel(new DefaultTableModel(new Object[][] { { "Segurado", "Veículo", "Coberturas", "Vigência" }, },
-						new String[] { "Segurado", "Veículo", "Coberturas", "Vigência" }));
+				.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"Segurado", "Ve\u00EDculo", " RCFMaterial", "RCF-Corporais", "Franquia", "Assist\u00EAncia", "CarroReserva", "Vig\u00EAnciaInicial ", "Vig\u00EAnciaFinal"},
+			},
+			new String[] {
+				"Segurado", "Ve\u00EDculo", "Coberturas", "", "", "", "", "Vig\u00EAnciaInicial ", "Vig\u00EAnciaFinal"
+			}
+		));
+		tblListaSeguros.getColumnModel().getColumn(0).setPreferredWidth(149);
+		tblListaSeguros.getColumnModel().getColumn(1).setPreferredWidth(102);
+		tblListaSeguros.getColumnModel().getColumn(2).setPreferredWidth(141);
+		tblListaSeguros.getColumnModel().getColumn(3).setPreferredWidth(138);
+		tblListaSeguros.getColumnModel().getColumn(4).setPreferredWidth(186);
+		tblListaSeguros.getColumnModel().getColumn(5).setPreferredWidth(187);
+		tblListaSeguros.getColumnModel().getColumn(6).setPreferredWidth(201);
+		tblListaSeguros.getColumnModel().getColumn(7).setPreferredWidth(121);
+		tblListaSeguros.getColumnModel().getColumn(8).setPreferredWidth(131);
 
 		btnBuscarTodos = new JButton("BuscarTodos");
 		btnBuscarTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buscarSegurosComFiltros();
-			
-			
 			}
 		});
 		btnBuscarTodos.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-lupa-50.png")));
@@ -155,7 +168,7 @@ public class PainelConsultaSeguro extends JPanel {
 		btnGerarPlanilha
 				.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-planilha-50.png")));
 		btnGerarPlanilha.setBackground(new Color(231, 200, 24));
-		btnGerarPlanilha.setBounds(408, 231, 184, 38);
+		btnGerarPlanilha.setBounds(510, 231, 184, 38);
 		add(btnGerarPlanilha);
 
 		BtnEditar = new JButton("Editar");
@@ -173,21 +186,21 @@ public class PainelConsultaSeguro extends JPanel {
 
 		BtnEditar.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-editar-48.png")));
 		BtnEditar.setBackground(new Color(231, 200, 24));
-		BtnEditar.setBounds(217, 583, 147, 38);
+		BtnEditar.setBounds(254, 583, 147, 38);
 		add(BtnEditar);
 
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.setHorizontalAlignment(SwingConstants.LEFT);
 		btnExcluir.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-excluir-48.png")));
 		btnExcluir.setBackground(new Color(231, 200, 24));
-		btnExcluir.setBounds(459, 583, 133, 38);
+		btnExcluir.setBounds(561, 583, 133, 38);
 		add(btnExcluir);
 
 		JLabel lblIconeTitulo = new JLabel("Consultar Seguro");
 		lblIconeTitulo.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-lupa-48.png")));
 		lblIconeTitulo.setForeground(new Color(255, 255, 255));
 		lblIconeTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
-		lblIconeTitulo.setBounds(217, 24, 181, 47);
+		lblIconeTitulo.setBounds(409, 25, 181, 47);
 		add(lblIconeTitulo);
 		
 		btnVoltarPagina = new JButton("<< Voltar");
@@ -200,7 +213,7 @@ public class PainelConsultaSeguro extends JPanel {
 				btnAvancarPagina.setEnabled(paginaAtual < totalPaginas);
 			}
 		});
-		btnVoltarPagina.setBounds(217, 528, 123, 23);
+		btnVoltarPagina.setBounds(295, 528, 123, 23);
 		add(btnVoltarPagina);
 		
 		btnAvancarPagina = new JButton("Avançar >>");
@@ -213,13 +226,13 @@ public class PainelConsultaSeguro extends JPanel {
 				btnAvancarPagina.setEnabled(paginaAtual < totalPaginas);
 			}
 		});
-		btnAvancarPagina.setBounds(469, 528, 123, 23);
+		btnAvancarPagina.setBounds(538, 528, 123, 23);
 		add(btnAvancarPagina);
 		
 		lblPaginacao = new JLabel("1 / 0");
 		lblPaginacao.setForeground(new Color(255, 255, 255));
 		lblPaginacao.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblPaginacao.setBounds(395, 532, 46, 14);
+		lblPaginacao.setBounds(455, 535, 46, 14);
 		add(lblPaginacao);
 
 	}
