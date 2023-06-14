@@ -161,7 +161,7 @@ public class PainelCadastroCliente extends JPanel {
 		add(lblNomeSegurado, "2, 6, right, default");
 		
 		txtNome = new JTextField();
-		add(txtNome, "4, 6, 13, 2, fill, default");
+		add(txtNome, "4, 6, 13, 1, fill, default");
 		txtNome.setColumns(10);
 		
 		JLabel lblCpf = new JLabel("Cpf:");
@@ -171,7 +171,7 @@ public class PainelCadastroCliente extends JPanel {
 		
 		txtcpf = new JTextField();
 		txtcpf.setColumns(10);
-		add(txtcpf, "4, 9, 13, 2, fill, default");
+		add(txtcpf, "4, 10, 13, 1, fill, default");
 		
 		JLabel lblDatadeNascimento = new JLabel("Data de Nascimento:");
 		lblDatadeNascimento.setForeground(Color.WHITE);

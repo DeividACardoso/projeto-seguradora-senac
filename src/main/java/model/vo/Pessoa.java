@@ -10,16 +10,27 @@ public class Pessoa {
 	private Integer id;
 	private String nome;
 	private String cpf;
-	private LocalDate data_nascimento;
+	private LocalDate dataNascimento;
 	private int telefone;
 	private Endereco endereco;
 	
-	public Pessoa(Integer id, String nome, String cpf, LocalDate data_nascimento, int telefone, Endereco endereco) {
+	
+	
+	public Pessoa(String nome, String cpf, LocalDate dataNascimento, int telefone, Endereco endereco) {
+		super();
+		this.nome = nome;
+		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;
+		this.telefone = telefone;
+		this.endereco = endereco;
+	}
+
+	public Pessoa(Integer id, String nome, String cpf, LocalDate dataNascimento, int telefone, Endereco endereco) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
-		this.data_nascimento = data_nascimento;
+		this.dataNascimento = dataNascimento;
 		this.telefone = telefone;
 		this.endereco = endereco;
 	}
@@ -52,12 +63,12 @@ public class Pessoa {
 		this.cpf = cpf;
 	}
 	
-	public LocalDate getData_nascimento() {
-		return data_nascimento;
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
 	}
 	
-	public void setData_nascimento(LocalDate data_nascimento) {
-		this.data_nascimento = data_nascimento;
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 	
 	public int getTelefone() {
@@ -81,7 +92,7 @@ public class Pessoa {
 		return "Id: " + id 
 				+ "\nNome: " + nome 
 				+ "\nCpf: " + cpf 
-				+ "\nData de nascimento: " + data_nascimento
+				+ "\nData de nascimento: " + dataNascimento
 				+ "\nTelefone: " + telefone 
 				+ "\nEndereco: " + endereco;
 	}

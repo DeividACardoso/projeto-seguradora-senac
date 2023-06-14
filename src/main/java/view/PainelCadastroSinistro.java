@@ -48,6 +48,10 @@ public class PainelCadastroSinistro extends JPanel {
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
 				ColumnSpec.decode("max(5dlu;default)"),
 				ColumnSpec.decode("94dlu:grow"),
 				ColumnSpec.decode("center:32dlu:grow"),
@@ -109,7 +113,7 @@ public class PainelCadastroSinistro extends JPanel {
 		lblTitulo.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-adicionar-64.png")));
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
-		add(lblTitulo, "9, 2, center, default");
+		add(lblTitulo, "9, 2, 3, 1, center, default");
 		
 		JLabel lblNumeroSinistro = new JLabel("Número Sinistro:");
 		lblNumeroSinistro.setForeground(new Color(255, 255, 255));
@@ -117,18 +121,18 @@ public class PainelCadastroSinistro extends JPanel {
 		add(lblNumeroSinistro, "4, 6, right, default");
 		
 		txtNumeroSinistro = new JTextField();
-		add(txtNumeroSinistro, "6, 6, fill, default");
+		add(txtNumeroSinistro, "6, 6, 4, 1, fill, default");
 		txtNumeroSinistro.setColumns(10);
 		
 		JLabel lblValorFranquia = new JLabel("Valor Franquia:");
 		lblValorFranquia.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblValorFranquia.setForeground(Color.WHITE);
 		lblValorFranquia.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblValorFranquia, "11, 6, right, default");
+		add(lblValorFranquia, "15, 6, right, default");
 		
 		txtValorFranquia = new JTextField();
 		txtValorFranquia.setColumns(10);
-		add(txtValorFranquia, "13, 6, fill, default");
+		add(txtValorFranquia, "17, 6, fill, default");
 		
 		JLabel lblTipoSinistro = new JLabel("Tipo Sinistro:");
 		lblTipoSinistro.setForeground(Color.WHITE);
@@ -137,16 +141,16 @@ public class PainelCadastroSinistro extends JPanel {
 		
 		txtTipoSinistro = new JTextField();
 		txtTipoSinistro.setColumns(10);
-		add(txtTipoSinistro, "6, 8, fill, default");
+		add(txtTipoSinistro, "6, 8, 4, 1, fill, default");
 		
 		JLabel lblValorOrcado = new JLabel("Valor Or\u00E7ado:");
 		lblValorOrcado.setForeground(Color.WHITE);
 		lblValorOrcado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblValorOrcado, "11, 8, right, default");
+		add(lblValorOrcado, "15, 8, right, default");
 		
 		txtValorOrcado = new JTextField();
 		txtValorOrcado.setColumns(10);
-		add(txtValorOrcado, "13, 8, fill, default");
+		add(txtValorOrcado, "17, 8, fill, default");
 		
 		JLabel lblSegurado = new JLabel("Segurado:");
 		lblSegurado.setForeground(Color.WHITE);
@@ -155,16 +159,16 @@ public class PainelCadastroSinistro extends JPanel {
 		
 		txtSegurado = new JTextField();
 		txtSegurado.setColumns(10);
-		add(txtSegurado, "6, 10, fill, default");
+		add(txtSegurado, "6, 10, 4, 1, fill, default");
 		
 		JLabel lblVeculo = new JLabel("Placa Ve\u00EDculo:");
 		lblVeculo.setForeground(Color.WHITE);
 		lblVeculo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblVeculo, "11, 10, right, default");
+		add(lblVeculo, "15, 10, right, default");
 		
 		txtPlaca = new JTextField();
 		txtPlaca.setColumns(10);
-		add(txtPlaca, "13, 10, fill, default");
+		add(txtPlaca, "17, 10, fill, default");
 		
 		JLabel lblData = new JLabel("Data Sinistro:");
 		lblData.setForeground(Color.WHITE);
@@ -173,16 +177,16 @@ public class PainelCadastroSinistro extends JPanel {
 		
 		txtData = new JTextField();
 		txtData.setColumns(10);
-		add(txtData, "6, 12, fill, default");
+		add(txtData, "6, 12, 4, 1, fill, default");
 		
 		JLabel lblValorPago = new JLabel("Valor Pago:");
 		lblValorPago.setForeground(Color.WHITE);
 		lblValorPago.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblValorPago, "11, 12, right, default");
+		add(lblValorPago, "15, 12, right, default");
 		
 		txtValorPago = new JTextField();
 		txtValorPago.setColumns(10);
-		add(txtValorPago, "13, 12, fill, default");
+		add(txtValorPago, "17, 12, fill, default");
 		
 		JLabel lblHoraSinistro = new JLabel("Hora:");
 		lblHoraSinistro.setForeground(Color.WHITE);
@@ -191,17 +195,17 @@ public class PainelCadastroSinistro extends JPanel {
 		
 		txtHora = new JTextField();
 		txtHora.setColumns(10);
-		add(txtHora, "6, 14, fill, default");
+		add(txtHora, "6, 14, 4, 1, fill, default");
 		
 		JLabel lblMotivo = new JLabel("Motivo:");
 		lblMotivo.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblMotivo.setForeground(Color.WHITE);
 		lblMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblMotivo, "11, 14, right, default");
+		add(lblMotivo, "15, 14, right, default");
 		
 		txtMotivo = new JTextField();
 		txtMotivo.setColumns(10);
-		add(txtMotivo, "13, 14, 1, 3, fill, default");
+		add(txtMotivo, "17, 14, 1, 3, fill, default");
 		
 		JLabel lblSituacaoSinistro = new JLabel("Situao:");
 		lblSituacaoSinistro.setForeground(Color.WHITE);
@@ -209,7 +213,7 @@ public class PainelCadastroSinistro extends JPanel {
 		add(lblSituacaoSinistro, "4, 16, right, default");
 		
 		JComboBox cbSituacao = new JComboBox();
-		add(cbSituacao, "6, 16, fill, default");
+		add(cbSituacao, "6, 16, 4, 1, fill, default");
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-salvar-50.png")));
@@ -223,7 +227,7 @@ public class PainelCadastroSinistro extends JPanel {
 		btnVoltar.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		btnVoltar.setForeground(Color.BLACK);
 		btnVoltar.setBackground(new Color(231, 200, 24));
-		add(btnVoltar, "13, 19");
+		add(btnVoltar, "17, 19");
 
 	}
 	

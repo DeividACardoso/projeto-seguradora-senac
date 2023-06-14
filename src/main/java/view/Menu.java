@@ -52,7 +52,7 @@ public class Menu {
 		frmMenu = new JFrame();
 		frmMenu.getContentPane().setBackground(new Color(26, 156, 238));
 		frmMenu.setIconImage(
-				Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/icones/icons8-cardï¿½pio-64.png")));
+		Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/icones/icons8-cardápio-64.png")));
 		frmMenu.setTitle("Menu");
 		frmMenu.setBounds(100, 100, 631, 569);
 		frmMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -164,6 +164,14 @@ public class Menu {
 		menuBar.add(mnSinistro);
 
 		JMenuItem mnItemCadastroSinistro = new JMenuItem("Cadastrar");
+		mnItemCadastroSinistro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PainelCadastroSinistro painelCadastroSinistro = new PainelCadastroSinistro();
+				frmMenu.setContentPane(painelCadastroSinistro);
+				painelCadastroSinistro.setVisible(true);
+				frmMenu.revalidate();
+			}
+		});
 		mnItemCadastroSinistro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-adicionar-64.png")));
 		mnSinistro.add(mnItemCadastroSinistro);
 

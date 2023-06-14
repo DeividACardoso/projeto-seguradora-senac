@@ -10,6 +10,17 @@ public class Endereco {
 	private String cidade;
 	private String estado;
 	
+	
+	public Endereco(String rua, String numero, String cep, String bairro, String cidade, String estado) {
+		super();
+		this.rua = rua;
+		this.numero = numero;
+		this.cep = cep;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+	}
+
 	public Endereco(Integer id, String rua, String numero, String cep, String bairro, String cidade, String estado) {
 		super();
 		this.id = id;

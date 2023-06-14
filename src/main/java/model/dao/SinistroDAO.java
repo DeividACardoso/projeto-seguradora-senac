@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.vo.Pessoa;
 import model.vo.Sinistro;
 import model.vo.TipoSinistro;
 import model.vo.Veiculo;
@@ -154,14 +155,19 @@ public class SinistroDAO {
 		Sinistro sinistroBuscado = new Sinistro();
 		sinistroBuscado.setId(resultado.getInt("id"));
 		sinistroBuscado.setNumeroSinistro(resultado.getString("numero_sinistro"));
-		//TODO Implementar IdVeiculo, IdPessoa
-		//Chamando/Colocando o Tipo Sinistro
 		String tipoSinistroDoBanco = resultado.getString("tipo_sinistro");
 		sinistroBuscado.setTipoSinistro(TipoSinistro.valueOf(tipoSinistroDoBanco));
-		int idEnderecoVeiculo = resultado.getInt("idveiculo");
+		
+		int idVeiculo = resultado.getInt("idveiculo");
 		VeiculoDAO veiculoDAO = new VeiculoDAO();
-		Veiculo veiculo = veiculoDAO.consultarPorId(idEnderecoVeiculo);
+		Veiculo veiculo = veiculoDAO.consultarPorId(idVeiculo);
 		sinistroBuscado.setVeiculo(veiculo);
+		
+		int idPessoa = resultado.getInt("idpessoa");
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		Pessoa pessoa = pessoaDAO.consultarPorId(idPessoa);
+		sinistroBuscado.setPessoa(pessoa);
+		
 		sinistroBuscado.setDataSinistro((LocalDate) resultado.getObject("dt_sinistro"));
 		sinistroBuscado.setValorFranquia(resultado.getDouble("valor_franquia"));
 		sinistroBuscado.setValorOrcado(resultado.getDouble("valor_orcado"));
