@@ -197,13 +197,12 @@ public class PainelCadastroSeguro extends JPanel {
 		btnVoltar.setBackground(new Color(227, 218, 28));
 		add(btnVoltar, "33, 35, 10, 4");
 
-		//TODO PREENCHER OS CAMPOS DA TELA COM OS VALORES QUE VIERAM NO OBJETO SEGURO
+		// TODO PREENCHER OS CAMPOS DA TELA COM OS VALORES QUE VIERAM NO OBJETO SEGURO
 		this.seguro = seguro;
 	}
 
 	public JButton getbtnVoltar() {
 		return btnVoltar;
-
 	}
 
 }

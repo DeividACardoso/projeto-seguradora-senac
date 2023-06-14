@@ -2,10 +2,12 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -176,12 +178,9 @@ public class PainelConsultaSeguro extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int linhaSelecionadaNaTabela = tblListaSeguros.getSelectedRow();
 				Seguro seguroSelecionado = seguros.get(linhaSelecionadaNaTabela - 1);
+
 				 JOptionPane.showMessageDialog(null, "Chamar a tela de edição para o seguro com ID: " + seguroSelecionado.getId());
 	        }
-
-		
-
-			       
 		});
 
 		BtnEditar.setIcon(new ImageIcon(PainelConsultaSeguro.class.getResource("/icones/icons8-editar-48.png")));
@@ -274,4 +273,5 @@ public class PainelConsultaSeguro extends JPanel {
 	public Seguro getSeguroSelecionado() {
 		return seguroSelecionado;
 	}
+
 }

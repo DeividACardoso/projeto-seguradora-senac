@@ -9,7 +9,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.vo.Pessoa;
 import model.vo.Sinistro;
+import model.vo.TipoSinistro;
+import model.vo.Veiculo;
 
 public class SinistroDAO {
 	public Sinistro cadastrarSinistro(Sinistro novoSinistro) {
@@ -24,10 +27,10 @@ public class SinistroDAO {
 			stmt.setObject(2, novoSinistro.getTipoSinistro());
 			stmt.setInt(3, novoSinistro.getPessoa().getId());
 			stmt.setInt(4, novoSinistro.getVeiculo().getId());
-			stmt.setObject(5, novoSinistro.getDt_sinistro());
-			stmt.setDouble(6, novoSinistro.getValor_franquia());
-			stmt.setDouble(7, novoSinistro.getValor_orcado());
-			stmt.setDouble(8, novoSinistro.getValor_pago());
+			stmt.setObject(5, novoSinistro.getDataSinistro());
+			stmt.setDouble(6, novoSinistro.getValorFranquia());
+			stmt.setDouble(7, novoSinistro.getValorOrcado());
+			stmt.setDouble(8, novoSinistro.getValorPago());
 			stmt.setString(9, novoSinistro.getSituacao());
 			stmt.setString(10, novoSinistro.getMotivo());
 			stmt.execute();
@@ -57,10 +60,10 @@ public class SinistroDAO {
 			stmt.setObject(2, sinistro.getTipoSinistro());
 			stmt.setInt(3, sinistro.getPessoa().getId());
 			stmt.setInt(4, sinistro.getVeiculo().getId());
-			stmt.setObject(5, sinistro.getDt_sinistro());
-			stmt.setDouble(6, sinistro.getValor_franquia());
-			stmt.setDouble(7, sinistro.getValor_orcado());
-			stmt.setDouble(8, sinistro.getValor_pago());
+			stmt.setObject(5, sinistro.getDataSinistro());
+			stmt.setDouble(6, sinistro.getValorFranquia());
+			stmt.setDouble(7, sinistro.getValorOrcado());
+			stmt.setDouble(8, sinistro.getValorPago());
 			stmt.setString(9, sinistro.getMotivo());
 			stmt.setString(10, sinistro.getSituacao());
 			stmt.setInt(11, sinistro.getId());
@@ -107,7 +110,7 @@ public class SinistroDAO {
 		
 		try {
 			query.setInt(1, id);
-			ResultSet resultado =query.executeQuery();
+			ResultSet resultado = query.executeQuery();
 			
 			if(resultado.next()) {
 				sinistroBuscado = montarSinistroComResultadoDoBanco(resultado);
@@ -152,11 +155,23 @@ public class SinistroDAO {
 		Sinistro sinistroBuscado = new Sinistro();
 		sinistroBuscado.setId(resultado.getInt("id"));
 		sinistroBuscado.setNumeroSinistro(resultado.getString("numero_sinistro"));
-		//TODO Implementar Tipo_Pessoa, IdVeiculo, IdPessoa
-		sinistroBuscado.setDt_sinistro((LocalDate) resultado.getObject("dt_sinistro"));
-		sinistroBuscado.setValor_franquia(resultado.getDouble("valor_franquia"));
-		sinistroBuscado.setValor_orcado(resultado.getDouble("valor_orcado"));
-		sinistroBuscado.setValor_pago(resultado.getDouble("valor_pago"));
+		String tipoSinistroDoBanco = resultado.getString("tipo_sinistro");
+		sinistroBuscado.setTipoSinistro(TipoSinistro.valueOf(tipoSinistroDoBanco));
+		
+		int idVeiculo = resultado.getInt("idveiculo");
+		VeiculoDAO veiculoDAO = new VeiculoDAO();
+		Veiculo veiculo = veiculoDAO.consultarPorId(idVeiculo);
+		sinistroBuscado.setVeiculo(veiculo);
+		
+		int idPessoa = resultado.getInt("idpessoa");
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		Pessoa pessoa = pessoaDAO.consultarPorId(idPessoa);
+		sinistroBuscado.setPessoa(pessoa);
+		
+		sinistroBuscado.setDataSinistro((LocalDate) resultado.getObject("dt_sinistro"));
+		sinistroBuscado.setValorFranquia(resultado.getDouble("valor_franquia"));
+		sinistroBuscado.setValorOrcado(resultado.getDouble("valor_orcado"));
+		sinistroBuscado.setValorPago(resultado.getDouble("valor_pago"));
 		
 		return sinistroBuscado;
 	}

@@ -9,13 +9,14 @@ import controller.SeguroController;
 import model.vo.Seguro;
 
 public class Executavel {
+
 	public static void main(String[] args) throws SQLException {
 
 		//Seguro seguro1 = new SeguroController().consultarPorId(1);
 
 		SeguroController controladorDeSeguros = new SeguroController();
 		//ID_PESSOA, NOMESEGURADO, NUMERO_PROPOSTA, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, PLACAVEICULO, "
-			//	+ " RCF_DANOS_MATERIAIS, RCF_DANOS_CORPORAIS, FRANQUIA, ASSISTENCIA, CARRORESERVA
+		//	+ " RCF_DANOS_MATERIAIS, RCF_DANOS_CORPORAIS, FRANQUIA, ASSISTENCIA, CARRORESERVA
 		Seguro novoSeguro = new Seguro();
 		//novoSeguro.setIdSegurado(1);
 		novoSeguro.setNomeSegurado("Leonardo Coutinho");
@@ -28,12 +29,10 @@ public class Executavel {
 		novoSeguro.setFranquia("Completa");
 		novoSeguro.setAssistencia("Basica");
 		novoSeguro.setCarroReserva("Sim");
-	
-	novoSeguro = controladorDeSeguros.inserir(novoSeguro);
+		novoSeguro = controladorDeSeguros.inserir(novoSeguro);
 
-	JOptionPane.showMessageDialog(null, "Cliente salvo com sucesso! Id gerado: " + novoSeguro.getId(), "Sucesso",
-			JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Cliente salvo com sucesso! Id gerado: " + novoSeguro.getId(), "Sucesso",
+				JOptionPane.INFORMATION_MESSAGE);
 
-	
 	}
 }
