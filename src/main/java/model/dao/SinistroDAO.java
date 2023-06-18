@@ -15,23 +15,27 @@ import model.vo.TipoSinistro;
 import model.vo.Veiculo;
 
 public class SinistroDAO {
-	public Sinistro cadastrarSinistro(Sinistro novoSinistro) {
+	public Sinistro inserir(Sinistro novoSinistro, Pessoa pessoa, Veiculo veiculo) {
 		Connection conn = Banco.getConnection();
 		String sql = " INSERT INTO SINISTRO(NUMERO_SINISTRO, TIPO_SINISTRO, IDPESSOA, IDVEICULO, DT_SINISTRO,"
 				+ " VALOR_FRANQUIA, VALOR_ORCADO, VALOR_PAGO, SITUACAO, MOTIVO ) "
 				+ " VALUES (?,?,?,?,?,?,?,?,?,?) ";
-		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
+		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql);
 		
 		try {
 			stmt.setString(1, novoSinistro.getNumeroSinistro());
 			stmt.setObject(2, novoSinistro.getTipoSinistro());
-			stmt.setInt(3, novoSinistro.getPessoa().getId());
-			stmt.setInt(4, novoSinistro.getVeiculo().getId());
+			PessoaDAO pessoaDAO = new PessoaDAO();
+			//pessoa = pessoaDAO.consultarPorId(novoSinistro.getPessoa().getId());			
+			stmt.setInt(3, pessoa.getId());
+			VeiculoDAO veiculoDAO = new VeiculoDAO();
+			//veiculo = veiculoDAO.consultarPorId(novoSinistro.getVeiculo().getId());
+			stmt.setInt(4, veiculo.getId());
 			stmt.setObject(5, novoSinistro.getDataSinistro());
 			stmt.setDouble(6, novoSinistro.getValorFranquia());
 			stmt.setDouble(7, novoSinistro.getValorOrcado());
 			stmt.setDouble(8, novoSinistro.getValorPago());
-			stmt.setString(9, novoSinistro.getSituacao());
+			stmt.setInt(9, novoSinistro.getSituacao());
 			stmt.setString(10, novoSinistro.getMotivo());
 			stmt.execute();
 			
@@ -65,7 +69,7 @@ public class SinistroDAO {
 			stmt.setDouble(7, sinistro.getValorOrcado());
 			stmt.setDouble(8, sinistro.getValorPago());
 			stmt.setString(9, sinistro.getMotivo());
-			stmt.setString(10, sinistro.getSituacao());
+			stmt.setInt(10, sinistro.getSituacao());
 			stmt.setInt(11, sinistro.getId());
 			registrosAlterados = stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -156,7 +160,7 @@ public class SinistroDAO {
 		sinistroBuscado.setId(resultado.getInt("id"));
 		sinistroBuscado.setNumeroSinistro(resultado.getString("numero_sinistro"));
 		String tipoSinistroDoBanco = resultado.getString("tipo_sinistro");
-		sinistroBuscado.setTipoSinistro(TipoSinistro.valueOf(tipoSinistroDoBanco));
+		sinistroBuscado.setTipoSinistro(String.valueOf(tipoSinistroDoBanco));
 		
 		int idVeiculo = resultado.getInt("idveiculo");
 		VeiculoDAO veiculoDAO = new VeiculoDAO();

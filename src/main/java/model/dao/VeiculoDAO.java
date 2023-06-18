@@ -32,7 +32,7 @@ public class VeiculoDAO {
 		}
 		
 		
-		return null;
+		return veiculoBuscado;
 	}
 
 	private Veiculo montarVeiculoBuscadoComResultadoDoBanco(ResultSet resultado) throws SQLException {

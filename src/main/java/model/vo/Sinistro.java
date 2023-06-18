@@ -8,17 +8,17 @@ public class Sinistro {
 	private Integer id;
 	private Pessoa pessoa;
 	private String numeroSinistro;
-	private TipoSinistro tipoSinistro;
+	private String tipoSinistro;
 	private Veiculo veiculo;
 	private LocalDate dataSinistro;
 	private double valorFranquia;
 	private double valorOrcado;
 	private double valorPago;
-	private String situacao;
+	private int situacao;
 	private String motivo;
 	
-	public Sinistro(Pessoa pessoa, String numeroSinistro, TipoSinistro tipoSinistro, Veiculo veiculo,
-			LocalDate dataSinistro, double valorFranquia, double valorOrcado, double valorPago, String situacao,
+	public Sinistro(Pessoa pessoa, String numeroSinistro, String tipoSinistro, Veiculo veiculo,
+			LocalDate dataSinistro, double valorFranquia, double valorOrcado, double valorPago, int situacao,
 			String motivo) {
 		super();
 		this.pessoa = pessoa;
@@ -61,11 +61,11 @@ public class Sinistro {
 		this.numeroSinistro = numeroSinistro;
 	}
 	
-	public TipoSinistro getTipoSinistro() {
+	public String getTipoSinistro() {
 		return tipoSinistro;
 	}
 	
-	public void setTipoSinistro(TipoSinistro tipoSinistro) {
+	public void setTipoSinistro(String tipoSinistro) {
 		this.tipoSinistro = tipoSinistro;
 	}
 	public Veiculo getVeiculo() {
@@ -108,11 +108,11 @@ public class Sinistro {
 		this.valorPago = valorPago;
 	}
 	
-	public String getSituacao() {
+	public int getSituacao() {
 		return situacao;
 	}
 	
-	public void setSituacao(String situacao) {
+	public void setSituacao(int situacao) {
 		this.situacao = situacao;
 	}
 	
@@ -122,6 +122,15 @@ public class Sinistro {
 	
 	public void setMotivo(String motivo) {
 		this.motivo = motivo;
+	}
+
+	@Override
+	public String toString() {
+		return "Sinistro [id=" + id + ", pessoa=" + pessoa + ", numeroSinistro=" + numeroSinistro + ", tipoSinistro="
+				+ tipoSinistro + ", veiculo=" + veiculo + ", dataSinistro=" + dataSinistro + ", valorFranquia="
+				+ valorFranquia + ", valorOrcado=" + valorOrcado + ", valorPago=" + valorPago + ", situacao=" + situacao
+				+ ", motivo=" + motivo + "]\n";
 	}	
+	
 	
 }
