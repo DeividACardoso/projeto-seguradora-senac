@@ -15,6 +15,10 @@ import model.vo.TipoSinistro;
 import model.vo.Veiculo;
 
 public class SinistroDAO {
+	
+	VeiculoDAO veiculoDAO = new VeiculoDAO();
+	PessoaDAO pessoaDAO = new PessoaDAO();
+	
 	public Sinistro inserir(Sinistro novoSinistro, Pessoa pessoa, Veiculo veiculo) {
 		Connection conn = Banco.getConnection();
 		String sql = " INSERT INTO SINISTRO(NUMERO_SINISTRO, TIPO_SINISTRO, IDPESSOA, IDVEICULO, DT_SINISTRO,"
@@ -24,12 +28,8 @@ public class SinistroDAO {
 		
 		try {
 			stmt.setString(1, novoSinistro.getNumeroSinistro());
-			stmt.setObject(2, novoSinistro.getTipoSinistro());
-			PessoaDAO pessoaDAO = new PessoaDAO();
-			//pessoa = pessoaDAO.consultarPorId(novoSinistro.getPessoa().getId());			
+			stmt.setObject(2, novoSinistro.getTipoSinistro());		
 			stmt.setInt(3, pessoa.getId());
-			VeiculoDAO veiculoDAO = new VeiculoDAO();
-			//veiculo = veiculoDAO.consultarPorId(novoSinistro.getVeiculo().getId());
 			stmt.setInt(4, veiculo.getId());
 			stmt.setObject(5, novoSinistro.getDataSinistro());
 			stmt.setDouble(6, novoSinistro.getValorFranquia());

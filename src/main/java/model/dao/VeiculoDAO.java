@@ -4,10 +4,85 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.vo.Veiculo;
 
 public class VeiculoDAO {
+	
+	public Veiculo inserir(Veiculo novoVeiculo) {
+		Connection conn = Banco.getConnection();
+		String sql = "INSERT INTO VEICULO(ID_SEGURO, PLACA_VEICULO, MARCA) VALUES (?,?,?) ";
+		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql);
+		
+		try {
+			stmt.setInt(1, novoVeiculo.getIdSeguro());
+			stmt.setString(2, novoVeiculo.getPlacaVeiculo());
+			stmt.setString(3, novoVeiculo.getModelo());
+			stmt.execute();
+			
+			ResultSet resultado = stmt.getGeneratedKeys();
+			if(resultado.next()) {
+				novoVeiculo.setId(resultado.getInt(1));
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao cadastrar veiculo.");
+			System.out.println("Erro: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(stmt);
+			Banco.closeConnection(conn);			
+		}
+		
+		return novoVeiculo;
+	}
+	
+	public boolean atualizar(Veiculo veiculoAtualizado) {
+		boolean atualizou = false;
+		Connection conn = Banco.getConnection();
+		String sql = " UPDATE VEICULO SET ID_SEGURADO = ?, PLACA_VEICULO = ?, MODELO = ? "
+				+ " WHERE ID = ? ";
+		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
+		
+		try {
+			stmt.setInt(1, veiculoAtualizado.getIdSeguro());
+			stmt.setString(2, veiculoAtualizado.getPlacaVeiculo());
+			stmt.setString(3, veiculoAtualizado.getModelo());
+			stmt.setInt(4, veiculoAtualizado.getId());
+			
+			int quantLinhasAtualizadas = stmt.executeUpdate();
+			atualizou = quantLinhasAtualizadas > 0;
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar veiculos.");
+			System.out.println("Erro: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		
+		return atualizou;
+	}
+	
+	public boolean excluir(int id) {
+		boolean excluiu = false;
+		
+		Connection conn = Banco.getConnection();
+		String sql = " DELETE FROM VEICULO WHERE ID = ?";	
+		PreparedStatement query = Banco.getPreparedStatement(conn, sql);
+		try {
+			query.setInt(1, id);
+
+			int quantidadeLinhasAtualizadas = query.executeUpdate();
+			excluiu = quantidadeLinhasAtualizadas > 0;
+		} catch (SQLException e) {
+			System.out.println("Erro ao excluir seguro. ");
+			System.out.println("Erro: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conn);
+		}		
+		return excluiu;
+	}
 	
 	public Veiculo consultarPorId(int id){
 		Veiculo veiculoBuscado = null;
@@ -33,6 +108,25 @@ public class VeiculoDAO {
 		
 		
 		return veiculoBuscado;
+	}
+	
+	public List<Veiculo> consultarTodos(){
+		List<Veiculo> veiculos = new ArrayList<Veiculo>();
+		Connection conn = Banco.getConnection();
+		String sql = " SELECT * FROM VEICULO ";
+		PreparedStatement query = Banco.getPreparedStatement(conn, sql);
+		
+		try {
+			ResultSet resultado = query.executeQuery();
+			while(resultado.next()) {
+				Veiculo veiculoConsultado = montarVeiculoBuscadoComResultadoDoBanco(resultado);
+				veiculos.add(veiculoConsultado);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao buscar todos os seguros");
+			System.out.println("Erro: " + e.getMessage());
+		}		
+		return veiculos;
 	}
 
 	private Veiculo montarVeiculoBuscadoComResultadoDoBanco(ResultSet resultado) throws SQLException {

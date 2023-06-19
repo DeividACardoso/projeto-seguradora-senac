@@ -14,13 +14,19 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.components.DatePicker;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PainelConsultaSinistro extends JPanel {
 	private JTextField txtNumero;
-	private JTextField textField_1;
-	private JTextField textField_3;
+	private JTextField txtNomeSegurado;
+	private DatePickerSettings dateSettings;
+	private DatePicker dataInicio;
+	private DatePicker dataFim;
 	private final JTable tableSinistro = new JTable();
-	private JTextField textField;
 
 	/**
 	 * Create the panel.
@@ -29,155 +35,133 @@ public class PainelConsultaSinistro extends JPanel {
 		setToolTipText("");
 		setBackground(new Color(26, 158, 230));
 		setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("31px"),
+				ColumnSpec.decode("31px:grow"),
 				ColumnSpec.decode("113px"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
+				ColumnSpec.decode("136px:grow"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("153px"),
+				ColumnSpec.decode("max(54dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(94dlu;default):grow"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
+				ColumnSpec.decode("max(106dlu;default):grow"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(44dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("259px"),
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("26px"),},
+				ColumnSpec.decode("max(51dlu;default)"),
+				ColumnSpec.decode("26px:grow"),},
 			new RowSpec[] {
-				RowSpec.decode("31px"),
-				RowSpec.decode("48px"),
-				RowSpec.decode("31px"),
+				RowSpec.decode("18px"),
+				RowSpec.decode("65px"),
+				RowSpec.decode("24px"),
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("25px"),
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("25px"),
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("25px"),
-				RowSpec.decode("25px"),
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("25px"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("22px"),
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("20px"),
-				RowSpec.decode("38px"),
-				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("fill:48px"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				RowSpec.decode("38px:grow"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("21px"),
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
+				FormSpecs.RELATED_GAP_ROWSPEC,}));
 		
-		JLabel lblTItulo = new JLabel("Consulta Sinistro");
-		lblTItulo.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-lupa-48.png")));
-		lblTItulo.setForeground(new Color(255, 255, 255));
-		lblTItulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
-		add(lblTItulo, "3, 2, 7, 1, center, top");
+		JLabel lblNewLabel = new JLabel("Consultar Sinistro");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Trebuchet MS", Font.PLAIN, 24));
+		lblNewLabel.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-lupa-48.png")));
+		add(lblNewLabel, "2, 2, 13, 1");
 		
 		JLabel lblNumeroSinistro = new JLabel("N\u00FAmero Sinistro:");
 		lblNumeroSinistro.setForeground(new Color(255, 255, 255));
 		lblNumeroSinistro.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblNumeroSinistro, "2, 4, 3, 1, right, top");
+		add(lblNumeroSinistro, "2, 4, right, top");
 		
 		txtNumero = new JTextField();
-		add(txtNumero, "6, 4, 5, 2, fill, fill");
+		add(txtNumero, "4, 4, 5, 1, fill, fill");
 		txtNumero.setColumns(10);
-		
-		JLabel lblDataDoSinistro = new JLabel("Data do sinistro:");
-		lblDataDoSinistro.setForeground(Color.WHITE);
-		lblDataDoSinistro.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblDataDoSinistro, "2, 7, 3, 1, right, top");
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		add(textField_1, "6, 7, 1, 2, fill, fill");
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		add(textField, "8, 7, 3, 2, fill, default");
 		
 		JLabel lblNomeSegurado = new JLabel("Nome Segurado:");
 		lblNomeSegurado.setForeground(Color.WHITE);
 		lblNomeSegurado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblNomeSegurado, "2, 10, 3, 1, right, top");
+		add(lblNomeSegurado, "2, 7, right, top");
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		add(textField_3, "6, 10, 5, 2, fill, fill");
+		txtNomeSegurado = new JTextField();
+		txtNomeSegurado.setColumns(10);
+		add(txtNomeSegurado, "4, 7, 5, 1, fill, fill");
+		
+		JLabel lblDe = new JLabel("De: ");
+		lblDe.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		lblDe.setForeground(new Color(255, 255, 255));
+		lblDe.setHorizontalAlignment(SwingConstants.TRAILING);
+		add(lblDe, "2, 10");
+		
+		DatePicker dpDataInicio = new DatePicker();
+		add(dpDataInicio, "4, 10, 2, 1, fill, fill");
+		
+		JLabel lblAte = new JLabel("Até: ");
+		lblAte.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblAte.setForeground(Color.WHITE);
+		lblAte.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(lblAte, "6, 10");
+		
+		DatePicker dpDataFim = new DatePicker();
+		add(dpDataFim, "8, 10, fill, fill");
+		
+		JButton btnBuscarTodos = new JButton("BuscarTodos");
+		btnBuscarTodos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		
 		JLabel lblSitucao = new JLabel("Situa\u00E7\u00E3o:");
 		lblSitucao.setForeground(Color.WHITE);
 		lblSitucao.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblSitucao, "2, 13, 3, 1, right, center");
+		add(lblSitucao, "2, 13, right, center");
 		
-		JComboBox comboBox = new JComboBox();
-		add(comboBox, "6, 13, 4, 1, fill, top");
-		
-		JButton btnBuscarTodos = new JButton("BuscarTodos");
+		JComboBox cbSituacao = new JComboBox();
+		add(cbSituacao, "4, 13, fill, center");
 		btnBuscarTodos.setBackground(new Color(227, 218, 28));
 		btnBuscarTodos.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-lupa-50.png")));
-		add(btnBuscarTodos, "6, 15, 1, 3, fill, fill");
+		add(btnBuscarTodos, "4, 16, fill, fill");
 		
 		JButton btnGerarplanilha = new JButton("GerarPlanilha");
 		btnGerarplanilha.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-planilha-50.png")));
 		btnGerarplanilha.setBackground(new Color(227, 218, 28));
-		add(btnGerarplanilha, "10, 15, 1, 3, right, fill");
-		add(tableSinistro, "2, 19, 9, 17, fill, fill");
+		add(btnGerarplanilha, "8, 16, default, fill");
+		add(tableSinistro, "2, 19, 13, 2, fill, fill");
 		tableSinistro.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"N\u00FAmeroSinistro", "Segurado", "Ve\u00EDculo", "TipoSinistro", "Data", "Situa\u00E7\u00E3o"},
+				{"Número Sinistro", "Segurado", "Veículo", "TipoSinistro", "Data", "Situação"},
 			},
 			new String[] {
-				"N\u00FAmeroSinistro", "Segurado", "Ve\u00EDculo", "TipoSinistro", "Data", "Situa\u00E7\u00E3o"
+					"Número Sinistro", "Segurado", "Veículo", "TipoSinistro", "Data", "Situação"
 			}
 		));
-		tableSinistro.getColumnModel().getColumn(0).setPreferredWidth(89);
 		
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-editar-48.png")));
 		btnEditar.setBackground(new Color(227, 218, 28));
-		add(btnEditar, "6, 38, 1, 3, fill, fill");
+		add(btnEditar, "10, 23, fill, fill");
 		
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-excluir-48.png")));
 		btnExcluir.setBackground(new Color(227, 218, 28));
-		add(btnExcluir, "10, 38, 1, 3, right, fill");
+		add(btnExcluir, "12, 23, default, fill");
+		tableSinistro.getColumnModel().getColumn(0).setPreferredWidth(89);
 
 	}
 }

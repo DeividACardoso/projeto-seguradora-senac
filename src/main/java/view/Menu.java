@@ -174,6 +174,14 @@ public class Menu {
 		mnSinistro.add(mnItemCadastroSinistro);
 
 		JMenuItem mnItemConsultarSinistro = new JMenuItem("Consultar");
+		mnItemConsultarSinistro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PainelConsultaSinistro paneConsultaSinistro = new PainelConsultaSinistro();
+				frmMenu.setContentPane(paneConsultaSinistro);
+				paneConsultaSinistro.setVisible(true);
+				frmMenu.revalidate();
+			}
+		});
 		mnItemConsultarSinistro.setIcon(
 				new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
 		mnSinistro.add(mnItemConsultarSinistro);

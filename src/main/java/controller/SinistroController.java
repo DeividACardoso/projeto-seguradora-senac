@@ -11,9 +11,9 @@ public class SinistroController {
 	
 	SinistroBO bo = new SinistroBO();
 	
-	public Sinistro inserir(Sinistro sin, Pessoa pessoa, Veiculo veiculo) {
+	public Sinistro inserir(Sinistro sinistro, Pessoa pessoa, Veiculo veiculo) {
 		// TODO Auto-generated method stub
-		return bo.inserir(sin,pessoa, veiculo);
+		return bo.inserir(sinistro, pessoa, veiculo);
 	}
 	
 	public boolean atualizar(Sinistro sinistroAlterado) {

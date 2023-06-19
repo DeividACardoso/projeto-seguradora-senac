@@ -11,9 +11,9 @@ public class SinistroBO {
 
 	SinistroDAO dao = new SinistroDAO(); 
 	
-	public Sinistro inserir(Sinistro sin, Pessoa pessoa, Veiculo veiculo) {
+	public Sinistro inserir(Sinistro sinistro, Pessoa pessoa, Veiculo veiculo) {
 		// TODO Auto-generated method stub
-		return dao.inserir(sin, pessoa, veiculo);
+		return dao.inserir(sinistro, pessoa, veiculo);
 	}
 	
 	public List<Sinistro> consultarTodos() {
