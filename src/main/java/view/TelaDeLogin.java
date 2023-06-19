@@ -9,13 +9,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaDeLogin {
 
 	private JFrame frmTitle;
 	private JTextField txtUsuario;
-	private JTextField txtSenha;
+	private JPasswordField txtSenha;
 
 	/**
 	 * Launch the application.
@@ -54,14 +57,12 @@ public class TelaDeLogin {
 		
 		txtUsuario = new JTextField();
 		txtUsuario.setForeground(new Color(192, 192, 192));
-		txtUsuario.setText("USU\u00C1RIO");
 		txtUsuario.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtUsuario.setBounds(264, 142, 199, 31);
 		frmTitle.getContentPane().add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
-		txtSenha = new JTextField();
-		txtSenha.setText("SENHA");
+		txtSenha = new JPasswordField();
 		txtSenha.setForeground(new Color(192, 192, 192));
 		txtSenha.setBackground(new Color(255, 255, 255));
 		txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -70,6 +71,17 @@ public class TelaDeLogin {
 		txtSenha.setColumns(10);
 		
 		JButton btnAcesso = new JButton("");
+		btnAcesso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+//				Menu menu = new Menu();
+//				frmMenu.setContentPane(menu);
+//				frmMenu.revalidate();
+			
+			
+			}
+		});
 		btnAcesso.setIcon(new ImageIcon(TelaDeLogin.class.getResource("/icones/icons8-login-arredondado-\u00E0-direita-64 (2).png")));
 		btnAcesso.setBounds(337, 303, 63, 60);
 		frmTitle.getContentPane().add(btnAcesso);

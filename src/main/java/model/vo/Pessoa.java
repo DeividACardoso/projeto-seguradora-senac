@@ -14,7 +14,7 @@ public class Pessoa {
 	private int telefone;
 	private Endereco endereco;
 	
-	
+	//TODO criar login e senha?
 	
 	public Pessoa(String nome, String cpf, LocalDate dataNascimento, int telefone, Endereco endereco) {
 		super();
