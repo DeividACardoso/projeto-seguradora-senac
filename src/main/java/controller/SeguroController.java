@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import model.bo.SeguroBO;
+import model.exception.CampoInvalidoException;
 import model.seletor.SeguroSeletor;
 import model.vo.Seguro;
 
@@ -20,7 +21,7 @@ public class SeguroController {
 	}
 	
 	
-	public List<Seguro> consultarComFiltros(SeguroSeletor seletor) {
+	public List<Seguro> consultarComFiltros(SeguroSeletor seletor) throws CampoInvalidoException {
 		return bo.consultarComFiltros(seletor);
 	}
 	

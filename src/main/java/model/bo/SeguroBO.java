@@ -3,6 +3,7 @@ package model.bo;
 import java.util.List;
 
 import model.dao.SeguroDAO;
+import model.exception.CampoInvalidoException;
 import model.seletor.SeguroSeletor;
 import model.vo.Seguro;
 
@@ -18,8 +19,7 @@ public class SeguroBO {
 		return dao.consultarPorId(id);
 	}
 
-	public List<Seguro> consultarComFiltros(SeguroSeletor seletor) {
-		// TODO Auto-generated method stub
+	public List<Seguro> consultarComFiltros(SeguroSeletor seletor) throws CampoInvalidoException{
 		return dao.consultarComFiltros(seletor);
 	}
 

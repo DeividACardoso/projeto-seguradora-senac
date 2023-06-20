@@ -21,6 +21,7 @@ public class Menu {
 	private JFrame frmMenu;
 	private PainelConsultaSeguro painelConsultaSeguroDF;
 	private PainelCadastroSeguro painelCadastroSeguro;
+	protected PainelConsultaSeguro painelConsultaSeguro;
 
 	/**
 	 * Launch the application.
@@ -96,82 +97,95 @@ public class Menu {
 		
 		
 		//PARTE DE SEGURO DO MENU//////////////////////////////////////////////////////////////////////////////////////////////
-		JMenu mnSeguros = new JMenu("Seguros");
-		mnSeguros.setBackground(new Color(26, 158, 230));
-		mnSeguros.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-alerta-64 (1).png")));
-		menuBar.add(mnSeguros);
+				JMenu mnSeguros = new JMenu("Seguros");
+				mnSeguros.setBackground(new Color(26, 158, 230));
+				mnSeguros.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-alerta-64 (1).png")));
+				menuBar.add(mnSeguros);
 
-		JMenuItem mnItemConsultaSeguro = new JMenuItem("Consulta");
-		mnItemConsultaSeguro.addActionListener(new ActionListener() {
+				JMenuItem mnItemConsultaSeguro = new JMenuItem("Consulta");
+				mnItemConsultaSeguro.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-				PainelConsultaSeguro painelConsultaSeguro = new PainelConsultaSeguro();
-				frmMenu.setContentPane(painelConsultaSeguro);
-				frmMenu.revalidate();
-			}
-
-			protected void registrarCliqueBotaoEditarDoPainelConsultaSeguro() {
-//				// 
-				painelConsultaSeguroDF.getBtnEditar().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//painelCadastroSeguro = new PainelCadastroSeguro(painelConsultaSeguroDF.getSeguroSelecionado());
+						painelConsultaSeguro = new PainelConsultaSeguro();
+						painelConsultaSeguro.getBtnEditar().addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								
 
+								PainelCadastroSeguro telaEdicaoSeguro = new PainelCadastroSeguro(painelConsultaSeguro.getSeguroSelecionado());
+								
+//								JOptionPane.showMessageDialog(null,
+//										"Chamar a tela de edi��o para o seguro com ID: " + seguroSelecionado.getId());
+								
+							}
+						});
+						frmMenu.setContentPane(painelConsultaSeguro);
+						frmMenu.revalidate();
+					}
+
+					protected void registrarCliqueBotaoEditarDoPainelConsultaSeguro() {
+//						// 
+						painelConsultaSeguroDF.getBtnEditar().addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								//painelCadastroSeguro = new PainelCadastroSeguro(painelConsultaSeguroDF.getSeguroSelecionado());
+
+								painelCadastroSeguro.setVisible(true);
+								registrarCliqueBotaoEditarDoPainelConsultaSeguro();
+								//Atualiza a tela principal
+								frmMenu.setContentPane(painelCadastroSeguro);
+								frmMenu.revalidate();
+							}
+						});
+					}
+			});
+				mnItemConsultaSeguro.setIcon(
+						new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
+				mnSeguros.add(mnItemConsultaSeguro);
+
+				
+				
+				JMenuItem mnItemCadastroSeguro = new JMenuItem("Cadastro");
+				mnItemCadastroSeguro.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						painelCadastroSeguro = new PainelCadastroSeguro(null);
 						painelCadastroSeguro.setVisible(true);
-						registrarCliqueBotaoEditarDoPainelConsultaSeguro();
-						//Atualiza a tela principal
+						registrarCliqueBotaoVoltarDoPainelCadastroSeguro();
+						// Atualiza a tela principal
 						frmMenu.setContentPane(painelCadastroSeguro);
 						frmMenu.revalidate();
 					}
-				});
-			}
-	});
-		mnItemConsultaSeguro.setIcon(
-				new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
-		mnSeguros.add(mnItemConsultaSeguro);
 
-		JMenuItem mnItemCadastroSeguro = new JMenuItem("Cadastro");
-		mnItemCadastroSeguro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				painelCadastroSeguro = new PainelCadastroSeguro(null);
-				painelCadastroSeguro.setVisible(true);
-				registrarCliqueBotaoVoltarDoPainelCadastroSeguro();
+					
+					
+					private void registrarCliqueBotaoVoltarDoPainelCadastroSeguro() {
+						if (painelCadastroSeguro == null) {
+							painelCadastroSeguro = new PainelCadastroSeguro(null);
+						}
+						// Registrar o evento de clique no voltar do PainelCadastroCliente
+						painelCadastroSeguro.getbtnVoltar().addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								// Lógica do clique no botão Voltar
+								// Mostra o painel de listagem de clientes
+								painelConsultaSeguroDF = new PainelConsultaSeguro();
+								painelConsultaSeguroDF.setVisible(true);
+								registrarCliqueBotaoEditarDoPainelConsultaSeguro();
+								frmMenu.setContentPane(painelConsultaSeguroDF);
+								frmMenu.revalidate();
+							}
 
-				// Atualiza a tela principal
-				frmMenu.setContentPane(painelCadastroSeguro);
-				frmMenu.revalidate();
-			}
-
-			private void registrarCliqueBotaoVoltarDoPainelCadastroSeguro() {
-				if (painelCadastroSeguro == null) {
-					painelCadastroSeguro = new PainelCadastroSeguro(null);
-				}
-				// Registrar o evento de clique no voltar do PainelCadastroCliente
-				painelCadastroSeguro.getbtnVoltar().addActionListener(new ActionListener() {
-
-					public void actionPerformed(ActionEvent e) {
-
-						// Lógica do clique no botão Voltar
-						// Mostra o painel de listagem de clientes
-						painelConsultaSeguroDF = new PainelConsultaSeguro();
-						painelConsultaSeguroDF.setVisible(true);
-						registrarCliqueBotaoEditarDoPainelConsultaSeguro();
-						frmMenu.setContentPane(painelConsultaSeguroDF);
-						frmMenu.revalidate();
-
-					}
-
-					private void registrarCliqueBotaoEditarDoPainelConsultaSeguro() {
-						// TODO Auto-generated method stub
-						
+							
+							
+							private void registrarCliqueBotaoEditarDoPainelConsultaSeguro() {
+								// TODO Auto-generated method stub
+								
+							}
+						});
 					}
 				});
-			}
-		});
 
-		mnItemCadastroSeguro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-carro-64 (1).png")));
-		mnSeguros.add(mnItemCadastroSeguro);
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				mnItemCadastroSeguro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-carro-64 (1).png")));
+				mnSeguros.add(mnItemCadastroSeguro);
+				
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		JMenu mnSinistro = new JMenu("Sinistro");
 		mnSinistro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-servi\u00E7o-de-carro-64.png")));

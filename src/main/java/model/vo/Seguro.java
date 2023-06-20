@@ -7,12 +7,12 @@ public class Seguro {
 	private Integer id;
 	//private Integer idSegurado;
 	private String nomeSegurado;
-	private int numero_proposta;
-	private LocalDate dt_inicio_vigencia;
-	private LocalDate dt_fim_vigencia;
+	private int numeroProposta;
+	private LocalDate dtInicioVigencia;
+	private LocalDate dtFimVigencia;
 	private String placaVeiculo;
-	private double rcf_danos_materiais;
-	private double rcf_danos_corporais;
+	private double rcfDanosMateriais;
+	private double rcfDanosCorporais;
 	private String franquia;
 	private String assistencia;
 	private String carroReserva;
@@ -22,18 +22,18 @@ public class Seguro {
 
 	}
 
-	public Seguro(Integer id, String nomeSegurado, int numero_proposta, LocalDate dt_inicio_vigencia,
-			LocalDate dt_fim_vigencia, String placaVeiculo, double rcf_danos_materiais, double rcf_danos_corporais,
+	public Seguro(Integer id, String nomeSegurado, int numeroProposta, LocalDate dtInicioVigencia,
+			LocalDate dtFimVigencia, String placaVeiculo, double rcfDanosMateriais, double rcfDanosCorporais,
 			String franquia, String assistencia, String carroReserva, Coberturas coberturas) {
 		super();
 		this.id = id;
 		this.nomeSegurado = nomeSegurado;
-		this.numero_proposta = numero_proposta;
-		this.dt_inicio_vigencia = dt_inicio_vigencia;
-		this.dt_fim_vigencia = dt_fim_vigencia;
+		this.numeroProposta = numeroProposta;
+		this.dtInicioVigencia = dtInicioVigencia;
+		this.dtFimVigencia = dtFimVigencia;
 		this.placaVeiculo = placaVeiculo;
-		this.rcf_danos_materiais = rcf_danos_materiais;
-		this.rcf_danos_corporais = rcf_danos_corporais;
+		this.rcfDanosMateriais = rcfDanosMateriais;
+		this.rcfDanosCorporais = rcfDanosCorporais;
 		this.franquia = franquia;
 		this.assistencia = assistencia;
 		this.carroReserva = carroReserva;
@@ -56,28 +56,28 @@ public class Seguro {
 		this.nomeSegurado = nomeSegurado;
 	}
 
-	public int getNumero_proposta() {
-		return numero_proposta;
+	public int getNumeroProposta() {
+		return numeroProposta;
 	}
 
-	public void setNumero_proposta(int numero_proposta) {
-		this.numero_proposta = numero_proposta;
+	public void setNumeroProposta(int numeroProposta) {
+		this.numeroProposta = numeroProposta;
 	}
 
-	public LocalDate getDt_inicio_vigencia() {
-		return dt_inicio_vigencia;
+	public LocalDate getDtInicioVigencia() {
+		return dtInicioVigencia;
 	}
 
-	public void setDt_inicio_vigencia(LocalDate dt_inicio_vigencia) {
-		this.dt_inicio_vigencia = dt_inicio_vigencia;
+	public void setDtInicioVigencia(LocalDate dtInicioVigencia) {
+		this.dtInicioVigencia = dtInicioVigencia;
 	}
 
-	public LocalDate getDt_fim_vigencia() {
-		return dt_fim_vigencia;
+	public LocalDate getDtFimVigencia() {
+		return dtFimVigencia;
 	}
 
-	public void setDt_fim_vigencia(LocalDate dt_fim_vigencia) {
-		this.dt_fim_vigencia = dt_fim_vigencia;
+	public void setDtFimVigencia(LocalDate dtFimVigencia) {
+		this.dtFimVigencia = dtFimVigencia;
 	}
 
 	public String getPlacaVeiculo() {
@@ -88,20 +88,20 @@ public class Seguro {
 		this.placaVeiculo = placaVeiculo;
 	}
 
-	public double getRcf_danos_materiais() {
-		return rcf_danos_materiais;
+	public double getRcfDanosMateriais() {
+		return rcfDanosMateriais;
 	}
 
-	public void setRcf_danos_materiais(double rcf_danos_materiais) {
-		this.rcf_danos_materiais = rcf_danos_materiais;
+	public void setRcfDanosMateriais(double rcfDanosMateriais) {
+		this.rcfDanosMateriais = rcfDanosMateriais;
 	}
 
-	public double getRcf_danos_corporais() {
-		return rcf_danos_corporais;
+	public double getRcfDanosCorporais() {
+		return rcfDanosCorporais;
 	}
 
-	public void setRcf_danos_corporais(double rcf_danos_corporais) {
-		this.rcf_danos_corporais = rcf_danos_corporais;
+	public void setRcfDanosCorporais(double rcfDanosCorporais) {
+		this.rcfDanosCorporais = rcfDanosCorporais;
 	}
 
 	public String getFranquia() {
@@ -135,6 +135,6 @@ public class Seguro {
 	public void setCoberturas(Coberturas coberturas) {
 		this.coberturas = coberturas;
 	}
-
+	
 	
 }
