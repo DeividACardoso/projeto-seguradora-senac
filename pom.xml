@@ -4,11 +4,11 @@
   <artifactId>projeto-seguradora-senac</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 	  
-	  <properties>
+<properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   
-   <dependencies>
+  <dependencies>
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
@@ -34,13 +34,7 @@
 		<artifactId>LGoodDatePicker</artifactId>
 		<version>10.3.1</version>
 	</dependency>
-
-	<dependency>
-		<groupId>senac-dd-2023-exemplos</groupId>
-		<artifactId>senac-dd-2023-exemplos</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</dependency>
-   </dependencies>
+  </dependencies>
 </project>
   	
   	
