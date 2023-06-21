@@ -38,7 +38,7 @@ public class PainelConsultaSinistro extends JPanel {
 				ColumnSpec.decode("31px:grow"),
 				ColumnSpec.decode("113px"),
 				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("136px:grow"),
+				ColumnSpec.decode("161px:grow"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(54dlu;default)"),
 				FormSpecs.RELATED_GAP_COLSPEC,

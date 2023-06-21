@@ -31,8 +31,8 @@ public class PainelConsultaSeguro extends JPanel {
 
 	private JTable tblListaSeguros;
 	private ArrayList<Seguro> seguros;
-	private String[] nomesColunas = { "Segurado", "Proposta", "Veículo", "VigênciaInicial ", "VigênciaFinal",
-			" RCFMaterial", "RCF-Corporais", "Franquia", "Assistência", "CarroReserva" };
+	private String[] nomesColunas = { "Segurado", "Proposta", "Veï¿½culo", "Vigï¿½nciaInicial ", "Vigï¿½nciaFinal",
+			" RCFMaterial", "RCF-Corporais", "Franquia", "Assistï¿½ncia", "CarroReserva" };
 	private JTextField txtNumeroProposta;
 	private JLabel lnlNumeroProposta;
 	private JLabel lblVigenciaInicio;
@@ -45,7 +45,7 @@ public class PainelConsultaSeguro extends JPanel {
 	private SeguroController controller = new SeguroController();
 	private Seguro seguroSelecionado;
 
-	// Atributos para a PAGINAÇÃO
+	// Atributos para a PAGINAï¿½ï¿½O
 	private final int TAMANHO_PAGINA = 5;
 	private int paginaAtual = 1;
 	private int totalPaginas = 0;
@@ -85,7 +85,7 @@ public class PainelConsultaSeguro extends JPanel {
 		setBackground(new Color(26, 158, 230));
 		setLayout(null);
 
-		lnlNumeroProposta = new JLabel("Número proposta:");
+		lnlNumeroProposta = new JLabel("Nï¿½mero proposta:");
 		lnlNumeroProposta.setForeground(new Color(255, 255, 255));
 		lnlNumeroProposta.setBackground(new Color(255, 255, 255));
 		lnlNumeroProposta.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
@@ -98,7 +98,7 @@ public class PainelConsultaSeguro extends JPanel {
 		add(txtNumeroProposta);
 		txtNumeroProposta.setColumns(10);
 
-		lblVigenciaInicio = new JLabel("Data inicío vigência. De:");
+		lblVigenciaInicio = new JLabel("Data inicï¿½o vigï¿½ncia. De:");
 		add(lblVigenciaInicio);
 		lblVigenciaInicio.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		lblVigenciaInicio.setForeground(new Color(255, 255, 255));
@@ -113,7 +113,7 @@ public class PainelConsultaSeguro extends JPanel {
 		dataVigenciaInicial.setBounds(217, 157, 324, 26);
 		this.add(dataVigenciaInicial);
 
-		lblAte = new JLabel("Até:");
+		lblAte = new JLabel("Atï¿½:");
 		lblAte.setForeground(Color.WHITE);
 		lblAte.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		lblAte.setBounds(173, 196, 47, 19);
@@ -216,7 +216,7 @@ public class PainelConsultaSeguro extends JPanel {
 		btnVoltarPagina.setBounds(295, 528, 123, 23);
 		add(btnVoltarPagina);
 
-		btnAvancarPagina = new JButton("Avançar >>");
+		btnAvancarPagina = new JButton("AvanÃ§ar >>");
 		btnAvancarPagina.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				paginaAtual++;
@@ -243,13 +243,13 @@ public class PainelConsultaSeguro extends JPanel {
 	}
 
 	private void atualizarQuantidadePaginas() {
-		// Cálculo do total de páginas (poderia ser feito no backend)
+		// Cï¿½lculo do total de pï¿½ginas (poderia ser feito no backend)
 		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);
 
-		// QUOCIENTE da divisão inteira
+		// QUOCIENTE da divisï¿½o inteira
 		totalPaginas = totalRegistros / TAMANHO_PAGINA;
 
-		// RESTO da divisão inteira
+		// RESTO da divisï¿½o inteira
 		if (totalRegistros % TAMANHO_PAGINA > 0) {
 			totalPaginas++;
 		}

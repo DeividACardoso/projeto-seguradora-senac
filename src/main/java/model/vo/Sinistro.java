@@ -8,17 +8,17 @@ public class Sinistro {
 	private Integer id;
 	private Pessoa pessoa;
 	private String numeroSinistro;
-	private String tipoSinistro;
+	private TipoSinistro tipoSinistro;
 	private Veiculo veiculo;
 	private LocalDate dataSinistro;
 	private double valorFranquia;
 	private double valorOrcado;
 	private double valorPago;
-	private int situacao;
+	private Situacao situacao;
 	private String motivo;
 	
-	public Sinistro(Pessoa pessoa, String numeroSinistro, String tipoSinistro, Veiculo veiculo,
-			LocalDate dataSinistro, double valorFranquia, double valorOrcado, double valorPago, int situacao,
+	public Sinistro(Pessoa pessoa, String numeroSinistro, TipoSinistro tipoSinistro, Veiculo veiculo,
+			LocalDate dataSinistro, double valorFranquia, double valorOrcado, double valorPago, Situacao situacao,
 			String motivo) {
 		super();
 		this.pessoa = pessoa;
@@ -61,11 +61,11 @@ public class Sinistro {
 		this.numeroSinistro = numeroSinistro;
 	}
 	
-	public String getTipoSinistro() {
+	public TipoSinistro getTipoSinistro() {
 		return tipoSinistro;
 	}
 	
-	public void setTipoSinistro(String tipoSinistro) {
+	public void setTipoSinistro(TipoSinistro tipoSinistro) {
 		this.tipoSinistro = tipoSinistro;
 	}
 	public Veiculo getVeiculo() {
@@ -108,11 +108,11 @@ public class Sinistro {
 		this.valorPago = valorPago;
 	}
 	
-	public int getSituacao() {
+	public Situacao getSituacao() {
 		return situacao;
 	}
 	
-	public void setSituacao(int situacao) {
+	public void setSituacao(Situacao situacao) {
 		this.situacao = situacao;
 	}
 	

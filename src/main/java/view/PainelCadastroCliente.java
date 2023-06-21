@@ -1,31 +1,28 @@
 package view;
 
-import javax.swing.JPanel;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
-import controller.ClienteController;
-import controller.PessoaController;
-import model.exception.CampoInvalidoException;
-import model.exception.CpfJaUtilizadoException;
-import model.vo.Pessoa;
-
-import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 
-import javax.swing.JTextField;
-import javax.swing.text.MaskFormatter;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
-import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
+
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+
+import controller.PessoaController;
+import model.exception.CampoInvalidoException;
+import model.vo.Pessoa;
 
 public class PainelCadastroCliente extends JPanel {
 	private Pessoa cliente;

@@ -1,16 +1,19 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.vo.Pessoa;
 import model.vo.Sinistro;
+import model.vo.Situacao;
 import model.vo.TipoSinistro;
 import model.vo.Veiculo;
 
@@ -28,14 +31,14 @@ public class SinistroDAO {
 		
 		try {
 			stmt.setString(1, novoSinistro.getNumeroSinistro());
-			stmt.setObject(2, novoSinistro.getTipoSinistro());		
+			stmt.setString(2, novoSinistro.getTipoSinistro().toString());		
 			stmt.setInt(3, pessoa.getId());
 			stmt.setInt(4, veiculo.getId());
-			stmt.setObject(5, novoSinistro.getDataSinistro());
+			stmt.setObject(5, validarDataParaOBanco(novoSinistro.getDataSinistro()));
 			stmt.setDouble(6, novoSinistro.getValorFranquia());
 			stmt.setDouble(7, novoSinistro.getValorOrcado());
 			stmt.setDouble(8, novoSinistro.getValorPago());
-			stmt.setInt(9, novoSinistro.getSituacao());
+			stmt.setString(9, novoSinistro.getSituacao().toString());
 			stmt.setString(10, novoSinistro.getMotivo());
 			stmt.execute();
 			
@@ -61,7 +64,7 @@ public class SinistroDAO {
 		int registrosAlterados = 0;
 		try {
 			stmt.setString(1, sinistro.getNumeroSinistro());
-			stmt.setObject(2, sinistro.getTipoSinistro());
+			stmt.setObject(2, sinistro.getTipoSinistro().toString());
 			stmt.setInt(3, sinistro.getPessoa().getId());
 			stmt.setInt(4, sinistro.getVeiculo().getId());
 			stmt.setObject(5, sinistro.getDataSinistro());
@@ -69,7 +72,7 @@ public class SinistroDAO {
 			stmt.setDouble(7, sinistro.getValorOrcado());
 			stmt.setDouble(8, sinistro.getValorPago());
 			stmt.setString(9, sinistro.getMotivo());
-			stmt.setInt(10, sinistro.getSituacao());
+			stmt.setString(10, sinistro.getSituacao().toString());
 			stmt.setInt(11, sinistro.getId());
 			registrosAlterados = stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -160,7 +163,7 @@ public class SinistroDAO {
 		sinistroBuscado.setId(resultado.getInt("id"));
 		sinistroBuscado.setNumeroSinistro(resultado.getString("numero_sinistro"));
 		String tipoSinistroDoBanco = resultado.getString("tipo_sinistro");
-		sinistroBuscado.setTipoSinistro(String.valueOf(tipoSinistroDoBanco));
+		sinistroBuscado.setTipoSinistro(TipoSinistro.valueOf(tipoSinistroDoBanco));
 		
 		int idVeiculo = resultado.getInt("idveiculo");
 		VeiculoDAO veiculoDAO = new VeiculoDAO();
@@ -172,11 +175,19 @@ public class SinistroDAO {
 		Pessoa pessoa = pessoaDAO.consultarPorId(idPessoa);
 		sinistroBuscado.setPessoa(pessoa);
 		
+		String situacaoDoBanco = resultado.getString("situacao");
+		sinistroBuscado.setSituacao(Situacao.valueOf(situacaoDoBanco));
 		sinistroBuscado.setDataSinistro((LocalDate) resultado.getObject("dt_sinistro"));
 		sinistroBuscado.setValorFranquia(resultado.getDouble("valor_franquia"));
 		sinistroBuscado.setValorOrcado(resultado.getDouble("valor_orcado"));
 		sinistroBuscado.setValorPago(resultado.getDouble("valor_pago"));
 		
 		return sinistroBuscado;
+	}
+	
+	private String validarDataParaOBanco(LocalDate data) {
+		String formatoDataSql = "yyyy-MM-dd";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatoDataSql); 
+		return formatter.format(data);
 	}
 }

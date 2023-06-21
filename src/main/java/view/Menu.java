@@ -16,6 +16,7 @@ import com.privatejgoodies.forms.layout.ColumnSpec;
 import com.privatejgoodies.forms.layout.FormLayout;
 import com.privatejgoodies.forms.layout.RowSpec;
 
+
 public class Menu {
 
 	private JFrame frmMenu;
@@ -114,7 +115,7 @@ public class Menu {
 								PainelCadastroSeguro telaEdicaoSeguro = new PainelCadastroSeguro(painelConsultaSeguro.getSeguroSelecionado());
 								
 //								JOptionPane.showMessageDialog(null,
-//										"Chamar a tela de edição para o seguro com ID: " + seguroSelecionado.getId());
+//										"Chamar a tela de ediï¿½ï¿½o para o seguro com ID: " + seguroSelecionado.getId());
 								
 							}
 						});
@@ -202,6 +203,8 @@ public class Menu {
 		});
 		mnItemCadastroSinistro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-adicionar-64.png")));
 		mnSinistro.add(mnItemCadastroSinistro);
+		
+		
 
 		JMenuItem mnItemConsultarSinistro = new JMenuItem("Consultar");
 		mnItemConsultarSinistro.addActionListener(new ActionListener() {
@@ -212,11 +215,22 @@ public class Menu {
 				frmMenu.revalidate();
 			}
 		});
+		PainelCadastroSinistro painelCadastroSinistro = new PainelCadastroSinistro();
+		painelCadastroSinistro.getBtnVoltar(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PainelConsultaSinistro painelConsultaSinistro = new PainelConsultaSinistro();
+				frmMenu.setContentPane(painelConsultaSinistro);
+				painelConsultaSinistro.setVisible(true);
+			}
+			
+		});
 		mnItemConsultarSinistro.setIcon(
 				new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
 		mnSinistro.add(mnItemConsultarSinistro);
 
-		JMenu mnRelatorios = new JMenu("RelatÃƒÂ³rios");
+		JMenu mnRelatorios = new JMenu("RelaÃ³rios");
 		mnRelatorios.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-partilhar-2-64 (1).png")));
 		menuBar.add(mnRelatorios);
 
