@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,8 +23,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
-import controller.PessoaController;
 import controller.SinistroController;
+import model.dao.PessoaDAO;
 import model.vo.Pessoa;
 import model.vo.Sinistro;
 import model.vo.Situacao;
@@ -36,16 +37,17 @@ public class PainelCadastroSinistro extends JPanel {
 	private JTextField txtValorPago;
 	private JTextField txtValorOrcado;
 	private JTextField txtMotivo;
-	private JTextField txtSegurado;
 	private JTextField txtPlaca;
 	private JButton btnSalvar;
 	private JButton btnVoltar;
 	private DatePicker dpDataInicio;
 	private JComboBox cbSituacao;
 	private List<Situacao> situacaoEnum = new ArrayList<Situacao>();
+	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	private JComboBox cbTipoSinistro;
 	private Sinistro sinistro;
 	private JLabel lblTitulo;
+	private JComboBox cbSegurado;
 	/**
 	 * Create the panel.V  
 	 */
@@ -163,9 +165,11 @@ public class PainelCadastroSinistro extends JPanel {
 		lblSegurado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblSegurado, "3, 14, right, default");
 		
-		txtSegurado = new JTextField();
-		txtSegurado.setColumns(10);
-		add(txtSegurado, "5, 14, fill, default");
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		pessoas.addAll(pessoaDAO.consultarTodos());
+		cbSegurado = new JComboBox((ComboBoxModel) pessoas);
+		cbSegurado.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		add(cbSegurado, "5, 14, fill, default");
 		
 		JLabel lblVeculo = new JLabel("Placa Ve\u00EDculo:");
 		lblVeculo.setForeground(Color.WHITE);
