@@ -23,7 +23,7 @@ public class PessoaController {
 		if(pessoa.getCpf() == null) {
 			mensagemValidacao += "Preencha o CPF \n";
 		}
-		if(pessoa.getTelefone() == 0) {
+		if(pessoa.getTelefone() == null) {
 			mensagemValidacao += "Preencha o telefone \n";
 		}
 		if(pessoa.getEndereco() == null) {
@@ -50,7 +50,7 @@ public class PessoaController {
 		if(pessoa.getCpf() == null) {
 			mensagemValidacao += "Preencha o CPF \n";
 		}
-		if(pessoa.getTelefone() == 0) {
+		if(pessoa.getTelefone() == null) {
 			mensagemValidacao += "Preencha o telefone \n";
 		}
 		if(pessoa.getEndereco() == null) {
