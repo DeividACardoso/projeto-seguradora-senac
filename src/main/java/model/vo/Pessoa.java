@@ -5,15 +5,12 @@ import java.time.LocalDate;
 import model.vo.Endereco;
 
 public class Pessoa {
-
-	
 	private Integer id;
 	private String nome;
 	private String cpf;
 	private LocalDate dataNascimento;
 	private String telefone;
 	private Endereco endereco;
-	
 	
 	public Pessoa(String nome, String cpf, LocalDate dataNascimento, String telefone, Endereco endereco) {
 		super();
