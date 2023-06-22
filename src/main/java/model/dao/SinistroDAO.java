@@ -177,7 +177,7 @@ public class SinistroDAO {
 		
 		String situacaoDoBanco = resultado.getString("situacao");
 		sinistroBuscado.setSituacao(Situacao.valueOf(situacaoDoBanco));
-		sinistroBuscado.setDataSinistro((LocalDate) resultado.getObject("dt_sinistro"));
+		sinistroBuscado.setDataSinistro(resultado.getDate("dt_sinistro").toLocalDate());
 		sinistroBuscado.setValorFranquia(resultado.getDouble("valor_franquia"));
 		sinistroBuscado.setValorOrcado(resultado.getDouble("valor_orcado"));
 		sinistroBuscado.setValorPago(resultado.getDouble("valor_pago"));
@@ -186,7 +186,7 @@ public class SinistroDAO {
 	}
 	
 	private String validarDataParaOBanco(LocalDate data) {
-		String formatoDataSql = "yyyy-MM-dd";
+		String formatoDataSql = "yyyy-MM-dd HH:mm:ss";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatoDataSql); 
 		return formatter.format(data);
 	}

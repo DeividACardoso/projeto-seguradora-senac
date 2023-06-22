@@ -1,24 +1,31 @@
 package view;
 
-import javax.swing.JPanel;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 import java.awt.Color;
-import com.jgoodies.forms.layout.FormSpecs;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import com.github.lgooddatepicker.components.DatePickerSettings;
-import com.github.lgooddatepicker.components.DatePicker;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.table.DefaultTableModel;
+
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+
+import controller.SinistroController;
+import model.vo.Sinistro;
 
 public class PainelConsultaSinistro extends JPanel {
 	private JTextField txtNumero;
@@ -26,8 +33,37 @@ public class PainelConsultaSinistro extends JPanel {
 	private DatePickerSettings dateSettings;
 	private DatePicker dataInicio;
 	private DatePicker dataFim;
+	private SinistroController controller = new SinistroController();
+	private List<Sinistro> sinistros = new ArrayList();
+	private String[] nomeColunas = {"ID", "Número Sinistro", "Segurado", "Veículo", "TipoSinistro", "Data", "Situação"};
 	private final JTable tableSinistro = new JTable();
+	private JButton btnEditar;
 
+	private void limparTabela() {
+		tableSinistro.setModel(new DefaultTableModel(new Object[][] {nomeColunas, }, nomeColunas));
+	}
+	private void atualizarTabela() {
+		this.limparTabela();
+		
+		DefaultTableModel model = (DefaultTableModel) tableSinistro.getModel();
+		
+		for(Sinistro s : this.sinistros) {
+			Object[] novaLinhaDaTabela = new Object[10];
+			novaLinhaDaTabela[0] = s.getId();
+			novaLinhaDaTabela[1] = s.getNumeroSinistro();
+			novaLinhaDaTabela[2] = s.getPessoa();
+			novaLinhaDaTabela[3] = s.getVeiculo();
+			novaLinhaDaTabela[4] = s.getTipoSinistro();
+			novaLinhaDaTabela[5] = s.getDataSinistro();
+			novaLinhaDaTabela[6] = s.getSituacao();
+			
+			model.addRow(novaLinhaDaTabela);
+		}
+	}
+	private void buscarSinistros() {
+		this.sinistros = controller.consultarTodos();
+		this.atualizarTabela();
+	}
 	/**
 	 * Create the panel.
 	 */
@@ -127,7 +163,7 @@ public class PainelConsultaSinistro extends JPanel {
 			}
 		});
 		
-		JLabel lblSitucao = new JLabel("Situa\u00E7\u00E3o:");
+		JLabel lblSitucao = new JLabel("Situação:");
 		lblSitucao.setForeground(Color.WHITE);
 		lblSitucao.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblSitucao, "2, 13, right, center");
@@ -143,16 +179,14 @@ public class PainelConsultaSinistro extends JPanel {
 		btnGerarplanilha.setBackground(new Color(227, 218, 28));
 		add(btnGerarplanilha, "8, 16, default, fill");
 		add(tableSinistro, "2, 19, 13, 2, fill, fill");
-		tableSinistro.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"Número Sinistro", "Segurado", "Veículo", "TipoSinistro", "Data", "Situação"},
-			},
-			new String[] {
-					"Número Sinistro", "Segurado", "Veículo", "TipoSinistro", "Data", "Situação"
-			}
-		));
 		
-		JButton btnEditar = new JButton("Editar");
+		
+		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnEditar.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-editar-48.png")));
 		btnEditar.setBackground(new Color(227, 218, 28));
 		add(btnEditar, "10, 23, fill, fill");
@@ -161,7 +195,10 @@ public class PainelConsultaSinistro extends JPanel {
 		btnExcluir.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-excluir-48.png")));
 		btnExcluir.setBackground(new Color(227, 218, 28));
 		add(btnExcluir, "12, 23, default, fill");
-		tableSinistro.getColumnModel().getColumn(0).setPreferredWidth(89);
-
+		buscarSinistros();
+		
+	}
+	public JButton getBtnEditar() {
+		return this.btnEditar;
 	}
 }

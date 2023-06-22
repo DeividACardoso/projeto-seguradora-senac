@@ -3,14 +3,12 @@ package executavel;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import javax.swing.JOptionPane;
-
-import controller.SeguroController;
 import controller.SinistroController;
 import model.dao.PessoaDAO;
 import model.dao.VeiculoDAO;
+import model.exception.PessoaInvalidaException;
+import model.exception.VeiculoInvalidaException;
 import model.vo.Pessoa;
-import model.vo.Seguro;
 import model.vo.Sinistro;
 import model.vo.Situacao;
 import model.vo.TipoSinistro;
@@ -45,15 +43,22 @@ public class Executavel {
 
 		
 		//TESTE SINISTRO INSERT E CONSULTA
-		PessoaDAO pessoaDAO = new PessoaDAO();
-		Pessoa pessoa1 = pessoaDAO.consultarPorId(2);
 		
-		VeiculoDAO veiculoDAO = new VeiculoDAO();
-		Veiculo veiculo1 = veiculoDAO.consultarPorId(1);
-		
+//		PessoaDAO pessoaDAO = new PessoaDAO();
+//		Pessoa pessoa1 = pessoaDAO.consultarPorId(8);
+//		
+//		VeiculoDAO veiculoDAO = new VeiculoDAO();
+//		Veiculo veiculo1 = veiculoDAO.consultarPorId(7);
+//		
 		SinistroController sinCon= new SinistroController();
-		Sinistro sin1 = new Sinistro(pessoa1, "1", TipoSinistro.CAUSAS_NATURAIS, veiculo1, null, 1533.0, 1322.0, 3555.0, Situacao.CONCLUIDO, "Bateu");
-		sinCon.inserir(sin1, pessoa1, veiculo1);
-		System.out.println(sinCon.consultarTodos());
+		sinCon.consultarTodos();
+//		Sinistro sin1 = new Sinistro(pessoa1, "1", TipoSinistro.CAUSAS_NATURAIS, veiculo1, null, 1533.0, 1322.0, 3555.0, Situacao.CONCLUIDO, "Bateu");
+//		try {
+//			sinCon.inserir(sin1, pessoa1, veiculo1);
+//		} catch (PessoaInvalidaException | VeiculoInvalidaException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		System.out.println(sinCon.consultarTodos());
 	}
 }

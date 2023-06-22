@@ -3,6 +3,8 @@ package model.bo;
 import java.util.List;
 
 import model.dao.SinistroDAO;
+import model.exception.PessoaInvalidaException;
+import model.exception.VeiculoInvalidaException;
 import model.vo.Pessoa;
 import model.vo.Sinistro;
 import model.vo.Veiculo;
@@ -11,8 +13,13 @@ public class SinistroBO {
 
 	SinistroDAO dao = new SinistroDAO(); 
 	
-	public Sinistro inserir(Sinistro sinistro, Pessoa pessoa, Veiculo veiculo) {
-		// TODO Auto-generated method stub
+	public Sinistro inserir(Sinistro sinistro, Pessoa pessoa, Veiculo veiculo) throws PessoaInvalidaException, VeiculoInvalidaException {
+		if(pessoa == null) {
+			throw new PessoaInvalidaException("Campo de Segurado deve ser Preenchido!");
+		}
+		if(veiculo == null) {
+			throw new VeiculoInvalidaException("Campo de veículo deve ser Preenchido!");
+		}
 		return dao.inserir(sinistro, pessoa, veiculo);
 	}
 	

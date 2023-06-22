@@ -3,6 +3,8 @@ package controller;
 import java.util.List;
 
 import model.bo.SinistroBO;
+import model.exception.PessoaInvalidaException;
+import model.exception.VeiculoInvalidaException;
 import model.vo.Pessoa;
 import model.vo.Sinistro;
 import model.vo.Veiculo;
@@ -11,7 +13,7 @@ public class SinistroController {
 	
 	SinistroBO bo = new SinistroBO();
 	
-	public Sinistro inserir(Sinistro sinistro, Pessoa pessoa, Veiculo veiculo) {
+	public Sinistro inserir(Sinistro sinistro, Pessoa pessoa, Veiculo veiculo) throws PessoaInvalidaException, VeiculoInvalidaException {
 		// TODO Auto-generated method stub
 		return bo.inserir(sinistro, pessoa, veiculo);
 	}
