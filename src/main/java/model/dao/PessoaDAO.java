@@ -22,7 +22,7 @@ public class PessoaDAO {
 			stmt.setString(1, novaPessoa.getNome());
 			stmt.setString(2, novaPessoa.getCpf());
 			stmt.setDate(3, java.sql.Date.valueOf(novaPessoa.getDataNascimento()));
-			stmt.setInt(4, novaPessoa.getTelefone());
+			stmt.setString(4, novaPessoa.getTelefone());
 			stmt.setInt(5, novaPessoa.getEndereco().getId());		
 			stmt.execute();
 			
@@ -50,7 +50,7 @@ public class PessoaDAO {
 			stmt.setString(1, pessoa.getNome());
 			stmt.setString(2, pessoa.getCpf());
 			stmt.setDate(3, java.sql.Date.valueOf(pessoa.getDataNascimento()));
-			stmt.setInt(4, pessoa.getTelefone());
+			stmt.setString(4, pessoa.getTelefone());
 			stmt.setInt(5, pessoa.getEndereco().getId());
 			stmt.setInt(6, pessoa.getId());
 			registrosAlterados = stmt.executeUpdate();
@@ -143,7 +143,7 @@ public class PessoaDAO {
 		pessoaBuscada.setNome(resultado.getString("nome"));
 		pessoaBuscada.setCpf(resultado.getString("cpf"));
 		//pessoaBuscada.setData_nascimento(resultado.getDate("data_nascimento"));
-		pessoaBuscada.setTelefone(resultado.getInt("telefone"));
+		pessoaBuscada.setTelefone(resultado.getString("telefone"));
 		
 		int idEnderecoDaPessoa = resultado.getInt("id_endereco");
 		EnderecoDAO enderecoDAO = new EnderecoDAO();

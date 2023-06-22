@@ -11,12 +11,11 @@ public class Pessoa {
 	private String nome;
 	private String cpf;
 	private LocalDate dataNascimento;
-	private int telefone;
+	private String telefone;
 	private Endereco endereco;
 	
-	//TODO criar login e senha?
 	
-	public Pessoa(String nome, String cpf, LocalDate dataNascimento, int telefone, Endereco endereco) {
+	public Pessoa(String nome, String cpf, LocalDate dataNascimento, String telefone, Endereco endereco) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
@@ -25,7 +24,7 @@ public class Pessoa {
 		this.endereco = endereco;
 	}
 
-	public Pessoa(Integer id, String nome, String cpf, LocalDate dataNascimento, int telefone, Endereco endereco) {
+	public Pessoa(Integer id, String nome, String cpf, LocalDate dataNascimento, String telefone, Endereco endereco) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -71,11 +70,11 @@ public class Pessoa {
 		this.dataNascimento = dataNascimento;
 	}
 	
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 	
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	

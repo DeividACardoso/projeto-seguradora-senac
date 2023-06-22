@@ -243,7 +243,7 @@ public class Menu {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
-				JOptionPane.showMessageDialog(null, "Seguradora");
+				JOptionPane.showMessageDialog(null, "LDF Corretora de Seguros");
 			}
 		});
 		mnSobre.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-sobre-64.png")));
