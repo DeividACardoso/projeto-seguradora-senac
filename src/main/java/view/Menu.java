@@ -205,8 +205,10 @@ public class Menu {
 						frmMenu.setContentPane(painelConsultaSinistro);
 						frmMenu.revalidate();
 						painelConsultaSinistro.setVisible(true);
+						frmMenu.revalidate();
 					}
 				});
+				
 			}
 		});
 		mnItemCadastroSinistro.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-adicionar-64.png")));
@@ -219,6 +221,18 @@ public class Menu {
 				frmMenu.setContentPane(paneConsultaSinistro);
 				paneConsultaSinistro.setVisible(true);
 				frmMenu.revalidate();
+				
+				paneConsultaSinistro.getBtnEditar().addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						PainelCadastroSinistro painelCadastroSinistroParaEditar = new PainelCadastroSinistro(null);
+						frmMenu.setContentPane(painelCadastroSinistroParaEditar);
+						painelCadastroSinistroParaEditar.setVisible(true);
+						frmMenu.revalidate();
+					}
+					
+				});
 			}
 		});
 		

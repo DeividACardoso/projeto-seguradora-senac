@@ -22,7 +22,7 @@ public class SinistroDAO {
 	VeiculoDAO veiculoDAO = new VeiculoDAO();
 	PessoaDAO pessoaDAO = new PessoaDAO();
 	
-	public Sinistro inserir(Sinistro novoSinistro, Pessoa pessoa, Veiculo veiculo) {
+	public Sinistro inserir(Sinistro novoSinistro) {
 		Connection conn = Banco.getConnection();
 		String sql = " INSERT INTO SINISTRO(NUMERO_SINISTRO, TIPO_SINISTRO, IDPESSOA, IDVEICULO, DT_SINISTRO,"
 				+ " VALOR_FRANQUIA, VALOR_ORCADO, VALOR_PAGO, SITUACAO, MOTIVO ) "
@@ -32,8 +32,8 @@ public class SinistroDAO {
 		try {
 			stmt.setString(1, novoSinistro.getNumeroSinistro());
 			stmt.setString(2, novoSinistro.getTipoSinistro().toString());		
-			stmt.setInt(3, pessoa.getId());
-			stmt.setInt(4, veiculo.getId());
+			stmt.setInt(3, novoSinistro.getPessoa().getId());
+			stmt.setInt(4, novoSinistro.getVeiculo().getId());
 			stmt.setObject(5, validarDataParaOBanco(novoSinistro.getDataSinistro()));
 			stmt.setDouble(6, novoSinistro.getValorFranquia());
 			stmt.setDouble(7, novoSinistro.getValorOrcado());
@@ -186,7 +186,7 @@ public class SinistroDAO {
 	}
 	
 	private String validarDataParaOBanco(LocalDate data) {
-		String formatoDataSql = "yyyy-MM-dd HH:mm:ss";
+		String formatoDataSql = "yyyy-MM-dd";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatoDataSql); 
 		return formatter.format(data);
 	}

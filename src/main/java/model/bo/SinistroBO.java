@@ -13,14 +13,14 @@ public class SinistroBO {
 
 	SinistroDAO dao = new SinistroDAO(); 
 	
-	public Sinistro inserir(Sinistro sinistro, Pessoa pessoa, Veiculo veiculo) throws PessoaInvalidaException, VeiculoInvalidaException {
-		if(pessoa == null) {
+	public Sinistro inserir(Sinistro sinistro) throws PessoaInvalidaException, VeiculoInvalidaException {
+		if(sinistro.getPessoa() == null) {
 			throw new PessoaInvalidaException("Campo de Segurado deve ser Preenchido!");
 		}
-		if(veiculo == null) {
+		if(sinistro.getVeiculo() == null) {
 			throw new VeiculoInvalidaException("Campo de veículo deve ser Preenchido!");
 		}
-		return dao.inserir(sinistro, pessoa, veiculo);
+		return dao.inserir(sinistro);
 	}
 	
 	public List<Sinistro> consultarTodos() {

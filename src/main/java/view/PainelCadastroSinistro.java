@@ -7,12 +7,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -25,10 +25,14 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import controller.SinistroController;
 import model.dao.PessoaDAO;
+import model.dao.VeiculoDAO;
+import model.exception.PessoaInvalidaException;
+import model.exception.VeiculoInvalidaException;
 import model.vo.Pessoa;
 import model.vo.Sinistro;
 import model.vo.Situacao;
 import model.vo.TipoSinistro;
+import model.vo.Veiculo;
 
 public class PainelCadastroSinistro extends JPanel {
 	private JTextField txtNumeroSinistro;
@@ -37,17 +41,18 @@ public class PainelCadastroSinistro extends JPanel {
 	private JTextField txtValorPago;
 	private JTextField txtValorOrcado;
 	private JTextField txtMotivo;
-	private JTextField txtPlaca;
 	private JButton btnSalvar;
 	private JButton btnVoltar;
-	private DatePicker dpDataInicio;
+	private DatePicker dpData;
 	private JComboBox cbSituacao;
 	private List<Situacao> situacaoEnum = new ArrayList<Situacao>();
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
+	private List<Veiculo> veiculos = new ArrayList<Veiculo>();
 	private JComboBox cbTipoSinistro;
 	private Sinistro sinistro;
 	private JLabel lblTitulo;
 	private JComboBox cbSegurado;
+	private JComboBox cbVeiculo;
 	/**
 	 * Create the panel.V  
 	 */
@@ -167,26 +172,28 @@ public class PainelCadastroSinistro extends JPanel {
 		
 		PessoaDAO pessoaDAO = new PessoaDAO();
 		pessoas.addAll(pessoaDAO.consultarTodos());
-		cbSegurado = new JComboBox((ComboBoxModel) pessoas);
+		cbSegurado = new JComboBox(pessoas.toArray());
 		cbSegurado.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		add(cbSegurado, "5, 14, fill, default");
 		
-		JLabel lblVeculo = new JLabel("Placa Ve\u00EDculo:");
+		JLabel lblVeculo = new JLabel("Placa Veículo:");
 		lblVeculo.setForeground(Color.WHITE);
 		lblVeculo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblVeculo, "8, 14, right, default");
 		
-		txtPlaca = new JTextField();
-		txtPlaca.setColumns(10);
-		add(txtPlaca, "10, 14, fill, default");
+		VeiculoDAO veiculoDAO = new VeiculoDAO();
+		veiculos.addAll(veiculoDAO.consultarTodos());
+		cbVeiculo = new JComboBox(veiculos.toArray());
+		cbVeiculo.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		add(cbVeiculo, "10, 14, fill, default");
 		
 		JLabel lblData = new JLabel("Data Sinistro:");
 		lblData.setForeground(Color.WHITE);
 		lblData.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblData, "3, 17, right, default");
 		
-		dpDataInicio = new DatePicker();
-		add(dpDataInicio, "5, 17, fill, fill");
+		dpData= new DatePicker();
+		add(dpData, "5, 17, fill, fill");
 		
 		JLabel lblValorPago = new JLabel("Valor Pago:");
 		lblValorPago.setForeground(Color.WHITE);
@@ -233,10 +240,22 @@ public class PainelCadastroSinistro extends JPanel {
 				Sinistro sin = new Sinistro();
 				sin.setNumeroSinistro(txtNumeroSinistro.getText());
 				sin.setTipoSinistro((TipoSinistro) cbTipoSinistro.getSelectedItem());
-				//TODO Segurado, Veiculo
-				sin.setDataSinistro(dpDataInicio.getDate());
+				sin.setPessoa((Pessoa) cbSegurado.getSelectedItem());
+				sin.setVeiculo((Veiculo) cbVeiculo.getSelectedItem());
+				sin.setDataSinistro(dpData.getDate());
 				sin.setMotivo(txtMotivo.getText());
 				sin.setSituacao((Situacao) cbSituacao.getSelectedItem());
+				sin.setValorFranquia(Double.parseDouble(txtValorFranquia.getText()));
+				sin.setValorOrcado(Double.parseDouble(txtValorOrcado.getText()));
+				sin.setValorPago(Double.parseDouble(txtValorPago.getText()));
+				try {
+					sinController.inserir(sin);
+					JOptionPane.showMessageDialog(null, "Sinistro salvo com sucesso!", 
+							"Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+				} catch (PessoaInvalidaException | VeiculoInvalidaException excecao) {
+					JOptionPane.showMessageDialog(null, excecao.getMessage(),
+							"Erro", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnSalvar.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-salvar-50.png")));
@@ -257,6 +276,24 @@ public class PainelCadastroSinistro extends JPanel {
 		btnVoltar.setBackground(new Color(231, 200, 24));
 		add(btnVoltar, "10, 26");
 		
+		
+		if(this.sinistro.getId() != null) {
+			preencherCamposDaTela();
+			txtNumeroSinistro.setEditable(false);
+			dpData.setEnabled(false);
+			cbVeiculo.setEnabled(false);
+		}
+	}
+	private void preencherCamposDaTela() {
+		this.txtNumeroSinistro.setText(this.sinistro.getNumeroSinistro());
+		this.cbTipoSinistro.setSelectedItem(this.sinistro.getTipoSinistro());
+		this.dpData.setText(this.sinistro.getDataSinistro().toString());
+		this.txtValorFranquia.setText(String.valueOf(this.sinistro.getValorFranquia()));
+		this.txtValorOrcado.setText(String.valueOf(this.sinistro.getValorOrcado()));
+		this.txtValorPago.setText(String.valueOf(this.sinistro.getValorPago()));
+		this.cbSituacao.setSelectedItem(this.sinistro.getSituacao());
+		this.txtMotivo.setText(this.sinistro.getMotivo());
+		this.cbVeiculo.setSelectedItem(this.sinistro.getVeiculo());
 	}
 	public JButton getBtnVoltar() {
 		return btnVoltar;

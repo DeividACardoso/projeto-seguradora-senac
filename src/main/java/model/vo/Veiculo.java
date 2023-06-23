@@ -50,5 +50,11 @@ public class Veiculo {
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
+
+	@Override
+	public String toString() {
+		return "Veiculo [id=" + id + ", idSeguro=" + idSeguro + ", placaVeiculo=" + placaVeiculo + ", modelo=" + modelo
+				+ "]";
+	}
 	
 }

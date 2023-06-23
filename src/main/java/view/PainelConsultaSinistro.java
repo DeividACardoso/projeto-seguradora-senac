@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,9 @@ public class PainelConsultaSinistro extends JPanel {
 	private String[] nomeColunas = {"ID", "Número Sinistro", "Segurado", "Veículo", "TipoSinistro", "Data", "Situação"};
 	private final JTable tableSinistro = new JTable();
 	private JButton btnEditar;
+	private JButton btnExcluir;
+	private Sinistro sinistroSelecionado;
+	private PainelConsultaSinistro painelConsultaSinistro;
 
 	private void limparTabela() {
 		tableSinistro.setModel(new DefaultTableModel(new Object[][] {nomeColunas, }, nomeColunas));
@@ -120,7 +125,7 @@ public class PainelConsultaSinistro extends JPanel {
 		lblNewLabel.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-lupa-48.png")));
 		add(lblNewLabel, "2, 2, 13, 1");
 		
-		JLabel lblNumeroSinistro = new JLabel("N\u00FAmero Sinistro:");
+		JLabel lblNumeroSinistro = new JLabel("Número Sinistro:");
 		lblNumeroSinistro.setForeground(new Color(255, 255, 255));
 		lblNumeroSinistro.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblNumeroSinistro, "2, 4, right, top");
@@ -179,6 +184,22 @@ public class PainelConsultaSinistro extends JPanel {
 		btnGerarplanilha.setBackground(new Color(227, 218, 28));
 		add(btnGerarplanilha, "8, 16, default, fill");
 		add(tableSinistro, "2, 19, 13, 2, fill, fill");
+		tableSinistro.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int indiceSelecionado = tableSinistro.getSelectedRow();
+
+				if (indiceSelecionado > 0) {
+					btnEditar.setEnabled(true);
+					btnExcluir.setEnabled(true);
+					sinistroSelecionado = sinistros.get(indiceSelecionado - 1);
+				} else {
+					btnEditar.setEnabled(false);
+					btnExcluir.setEnabled(false);
+				}
+			}
+		});
 		
 		
 		btnEditar = new JButton("Editar");
@@ -191,7 +212,7 @@ public class PainelConsultaSinistro extends JPanel {
 		btnEditar.setBackground(new Color(227, 218, 28));
 		add(btnEditar, "10, 23, fill, fill");
 		
-		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir = new JButton("Excluir");
 		btnExcluir.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-excluir-48.png")));
 		btnExcluir.setBackground(new Color(227, 218, 28));
 		add(btnExcluir, "12, 23, default, fill");
@@ -201,4 +222,8 @@ public class PainelConsultaSinistro extends JPanel {
 	public JButton getBtnEditar() {
 		return this.btnEditar;
 	}
+	public Sinistro getSinistroSelecionado() {
+		return sinistroSelecionado;
+	}
+	
 }
