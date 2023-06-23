@@ -5,12 +5,17 @@ import java.time.LocalDate;
 public class SeguroSeletor extends BaseSeletor {
 
 	private String nomeSegurado;
-	private int numero_Proposta;
-	private LocalDate dt_Inicio_Vigencia;
-	private LocalDate dt_Fim_Vigencia;
+	private int numeroProposta;
+	
+	private LocalDate primeiraDataInicioVigencia;
+	private LocalDate ultimaDataInicioVigencia;
+	
+	private LocalDate primeiraDataFimVigencia;
+	private LocalDate ultimaDataFimVigencia;
+	
 	private String placaVeiculo;
-	private double rcf_Danos_Materiais;
-	private double rcf_Danos_Corporais;
+	private double rcfDanosMateriais;
+	private double rcfDanosCorporais;
 	private String franquia;
 	private String assistencia;
 	private int carroReserva;
@@ -18,12 +23,14 @@ public class SeguroSeletor extends BaseSeletor {
 	@Override
 	public boolean temFiltro() {
 		return (this.nomeSegurado != null && this.nomeSegurado.trim().length() > 0)
-	            || (this.numero_Proposta != 0 && this.numero_Proposta > 0)
+	            || (this.numeroProposta != 0 && this.numeroProposta > 0)
 	            || (this.placaVeiculo != null && this.placaVeiculo.trim().length() > 0)
-	            || (this.dt_Inicio_Vigencia != null)
-	            || (this.dt_Fim_Vigencia != null)
-	            || (this.rcf_Danos_Materiais != 0)
-	            || (this.rcf_Danos_Corporais != 0)
+	            || (this.primeiraDataInicioVigencia != null)
+	            || (this.ultimaDataInicioVigencia != null)
+	            || (this.primeiraDataFimVigencia != null)
+	            || (this.ultimaDataFimVigencia != null)
+	            || (this.rcfDanosMateriais != 0)
+	            || (this.rcfDanosCorporais != 0)
 	            || (this.franquia != null && this.franquia.trim().length() > 0)
 	            || (this.assistencia != null && this.assistencia.trim().length() > 0)
 	            || (this.carroReserva != 0 && String.valueOf(this.carroReserva).trim().length() > 0);
@@ -37,28 +44,12 @@ public class SeguroSeletor extends BaseSeletor {
 		this.nomeSegurado = nomeSegurado;
 	}
 
-	public int getNumero_proposta() {
-		return numero_Proposta;
+	public int getNumeroProposta() {
+		return numeroProposta;
 	}
 
-	public void setNumero_proposta(int numero_proposta) {
-		this.numero_Proposta = numero_proposta;
-	}
-
-	public LocalDate getDt_inicio_vigencia() {
-		return dt_Inicio_Vigencia;
-	}
-
-	public void setDt_inicio_vigencia(LocalDate dt_inicio_vigencia) {
-		this.dt_Inicio_Vigencia = dt_inicio_vigencia;
-	}
-
-	public LocalDate getDt_fim_vigencia() {
-		return dt_Fim_Vigencia;
-	}
-
-	public void setDt_fim_vigencia(LocalDate dt_fim_vigencia) {
-		this.dt_Fim_Vigencia = dt_fim_vigencia;
+	public void setNumeroProposta(int numeroProposta) {
+		this.numeroProposta = numeroProposta;
 	}
 
 	public String getPlacaVeiculo() {
@@ -69,20 +60,20 @@ public class SeguroSeletor extends BaseSeletor {
 		this.placaVeiculo = placaVeiculo;
 	}
 
-	public double getRcf_danos_materiais() {
-		return rcf_Danos_Materiais;
+	public double getRcfDanosMateriais() {
+		return rcfDanosMateriais;
 	}
 
-	public void setRcf_danos_materiais(double rcf_danos_materiais) {
-		this.rcf_Danos_Materiais = rcf_danos_materiais;
+	public void setRcfDanosMateriais(double rcfDanosMateriais) {
+		this.rcfDanosMateriais = rcfDanosMateriais;
 	}
 
-	public double getRcf_danos_corporais() {
-		return rcf_Danos_Corporais;
+	public double getRcfDanosCorporais() {
+		return rcfDanosCorporais;
 	}
 
-	public void setRcf_danos_corporais(double rcf_danos_corporais) {
-		this.rcf_Danos_Corporais = rcf_danos_corporais;
+	public void setRcfDanosCorporais(double rcfDanosCorporais) {
+		this.rcfDanosCorporais = rcfDanosCorporais;
 	}
 
 	public String getFranquia() {
@@ -109,4 +100,37 @@ public class SeguroSeletor extends BaseSeletor {
 		this.carroReserva = carroReserva;
 	}
 
+	public LocalDate getPrimeiraDataInicioVigencia() {
+		return primeiraDataInicioVigencia;
+	}
+
+	public void setPrimeiraDataInicioVigencia(LocalDate primeiraDataInicioVigencia) {
+		this.primeiraDataInicioVigencia = primeiraDataInicioVigencia;
+	}
+
+	public LocalDate getUltimaDataInicioVigencia() {
+		return ultimaDataInicioVigencia;
+	}
+
+	public void setUltimaDataInicioVigencia(LocalDate ultimaDataInicioVigencia) {
+		this.ultimaDataInicioVigencia = ultimaDataInicioVigencia;
+	}
+
+	public LocalDate getPrimeiraDataFimVigencia() {
+		return primeiraDataFimVigencia;
+	}
+
+	public void setPrimeiraDataFimVigencia(LocalDate primeiraDataFimVigencia) {
+		this.primeiraDataFimVigencia = primeiraDataFimVigencia;
+	}
+
+	public LocalDate getUltimaDataFimVigencia() {
+		return ultimaDataFimVigencia;
+	}
+
+	public void setUltimaDataFimVigencia(LocalDate ultimaDataFimVigencia) {
+		this.ultimaDataFimVigencia = ultimaDataFimVigencia;
+	}
+
+	
 }

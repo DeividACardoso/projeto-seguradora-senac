@@ -235,45 +235,78 @@ public class SeguroDAO {
 			primeiro = false;
 		}
 
-		if (seletor.getNumero_proposta() != 0 && !String.valueOf(seletor.getNumero_proposta()).trim().isEmpty()) {
+		if (seletor.getNumeroProposta() != 0 && !String.valueOf(seletor.getNumeroProposta()).trim().isEmpty()) {
 			if (primeiro) {
 				sql += " WHERE ";
 			} else {
 				sql += " AND ";
 			}
-			sql += " numero_proposta LIKE '%" + seletor.getNumero_proposta() + "%'";
+			sql += " numero_proposta LIKE '%" + seletor.getNumeroProposta() + "%'";
 			primeiro = false;
 		}
 
-		if (seletor.getDt_inicio_vigencia() != null && seletor.getDt_inicio_vigencia() != null) {
+		if (seletor.getPrimeiraDataInicioVigencia() != null && seletor.getPrimeiraDataFimVigencia() != null) {
 			if (primeiro) {
 				sql += " WHERE ";
 			} else {
 				sql += " AND ";
 			}
-			sql += " DT_INICIO_VIGENCIA BETWEEN '" + seletor.getDt_inicio_vigencia() + "' " + " AND '"
-					+ seletor.getDt_inicio_vigencia() + "' ";
+			sql += " DT_INICIO_VIGENCIA BETWEEN '" + seletor.getPrimeiraDataInicioVigencia() + "' " + " AND '"
+					+ seletor.getPrimeiraDataFimVigencia() + "' ";
 			primeiro = false;
 		} else {
-			if (seletor.getDt_inicio_vigencia() != null) {
+			if (seletor.getPrimeiraDataInicioVigencia() != null) {
 				if (primeiro) {
 					sql += " WHERE ";
 				} else {
 					sql += " AND ";
 				}
 				// CLIENTES QUE NASCERAM 'A PARTIR' DA DATA INICIAL
-				sql += " DT_INICIO_VIGENCIA >= '" + seletor.getDt_inicio_vigencia() + "' ";
+				sql += " DT_INICIO_VIGENCIA >= '" + seletor.getPrimeiraDataInicioVigencia() + "' ";
 				primeiro = false;
 			}
 
-			if (seletor.getDt_fim_vigencia() != null) {
+			if (seletor.getPrimeiraDataFimVigencia() != null) {
 				if (primeiro) {
 					sql += " WHERE ";
 				} else {
 					sql += " AND ";
 				}
 				// CLIENTES QUE NASCERAM 'ATÉ' A DATA FINAL
-				sql += " DT_FIM_VIGENCIA <= '" + seletor.getDt_fim_vigencia() + "' ";
+				sql += " DT_INCIO_VIGENCIA <= '" + seletor.getPrimeiraDataFimVigencia() + "' ";
+				primeiro = false;
+			}
+		}
+		
+		if (seletor.getPrimeiraDataFimVigencia() != null && seletor.getUltimaDataFimVigencia() != null) {
+			if (primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			sql += " DT_FIM_VIGENCIA BETWEEN '" + seletor.getPrimeiraDataFimVigencia() + "' " + " AND '"
+					+ seletor.getUltimaDataFimVigencia() + "' ";
+			primeiro = false;
+		} else {
+			if (seletor.getPrimeiraDataFimVigencia() != null) {
+				if (primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				// CLIENTES QUE NASCERAM 'A PARTIR' DA DATA INICIAL
+				sql += " DT_FIM_VIGENCIA >= '" + seletor.getPrimeiraDataFimVigencia() + "' ";
+				primeiro = false;
+			}
+
+			if (seletor.getUltimaDataFimVigencia() != null) {
+				if (primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				// CLIENTES QUE NASCERAM 'ATÉ' A DATA FINAL
+				sql += " DT_FIM_VIGENCIA <= '" + seletor.getUltimaDataFimVigencia() + "' ";
 				primeiro = false;
 			}
 		}

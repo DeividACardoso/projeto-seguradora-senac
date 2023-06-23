@@ -5,7 +5,8 @@ import java.time.LocalDate;
 public class Seguro {
 
 	private Integer id;
-	//private Integer idSegurado;
+	private Integer idSegurado;
+	
 	private String nomeSegurado;
 	private int numeroProposta;
 	private LocalDate dtInicioVigencia;
@@ -16,7 +17,7 @@ public class Seguro {
 	private String franquia;
 	private String assistencia;
 	private String carroReserva;
-	private Coberturas coberturas;
+	
 
 	public Seguro() {
 
@@ -24,7 +25,7 @@ public class Seguro {
 
 	public Seguro(Integer id, String nomeSegurado, int numeroProposta, LocalDate dtInicioVigencia,
 			LocalDate dtFimVigencia, String placaVeiculo, double rcfDanosMateriais, double rcfDanosCorporais,
-			String franquia, String assistencia, String carroReserva, Coberturas coberturas) {
+			String franquia, String assistencia, String carroReserva) {
 		super();
 		this.id = id;
 		this.nomeSegurado = nomeSegurado;
@@ -37,7 +38,7 @@ public class Seguro {
 		this.franquia = franquia;
 		this.assistencia = assistencia;
 		this.carroReserva = carroReserva;
-		this.coberturas = coberturas;
+		
 	}
 
 	public Integer getId() {
@@ -128,13 +129,12 @@ public class Seguro {
 		this.carroReserva = carroReserva;
 	}
 
-	public Coberturas getCoberturas() {
-		return coberturas;
+	public Integer getIdSegurado() {
+		return idSegurado;
 	}
 
-	public void setCoberturas(Coberturas coberturas) {
-		this.coberturas = coberturas;
+	public void setIdSegurado(Integer idSegurado) {
+		this.idSegurado = idSegurado;
 	}
-	
 	
 }

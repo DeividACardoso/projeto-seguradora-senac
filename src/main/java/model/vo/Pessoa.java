@@ -1,14 +1,14 @@
 package model.vo;
 
 import java.time.LocalDate;
-
-import model.vo.Endereco;
+import java.util.List;
 
 public class Pessoa {
 	private Integer id;
 	private String nome;
 	private String cpf;
 	private LocalDate dataNascimento;
+	private List<Seguro> seguros;
 	private String telefone;
 	private Endereco endereco;
 	
@@ -83,6 +83,14 @@ public class Pessoa {
 		this.endereco = endereco;
 	}
 
+	public List<Seguro> getSeguros() {
+		return seguros;
+	}
+	
+	public void setSeguros(List<Seguro> seguros) {
+		this.seguros = seguros;
+	}
+	
 	@Override
 	public String toString() {
 		return "Id: " + id 
@@ -92,5 +100,6 @@ public class Pessoa {
 				+ "\nTelefone: " + telefone 
 				+ "\nEndereco: " + endereco;
 	}
+
 	
 }
