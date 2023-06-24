@@ -5,6 +5,7 @@ import java.util.List;
 import model.bo.SinistroBO;
 import model.exception.PessoaInvalidaException;
 import model.exception.VeiculoInvalidaException;
+import model.seletor.SinistroSeletor;
 import model.vo.Pessoa;
 import model.vo.Sinistro;
 import model.vo.Veiculo;
@@ -33,6 +34,14 @@ public class SinistroController {
 	public List<Sinistro> consultarTodos() {
 		// TODO Auto-generated method stub
 		return bo.consultarTodos();
+	}
+
+	public List<Sinistro> consultarComFiltros(SinistroSeletor seletor) {
+		return bo.consultarComFiltros(seletor);
+	}
+
+	public int contarTotalRegistrosComFiltros(SinistroSeletor seletor) {
+		return bo.concontarTotalRegistrosComFiltros(seletor);
 	}
 
 

@@ -35,8 +35,8 @@ public class PainelConsultaSeguro extends JPanel {
 
 	private JTable tblListaSeguros;
 	private ArrayList<Seguro> seguros;
-	private String[] nomesColunas = { "Segurado", "Proposta", "Veículo", "VigênciaInicial ", "VigênciaFinal",
-			" RCFMaterial", "RCF-Corporais", "Franquia", "Assistência", "CarroReserva" };
+	private String[] nomesColunas = { "Segurado", "Proposta", "Veï¿½culo", "Vigï¿½nciaInicial ", "Vigï¿½nciaFinal",
+			" RCFMaterial", "RCF-Corporais", "Franquia", "Assistï¿½ncia", "CarroReserva" };
 	private JTextField txtNumeroProposta;
 	private JLabel lnlNumeroProposta;
 	private JLabel lblVigenciaInicio;
@@ -89,7 +89,7 @@ public class PainelConsultaSeguro extends JPanel {
 		setBackground(new Color(26, 158, 230));
 		setLayout(null);
 
-		lnlNumeroProposta = new JLabel("Número proposta:");
+		lnlNumeroProposta = new JLabel("Nï¿½mero proposta:");
 		lnlNumeroProposta.setForeground(new Color(255, 255, 255));
 		lnlNumeroProposta.setBackground(new Color(255, 255, 255));
 		lnlNumeroProposta.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
@@ -117,7 +117,7 @@ public class PainelConsultaSeguro extends JPanel {
 		primeiraDataVigenciaInicial.setBounds(217, 157, 324, 26);
 		this.add(primeiraDataVigenciaInicial);
 
-		lblAte = new JLabel("Até:");
+		lblAte = new JLabel("AtÃ©:");
 		lblAte.setForeground(Color.WHITE);
 		lblAte.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		lblAte.setBounds(173, 196, 47, 19);
@@ -193,7 +193,7 @@ public class PainelConsultaSeguro extends JPanel {
 						resultado = controller.gerarPlanilha(seguros, caminhoEscolhido);
 						JOptionPane.showMessageDialog(null, resultado);
 					} catch (CampoInvalidoException e1) {
-						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenï¿½ï¿½o", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			}
@@ -214,15 +214,15 @@ public class PainelConsultaSeguro extends JPanel {
 		btnExcluir.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				int opcaoSelecionada = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do seguro selecionado?");
+				int opcaoSelecionada = JOptionPane.showConfirmDialog(null, "Confirma a exclusï¿½o do seguro selecionado?");
 				if (opcaoSelecionada == JOptionPane.YES_OPTION) {
 					try {
 						controller.excluir(seguroSelecionado.getId());
-						JOptionPane.showMessageDialog(null, "Seguro excluído com sucesso");
+						JOptionPane.showMessageDialog(null, "Seguro excluï¿½do com sucesso");
 						seguros = (ArrayList<Seguro>) controller.consultarTodos();
 						atualizarTabelaSeguros();
 					} catch (ClienteComSeguroException e1) {
-						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenï¿½ï¿½o", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			}
@@ -260,7 +260,7 @@ public class PainelConsultaSeguro extends JPanel {
 		btnVoltarPagina.setBounds(275, 436, 123, 23);
 		add(btnVoltarPagina);
 
-		btnAvancarPagina = new JButton("Avançar");
+		btnAvancarPagina = new JButton("Avanï¿½ar");
 		btnAvancarPagina.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				paginaAtual++;
@@ -311,7 +311,7 @@ public class PainelConsultaSeguro extends JPanel {
 				seletor.setNumeroProposta(numeroProposta);
 
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Número de proposta inváilido");
+				JOptionPane.showMessageDialog(null, "Nï¿½mero de proposta invï¿½ilido");
 
 				return;
 			}

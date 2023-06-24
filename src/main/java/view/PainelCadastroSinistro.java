@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +12,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -36,10 +39,9 @@ import model.vo.Veiculo;
 
 public class PainelCadastroSinistro extends JPanel {
 	private JTextField txtNumeroSinistro;
-	private JTextField txtHora;
-	private JTextField txtValorFranquia;
-	private JTextField txtValorPago;
-	private JTextField txtValorOrcado;
+	private JTextField fTxtValorFranquia;
+	private JTextField fTxtValorPago;
+	private JTextField fTxtValorOrcado;
 	private JTextField txtMotivo;
 	private JButton btnSalvar;
 	private JButton btnVoltar;
@@ -53,6 +55,8 @@ public class PainelCadastroSinistro extends JPanel {
 	private JLabel lblTitulo;
 	private JComboBox cbSegurado;
 	private JComboBox cbVeiculo;
+	private JLabel lblHora;
+	private JTextField fTxtHora;
 	/**
 	 * Create the panel.V  
 	 */
@@ -122,6 +126,7 @@ public class PainelCadastroSinistro extends JPanel {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,}));
 		
+		
 		lblTitulo = new JLabel(sinistro.getId() == null ? "NOVO SINISTRO" : "EDIÇÃO DE SINISTRO");
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 20));
@@ -142,9 +147,9 @@ public class PainelCadastroSinistro extends JPanel {
 		lblValorFranquia.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblValorFranquia, "8, 8, right, default");
 		
-		txtValorFranquia = new JTextField();
-		txtValorFranquia.setColumns(10);
-		add(txtValorFranquia, "10, 8, fill, default");
+		fTxtValorFranquia = new JTextField();
+		fTxtValorFranquia.setColumns(10);
+		add(fTxtValorFranquia, "10, 8, fill, default");
 		
 		JLabel lblTipoSinistro = new JLabel("Tipo Sinistro:");
 		lblTipoSinistro.setForeground(Color.WHITE);
@@ -161,9 +166,9 @@ public class PainelCadastroSinistro extends JPanel {
 		lblValorOrcado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblValorOrcado, "8, 11, right, default");
 		
-		txtValorOrcado = new JTextField();
-		txtValorOrcado.setColumns(10);
-		add(txtValorOrcado, "10, 11, fill, default");
+		fTxtValorOrcado = new JTextField();
+		fTxtValorOrcado.setColumns(10);
+		add(fTxtValorOrcado, "10, 11, fill, default");
 		
 		JLabel lblSegurado = new JLabel("Segurado:");
 		lblSegurado.setForeground(Color.WHITE);
@@ -176,16 +181,17 @@ public class PainelCadastroSinistro extends JPanel {
 		cbSegurado.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		add(cbSegurado, "5, 14, fill, default");
 		
-		JLabel lblVeculo = new JLabel("Placa Veículo:");
-		lblVeculo.setForeground(Color.WHITE);
-		lblVeculo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblVeculo, "8, 14, right, default");
-		
 		VeiculoDAO veiculoDAO = new VeiculoDAO();
 		veiculos.addAll(veiculoDAO.consultarTodos());
-		cbVeiculo = new JComboBox(veiculos.toArray());
-		cbVeiculo.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		add(cbVeiculo, "10, 14, fill, default");
+		
+		JLabel lblValorPago = new JLabel("Valor Pago:");
+		lblValorPago.setForeground(Color.WHITE);
+		lblValorPago.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(lblValorPago, "8, 14, right, default");
+		
+		fTxtValorPago = new JTextField();
+		fTxtValorPago.setColumns(10);
+		add(fTxtValorPago, "10, 14, fill, default");
 		
 		JLabel lblData = new JLabel("Data Sinistro:");
 		lblData.setForeground(Color.WHITE);
@@ -195,43 +201,31 @@ public class PainelCadastroSinistro extends JPanel {
 		dpData= new DatePicker();
 		add(dpData, "5, 17, fill, fill");
 		
-		JLabel lblValorPago = new JLabel("Valor Pago:");
-		lblValorPago.setForeground(Color.WHITE);
-		lblValorPago.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblValorPago, "8, 17, right, default");
+		lblHora = new JLabel("Hora:");
+		lblHora.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblHora.setForeground(Color.WHITE);
+		lblHora.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(lblHora, "8, 17");
 		
-		txtValorPago = new JTextField();
-		txtValorPago.setColumns(10);
-		add(txtValorPago, "10, 17, fill, default");
-		
-		JLabel lblHoraSinistro = new JLabel("Hora:");
-		lblHoraSinistro.setForeground(Color.WHITE);
-		lblHoraSinistro.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblHoraSinistro, "3, 20, right, default");
-		
-		txtHora = new JTextField();
-		txtHora.setColumns(10);
-		add(txtHora, "5, 20, fill, default");
-		
-		JLabel lblMotivo = new JLabel("Motivo:");
-		lblMotivo.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblMotivo.setForeground(Color.WHITE);
-		lblMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblMotivo, "8, 20, right, default");
+		fTxtHora = new JFormattedTextField();
+		fTxtHora.setColumns(10);
+		add(fTxtHora, "10, 17, fill, default");
 		
 		txtMotivo = new JTextField();
+		txtMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		txtMotivo.setText("batata\r\n");
 		txtMotivo.setColumns(10);
-		add(txtMotivo, "10, 20, 1, 4, fill, default");
+		add(txtMotivo, "10, 20, 1, 4");
 		
 		JLabel lblSituacaoSinistro = new JLabel("Situação:");
 		lblSituacaoSinistro.setForeground(Color.WHITE);
 		lblSituacaoSinistro.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblSituacaoSinistro, "3, 23, right, default");
+		add(lblSituacaoSinistro, "3, 20, right, default");
 		
 		cbSituacao = new JComboBox();
 		cbSituacao.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		cbSituacao.setModel(new DefaultComboBoxModel(Situacao.values()));
-		add(cbSituacao, "5, 23, fill, default");
+		add(cbSituacao, "5, 20, fill, default");
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
@@ -245,9 +239,9 @@ public class PainelCadastroSinistro extends JPanel {
 				sin.setDataSinistro(dpData.getDate());
 				sin.setMotivo(txtMotivo.getText());
 				sin.setSituacao((Situacao) cbSituacao.getSelectedItem());
-				sin.setValorFranquia(Double.parseDouble(txtValorFranquia.getText()));
-				sin.setValorOrcado(Double.parseDouble(txtValorOrcado.getText()));
-				sin.setValorPago(Double.parseDouble(txtValorPago.getText()));
+				sin.setValorFranquia(Double.parseDouble(fTxtValorFranquia.getText()));
+				sin.setValorOrcado(Double.parseDouble(fTxtValorOrcado.getText()));
+				sin.setValorPago(Double.parseDouble(fTxtValorPago.getText()));
 				try {
 					sinController.inserir(sin);
 					JOptionPane.showMessageDialog(null, "Sinistro salvo com sucesso!", 
@@ -258,6 +252,20 @@ public class PainelCadastroSinistro extends JPanel {
 				}
 			}
 		});
+		
+		JLabel lblMotivo = new JLabel("Motivo:");
+		lblMotivo.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblMotivo.setForeground(Color.WHITE);
+		lblMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(lblMotivo, "8, 20, right, default");
+		
+		JLabel lblVeculo = new JLabel("Placa Veículo:");
+		lblVeculo.setForeground(Color.WHITE);
+		lblVeculo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(lblVeculo, "3, 23, right, default");
+		cbVeiculo = new JComboBox(veiculos.toArray());
+		cbVeiculo.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		add(cbVeiculo, "5, 23, fill, default");
 		btnSalvar.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-salvar-50.png")));
 		btnSalvar.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		btnSalvar.setBackground(new Color(231, 200, 24));
@@ -287,10 +295,10 @@ public class PainelCadastroSinistro extends JPanel {
 	private void preencherCamposDaTela() {
 		this.txtNumeroSinistro.setText(this.sinistro.getNumeroSinistro());
 		this.cbTipoSinistro.setSelectedItem(this.sinistro.getTipoSinistro());
-		this.dpData.setText(this.sinistro.getDataSinistro().toString());
-		this.txtValorFranquia.setText(String.valueOf(this.sinistro.getValorFranquia()));
-		this.txtValorOrcado.setText(String.valueOf(this.sinistro.getValorOrcado()));
-		this.txtValorPago.setText(String.valueOf(this.sinistro.getValorPago()));
+		this.dpData.setDate(this.sinistro.getDataSinistro());
+		this.fTxtValorFranquia.setText(String.valueOf(this.sinistro.getValorFranquia()));
+		this.fTxtValorOrcado.setText(String.valueOf(this.sinistro.getValorOrcado()));
+		this.fTxtValorPago.setText(String.valueOf(this.sinistro.getValorPago()));
 		this.cbSituacao.setSelectedItem(this.sinistro.getSituacao());
 		this.txtMotivo.setText(this.sinistro.getMotivo());
 		this.cbVeiculo.setSelectedItem(this.sinistro.getVeiculo());

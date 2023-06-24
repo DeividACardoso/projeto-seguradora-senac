@@ -1,7 +1,6 @@
 package model.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +10,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import model.seletor.SeguroSeletor;
+import model.seletor.SinistroSeletor;
 import model.vo.Pessoa;
 import model.vo.Sinistro;
 import model.vo.Situacao;
@@ -184,10 +187,126 @@ public class SinistroDAO {
 		
 		return sinistroBuscado;
 	}
+		
+		public List<Sinistro> consultarComFiltros(SinistroSeletor seletor) {
+			List<Sinistro> sinistros = new ArrayList<Sinistro>();
+			Connection conexao = Banco.getConnection();
+			String sql = " select * from sinistro ";
+
+			if (seletor.temFiltro()) {
+				sql = preencherFiltros(sql, seletor);
+			}
+			if (seletor.temPaginacao()) {
+				sql += " LIMIT " + seletor.getLimite() + " OFFSET " + seletor.getOffset();
+			}
+			PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+			try {
+				ResultSet resultado = query.executeQuery();
+
+				while (resultado.next()) {
+					Sinistro sinistroBuscado = montarSinistroComResultadoDoBanco(resultado);
+					sinistros.add(sinistroBuscado);
+				}
+
+			} catch (Exception e) {
+				System.out.println("Erro ao buscar todos os seguros. \n Causa:" + e.getMessage());
+			} finally {
+				Banco.closePreparedStatement(query);
+				Banco.closeConnection(conexao);
+			}
+			return sinistros;
+	}
 	
+	private String preencherFiltros(String sql, SinistroSeletor seletor) {
+			
+		boolean primeiro = true;
+		if(seletor.getNomeSegurado() != null && !seletor.getNomeSegurado().trim().isEmpty()) {
+			if(primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			
+			sql += " nome_segurado LIKE '%" + seletor.getNomeSegurado() + "%'";
+			primeiro = false;
+		}
+		
+		if(seletor.getNumeroSinistro() != null && !seletor.getNumeroSinistro().trim().isEmpty()) {
+			if(primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			
+			sql += "numero_sinistro LIKE '%"+ seletor.getNumeroSinistro() + "%'";
+			primeiro = false;
+		}
+		if(seletor.getSituacao() != null && seletor.getSituacao().toString().trim().isEmpty()) {
+			if(primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			
+			sql += "situacao LIKE '%"+ seletor.getSituacao().toString().toUpperCase() + "%'";
+			primeiro = false;
+		}
+		if(seletor.getDtInicio() != null && seletor.getDtInicio().toString().trim().isEmpty()) {
+			if(primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			
+			sql +=  "sinistro where dt_sinistro > '%"+ seletor.getDtInicio() + "%' ";
+		}
+		if(seletor.getDtFim() != null && seletor.getDtFim().toString().trim().isEmpty()) {
+			if(primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			
+			if(seletor.getDtInicio() == null || seletor.getDtInicio().toString().trim().length() > 0) {
+				JOptionPane.showMessageDialog(null, "Sem data de Inicio", "Você deve colocar uma data de Inicio para a pesquisa.", JOptionPane.WARNING_MESSAGE);
+			} else {
+				sql +=  "sinistro where dt_sinistro < '%"+ seletor.getDtFim() + "%' ";
+			}
+		}		
+			
+		return sql;
+		}
+
 	private String validarDataParaOBanco(LocalDate data) {
 		String formatoDataSql = "yyyy-MM-dd";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatoDataSql); 
 		return formatter.format(data);
 	}
+
+	public int contarTotalRegistrosComFiltros(SinistroSeletor seletor) {
+		int total = 0;
+		Connection conexao = Banco.getConnection();
+		String sql = " select count(*) from sinistro ";
+
+		if (seletor.temFiltro()) {
+			sql = preencherFiltros(sql, seletor);
+		}
+
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			ResultSet resultado = query.executeQuery();
+
+			if (resultado.next()) {
+				total = resultado.getInt(1);
+			}
+		} catch (Exception e) {
+			System.out.println("Erro contar o total de sinistros" + "\n Causa:" + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+
+		return total;
+	}
+	
 }
