@@ -26,6 +26,8 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import controller.PessoaController;
 import model.exception.CampoInvalidoException;
+import model.exception.PessoaInvalidaException;
+import model.seletor.PessoaSeletor;
 import model.vo.Pessoa;
 
 import java.awt.event.ActionListener;
@@ -34,7 +36,7 @@ import java.awt.event.ActionEvent;
 public class PainelConsultaCliente extends JPanel {
 	
 	private JTextField txtNome;
-	private final JTable tableListagem = new JTable();
+	private final JTable tblListagemPessoas = new JTable();
 	private ArrayList<Pessoa> pessoas;
 	private String[] nomesColunas = { "Nome", "CPF", "dataNascimento", "seguros", "telefone", "endereco" };
 	private JLabel lblCpfList;
@@ -54,7 +56,29 @@ public class PainelConsultaCliente extends JPanel {
 
 	private PessoaController pessoaController = new PessoaController();
 	private Pessoa pessoaSelecionada;
+	private PessoaSeletor seletor = new PessoaSeletor();
 	
+	
+	private void limparTabelaPessoas() {
+		tblListagemPessoas.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
+	}
+
+	private void atualizarTabelaPessoas() {
+		this.limparTabelaPessoas();
+
+		DefaultTableModel model = (DefaultTableModel) tblListagemPessoas.getModel();
+
+		for (Pessoa p : pessoas) {
+			Object[] novaLinhaDaTabela = new Object[5];
+			novaLinhaDaTabela[0] = p.getNome();
+			novaLinhaDaTabela[1] = p.getCpf();
+			novaLinhaDaTabela[2] = p.getDataNascimento();
+			novaLinhaDaTabela[3] = p.getSeguros().size();			
+			novaLinhaDaTabela[4] = p.getTelefone();
+			novaLinhaDaTabela[5] = p.getEndereco();
+			model.addRow(novaLinhaDaTabela);
+		}
+	}	
 	
 	/**
 	 * Create the panel.
@@ -96,8 +120,8 @@ public class PainelConsultaCliente extends JPanel {
 		lblNomeList.setForeground(new Color(255, 255, 255));
 		lblNomeList.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblNomeList, "3, 5, center, center");
-		add(tableListagem, "3, 13, 7, 1, fill, fill");
-		tableListagem.setModel(new DefaultTableModel(
+		add(tblListagemPessoas, "3, 13, 7, 1, fill, fill");
+		tblListagemPessoas.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"Nome", "Cpf", "Endere\u00E7o", "Telefone", "DataNascimento"},
 			},
@@ -105,7 +129,7 @@ public class PainelConsultaCliente extends JPanel {
 				"Nome", "Cpf", "Endere\u00E7o", "Telefone", "DataNascimento"
 			}
 		));
-		tableListagem.getColumnModel().getColumn(4).setPreferredWidth(93);
+		tblListagemPessoas.getColumnModel().getColumn(4).setPreferredWidth(93);
 		
 		lblCpfList = new JLabel("Cpf:");
 		lblCpfList.setForeground(Color.WHITE);
@@ -136,7 +160,8 @@ public class PainelConsultaCliente extends JPanel {
 		btnBuscarTodos = new JButton("BuscarTodos");
 		btnBuscarTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				atualizarTabelaPessoas();
+//				buscarClientesComFiltros();
+				atualizarTabelaPessoas();
 			}
 		});
 		btnBuscarTodos.setIcon(new ImageIcon(PainelConsultaCliente.class.getResource("/icones/icons8-lupa-50.png")));
@@ -159,14 +184,7 @@ public class PainelConsultaCliente extends JPanel {
 					} catch (CampoInvalidoException e1) {
 						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 					}
-				}
-				
-				
-				
-				
-				
-				
-				
+				}				
 			}
 		});
 		btnGerarPlanilha.setIcon(new ImageIcon(PainelConsultaCliente.class.getResource("/icones/icons8-planilha-50.png")));
@@ -181,6 +199,18 @@ public class PainelConsultaCliente extends JPanel {
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.setIcon(new ImageIcon(PainelConsultaCliente.class.getResource("/icones/icons8-excluir-48.png")));
 		btnExcluir.setBackground(new Color(231, 200, 24));
+		btnExcluir.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				int opcaoSelecionada = JOptionPane.showConfirmDialog(null, "Confirma a exclusão?");
+				if (opcaoSelecionada == JOptionPane.YES_OPTION) {
+					pessoaController.excluir(pessoaSelecionada.getId());
+					JOptionPane.showMessageDialog(null, "Excluído com sucesso");
+					pessoas = (ArrayList<Pessoa>) pessoaController.consultarTodos();
+					atualizarTabelaPessoas();
+				}
+			}
+		});
 		add(btnExcluir, "9, 15, right, fill");
 		
 		lblTitulo = new JLabel("Consultar Cliente");
@@ -193,8 +223,35 @@ public class PainelConsultaCliente extends JPanel {
 		add(dpDataNascimento, "5, 7, 5, 1, fill, top");
 		
 		dpDataNascimento_1 = new DatePicker();
-		add(dpDataNascimento_1, "5, 9, 5, 1, fill, top");
-		
+		add(dpDataNascimento_1, "5, 9, 5, 1, fill, top");		
+}
 
+	private void buscarPessoasComFiltros() {
+		seletor = new PessoaSeletor();
+		seletor.setNome(txtNome.getText());
+		
+		String cpfSemMascara;
+		try {
+			cpfSemMascara = (String) mascaraCpf.stringToValue(
+			txtCPF.getText());
+			seletor.setCpf(cpfSemMascara);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		seletor.setDataNascimentoDe(dpDataNascimento.getDate());
+		seletor.setDataNascimentoAte(dpDataNascimento_1.getDate());
+		pessoas = (ArrayList<Pessoa>) pessoaController.consultarComFiltros(seletor);
+		atualizarTabelaPessoas();		
+	}
+	
+	//Botão Editar fica acessível externamente a classe
+	public JButton getBtnEditar() {
+		return this.btnEditar;
+	}
+
+	public Pessoa getPessoaSelecionada() {
+		return pessoaSelecionada;
 	}
 }

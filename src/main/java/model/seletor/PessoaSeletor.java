@@ -10,7 +10,8 @@ public class PessoaSeletor extends BaseSeletor{
 
 	private String nome;
 	private String cpf;
-	private LocalDate dataNascimento;
+	private LocalDate dataNascimentoDe;
+	private LocalDate dataNascimentoAte;
 	private List<Seguro> seguros;
 	private String telefone;
 	private Endereco endereco;
@@ -19,7 +20,8 @@ public class PessoaSeletor extends BaseSeletor{
 	public boolean temFiltro() {
 		return (this.nome != null && this.nome.trim().length() > 0)
 			|| (this.cpf != null && this.cpf.trim().length() > 0)
-			|| this.dataNascimento != null
+			|| this.dataNascimentoDe != null
+			|| this.dataNascimentoAte != null
 			|| this.seguros != null
 			|| this.telefone != null
 			|| this.endereco != null;
@@ -41,12 +43,20 @@ public class PessoaSeletor extends BaseSeletor{
 		this.cpf = cpf;
 	}
 
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
+	public LocalDate getDataNascimentoDe() {
+		return dataNascimentoDe;
 	}
 
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setDataNascimentoDe(LocalDate dataNascimentoDe) {
+		this.dataNascimentoDe = dataNascimentoDe;
+	}
+	
+	public LocalDate getDataNascimentoAte() {
+		return dataNascimentoAte;
+	}
+
+	public void setDataNascimentoAte(LocalDate dataNascimentoAte) {
+		this.dataNascimentoAte = dataNascimentoAte;
 	}
 
 	public List<Seguro> getSeguros() {

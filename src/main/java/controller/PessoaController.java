@@ -2,10 +2,10 @@ package controller;
 
 import java.util.List;
 
-
 import model.bo.PessoaBO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilha;
+import model.seletor.PessoaSeletor;
 import model.vo.Pessoa;
 
 
@@ -79,7 +79,15 @@ public class PessoaController {
 		return bo.consultarTodos();
 	}
 	
-public String gerarPlanilha(List<Pessoa> pessoas, String destinoArquivo) throws CampoInvalidoException {
+	public List<Pessoa> consultarComFiltros(PessoaSeletor seletor) {
+		return bo.consultarComFiltros(seletor);
+	}
+	
+	public int contarTotalRegistrosComFiltros(PessoaSeletor seletor) {
+		return bo.contarTotalRegistrosComFiltros(seletor);
+	}
+	
+	public String gerarPlanilha(List<Pessoa> pessoas, String destinoArquivo) throws CampoInvalidoException {
 		
 		if(pessoas == null || destinoArquivo == null || destinoArquivo.trim().isEmpty()) {
 			throw new CampoInvalidoException("Preencha todos os campos");

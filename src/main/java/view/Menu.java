@@ -23,8 +23,8 @@ import com.privatejgoodies.forms.layout.RowSpec;
 public class Menu {
 
 	private JFrame frmMenu;
-	private PainelCadastroSeguro painelCadastroCliente;
-	private PainelConsultaSeguro PainelConsultaCliente;
+	protected PainelCadastroSeguro painelCadastroCliente;
+	protected PainelConsultaSeguro PainelConsultaCliente;
 	private PainelConsultaSeguro painelConsultaSeguroAlterado;
 	private PainelCadastroSeguro painelCadastroSeguro;
 	private PainelConsultaSinistro painelConsultaSinistro;

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.vo.Pessoa;
+import model.seletor.PessoaSeletor;
 import model.vo.Endereco;
 
 public class PessoaDAO {
@@ -151,6 +152,156 @@ public class PessoaDAO {
 		pessoaBuscada.setEndereco(endereco);
 				
 		return pessoaBuscada;
+	}
+
+
+
+	public List<Pessoa> consultarComFiltros(PessoaSeletor seletor) {
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		Connection conexao = Banco.getConnection();
+		String sql = " select * from pessoa ";
+		
+		if(seletor.temFiltro()) {
+			sql = preencherFiltros(sql, seletor);
+		}
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			ResultSet resultado = query.executeQuery();
+			
+			while(resultado.next()) {
+				Pessoa pessoaBuscada = montarPessoaComResultadoDoBanco(resultado);
+				pessoas.add(pessoaBuscada);
+			}
+			
+		}catch (Exception erro) {
+			System.out.println("Erro ao buscar todos as pessoas. \n Causa:" + erro.getMessage());
+		}finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}
+		
+		return pessoas;
+	}
+
+
+
+	private String preencherFiltros(String sql, PessoaSeletor seletor) {
+		boolean primeiro = true;
+		if(seletor.getNome() != null && !seletor.getNome().trim().isEmpty()) {
+			if(primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			
+			sql += " nome LIKE '%" + seletor.getNome() + "%'";
+			primeiro = false;
+		}
+		
+		if(seletor.getCpf() != null && !seletor.getCpf().trim().isEmpty()) {
+			if(primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			sql += " cpf LIKE '%" + seletor.getCpf() + "%'";
+			primeiro = false;
+		}
+		
+		if(seletor.getDataNascimentoDe() != null
+			&& seletor.getDataNascimentoAte() != null) {
+			if(primeiro) {
+				sql += " WHERE ";
+			} else {
+				sql += " AND ";
+			}
+			sql += " DT_NASCIMENTO BETWEEN '" 
+				+ seletor.getDataNascimentoDe() + "' " 
+				+ " AND '" + seletor.getDataNascimentoAte() + "' ";
+			primeiro = false;
+		} else {
+			if (seletor.getDataNascimentoDe() != null) {
+				if(primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				//NASCEU 'A PARTIR' DA DATA INICIAL
+				sql += " DT_NASCIMENTO >= '" + seletor.getDataNascimentoDe() + "' "; 
+				primeiro = false;
+			}
+			
+			if (seletor.getDataNascimentoAte() != null) {
+				if(primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				//NASCEU 'ATÉ' A DATA FINAL
+				sql += " DT_NASCIMENTO <= '" + seletor.getDataNascimentoAte() + "' "; 
+				primeiro = false;
+			}
+			if(seletor.getSeguros() != null) {
+				if(primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				
+				sql += " seguros LIKE '%" + seletor.getSeguros() + "%'";
+				primeiro = false;
+			}
+			if(seletor.getTelefone() != null) {
+				if(primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				
+				sql += " telefone LIKE '%" + seletor.getTelefone() + "%'";
+				primeiro = false;
+			}
+			if(seletor.getEndereco() != null) {
+				if(primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				
+				sql += " endereco LIKE '%" + seletor.getEndereco() + "%'";
+				primeiro = false;
+			}
+		}	
+		return sql;
+	}
+
+
+
+	public int contarTotalRegistrosComFiltros(PessoaSeletor seletor) {
+		int total = 0;
+		Connection conexao = Banco.getConnection();
+		String sql = " select count(*) from pessoa ";
+		
+		if(seletor.temFiltro()) {
+			sql = preencherFiltros(sql, seletor);
+		}
+		
+		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
+		try {
+			ResultSet resultado = query.executeQuery();
+			
+			if(resultado.next()) {
+				total = resultado.getInt(1);
+			}
+		}catch (Exception erro) {
+			System.out.println("Erro contar o total de pessoas" 
+					+ "\n Causa:" + erro.getMessage());
+		}finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conexao);
+		}		
+		return total;
 	}
 	
 }

@@ -169,7 +169,7 @@ public class PainelCadastroCliente extends JPanel {
 				if(cliente.getId() == null) {
 					try {
 						controller.inserir(cliente);
-						JOptionPane.showMessageDialog(null, "Cliente salvo com sucesso!", 
+						JOptionPane.showMessageDialog(null, "Pessoa salva com sucesso!", 
 								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
 					} catch (CampoInvalidoException e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage(), 
