@@ -27,9 +27,9 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import controller.SinistroController;
-import model.exception.CampoInvalidoException;
 import model.seletor.SinistroSeletor;
 import model.vo.Sinistro;
+import model.vo.Situacao;
 
 public class PainelConsultaSinistro extends JPanel {
 	private final int TAMANHO_PAGINA = 7;
@@ -49,6 +49,9 @@ public class PainelConsultaSinistro extends JPanel {
 	private Sinistro sinistroSelecionado;
 	private PainelConsultaSinistro painelConsultaSinistro;
 	private SinistroSeletor seletor = new SinistroSeletor();
+	private DatePicker dpDataInicio;
+	private DatePicker dpDataFim;
+	private JComboBox cbSituacao;
 
 	private void limparTabela() {
 		tableSinistro.setModel(new DefaultTableModel(new Object[][] {nomeColunas, }, nomeColunas));
@@ -155,7 +158,7 @@ public class PainelConsultaSinistro extends JPanel {
 		lblDe.setHorizontalAlignment(SwingConstants.TRAILING);
 		add(lblDe, "2, 10");
 		
-		DatePicker dpDataInicio = new DatePicker();
+		dpDataInicio = new DatePicker();
 		add(dpDataInicio, "4, 10, 2, 1, fill, fill");
 		
 		JLabel lblAte = new JLabel("Até: ");
@@ -164,7 +167,7 @@ public class PainelConsultaSinistro extends JPanel {
 		lblAte.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblAte, "6, 10");
 		
-		DatePicker dpDataFim = new DatePicker();
+		dpDataFim = new DatePicker();
 		add(dpDataFim, "8, 10, fill, fill");
 		
 		JButton btnBuscar = new JButton("Buscar");
@@ -184,7 +187,7 @@ public class PainelConsultaSinistro extends JPanel {
 		lblSitucao.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblSitucao, "2, 13, right, center");
 		
-		JComboBox cbSituacao = new JComboBox();
+		cbSituacao = new JComboBox();
 		add(cbSituacao, "4, 13, fill, center");
 		
 		JButton btnGerarplanilha = new JButton("GerarPlanilha");
@@ -212,11 +215,6 @@ public class PainelConsultaSinistro extends JPanel {
 		
 		
 		btnEditar = new JButton("Editar");
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
 		btnEditar.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-editar-48.png")));
 		btnEditar.setBackground(new Color(227, 218, 28));
 		add(btnEditar, "10, 23, fill, fill");
@@ -235,10 +233,15 @@ public class PainelConsultaSinistro extends JPanel {
 		seletor.setLimite(TAMANHO_PAGINA);
 		seletor.setPagina(paginaAtual);
 		
+		seletor.setNomeSegurado(txtNomeSegurado.getText());
+		seletor.setNumeroSinistro(txtNumero.getText());
+		seletor.setDtInicio(dpDataInicio.getDate());
+		seletor.setDtInicio(dpDataFim.getDate());
+		seletor.setSituacao((Situacao) cbSituacao.getSelectedItem());
+		
 		sinistros = (ArrayList<Sinistro>) controller.consultarComFiltros(seletor);
-		limparTabela();
-		atualizarTabela();
-		atualizarQuantidadePaginas();
+		this.atualizarTabela();
+		this.atualizarQuantidadePaginas();
 	}
 	private void atualizarQuantidadePaginas() {
 		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);

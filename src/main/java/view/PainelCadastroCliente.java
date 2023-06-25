@@ -39,6 +39,7 @@ public class PainelCadastroCliente extends JPanel {
 	private JButton btnSalvar;
 	private DatePicker dpDataNascimento;
 	private JComboBox cbEndereco;
+	private JButton btnVoltar;
 
 	/**
 	 * Create the panel.
@@ -189,15 +190,34 @@ public class PainelCadastroCliente extends JPanel {
 		btnSalvar.setIcon(new ImageIcon(PainelCadastroCliente.class.getResource("/icones/icons8-salvar-50.png")));
 		add(btnSalvar, "3, 28");
 
-		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				setVisible(true);
 			}
 		});
+		
+//		if(this.cliente.getId() != null) {
+//			preencherCamposDaTela();
+//		}
 
 		btnVoltar.setIcon(new ImageIcon(PainelCadastroCliente.class.getResource("/icones/icons8-voltar-50.png")));
 		btnVoltar.setBackground(new Color(231, 200, 24));
 		add(btnVoltar, "6, 28");
+			
 	}
+	
+		private void preencherCamposDaTela() {
+			this.txtNome.setText(this.cliente.getNome());
+			this.txtCPF.setText(this.cliente.getCpf());
+			this.dpDataNascimento.setDate(this.cliente.getDataNascimento());
+			this.txtTelefone.setText(this.cliente.getTelefone());
+			this.cbEndereco.setSelectedItem(this.cliente.getEndereco());
+		
+	}
+
+		public JButton getbtnVoltar() {
+			return btnVoltar;
+		}
+		
 }

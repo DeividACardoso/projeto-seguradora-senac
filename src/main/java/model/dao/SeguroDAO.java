@@ -42,7 +42,7 @@ public class SeguroDAO {
 			System.out.println("Erro ao inserir novo seguro.");
 			System.out.println("Erro: " + e.getMessage());
 		} finally {
-			// Fechar a conexão
+			// Fechar a conexï¿½o
 			Banco.closePreparedStatement(stmt);
 			Banco.closeConnection(conexao);
 		}
@@ -219,8 +219,6 @@ public class SeguroDAO {
 
 	}
 
-	
-
 	private String preencherFiltros(String sql, SeguroSeletor seletor) {
 
 		boolean primeiro = true;
@@ -272,7 +270,7 @@ public class SeguroDAO {
 				} else {
 					sql += " AND ";
 				}
-				// CLIENTES QUE NASCERAM 'ATÉ' A DATA FINAL
+				// CLIENTES QUE NASCERAM 'ATï¿½' A DATA FINAL
 				sql += " DT_INCIO_VIGENCIA <= '" + seletor.getPrimeiraDataFimVigencia() + "' ";
 				primeiro = false;
 			}
@@ -305,7 +303,7 @@ public class SeguroDAO {
 				} else {
 					sql += " AND ";
 				}
-				// CLIENTES QUE NASCERAM 'ATÉ' A DATA FINAL
+				// CLIENTES QUE NASCERAM 'ATï¿½' A DATA FINAL
 				sql += " DT_FIM_VIGENCIA <= '" + seletor.getUltimaDataFimVigencia() + "' ";
 				primeiro = false;
 			}
