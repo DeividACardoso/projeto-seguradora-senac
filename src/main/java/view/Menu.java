@@ -201,6 +201,8 @@ public class Menu {
 
 		mnItemConsultarSinistro.setIcon(
 				new ImageIcon(Menu.class.getResource("/icones/icons8-análise-de-crescimento-financeiro-64.png")));
+
+			new ImageIcon(Menu.class.getResource("/icones/icons8-análise-de-crescimento-financeiro-64.png"));
 		mnSinistro.add(mnItemConsultarSinistro);
 
 		JMenu mnRelatorios = new JMenu("Relatórios");

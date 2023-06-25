@@ -43,7 +43,6 @@ public class GeradorPlanilha {
 				novaLinha.createCell(4).setCellValue(c.getCarroReserva());
 				contadorLinhas++;
 			}
-
 			return salvarNoDisco(arquivoExcel, destinoArquivo);
 		}
 
@@ -101,6 +100,5 @@ public class GeradorPlanilha {
 			}
 		}
 		return mensagem;
-
 	}
 }

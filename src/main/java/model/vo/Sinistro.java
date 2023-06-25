@@ -1,7 +1,6 @@
 package model.vo;
 
 import java.time.LocalDate;
-import model.vo.Pessoa;
 
 public class Sinistro {
 

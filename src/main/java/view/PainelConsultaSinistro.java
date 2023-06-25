@@ -27,9 +27,14 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import controller.SinistroController;
+import model.exception.CampoInvalidoException;
+import model.seletor.SinistroSeletor;
 import model.vo.Sinistro;
 
 public class PainelConsultaSinistro extends JPanel {
+	private final int TAMANHO_PAGINA = 7;
+	private int paginaAtual = 1;
+	private int totalPaginas = 0;
 	private JTextField txtNumero;
 	private JTextField txtNomeSegurado;
 	private DatePickerSettings dateSettings;
@@ -43,6 +48,7 @@ public class PainelConsultaSinistro extends JPanel {
 	private JButton btnExcluir;
 	private Sinistro sinistroSelecionado;
 	private PainelConsultaSinistro painelConsultaSinistro;
+	private SinistroSeletor seletor = new SinistroSeletor();
 
 	private void limparTabela() {
 		tableSinistro.setModel(new DefaultTableModel(new Object[][] {nomeColunas, }, nomeColunas));
@@ -161,12 +167,17 @@ public class PainelConsultaSinistro extends JPanel {
 		DatePicker dpDataFim = new DatePicker();
 		add(dpDataFim, "8, 10, fill, fill");
 		
-		JButton btnBuscarTodos = new JButton("BuscarTodos");
-		btnBuscarTodos.addActionListener(new ActionListener() {
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBackground(new Color(227, 218, 28));
+		btnBuscar.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-lupa-50.png")));
+		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+					buscarSinistrosComFiltros();
+					limparTabela();
+					atualizarTabela();
 			}
 		});
+		add(btnBuscar, "4, 16, fill, fill");
 		
 		JLabel lblSitucao = new JLabel("Situação:");
 		lblSitucao.setForeground(Color.WHITE);
@@ -175,15 +186,13 @@ public class PainelConsultaSinistro extends JPanel {
 		
 		JComboBox cbSituacao = new JComboBox();
 		add(cbSituacao, "4, 13, fill, center");
-		btnBuscarTodos.setBackground(new Color(227, 218, 28));
-		btnBuscarTodos.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-lupa-50.png")));
-		add(btnBuscarTodos, "4, 16, fill, fill");
 		
 		JButton btnGerarplanilha = new JButton("GerarPlanilha");
 		btnGerarplanilha.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-planilha-50.png")));
 		btnGerarplanilha.setBackground(new Color(227, 218, 28));
 		add(btnGerarplanilha, "8, 16, default, fill");
 		add(tableSinistro, "2, 19, 13, 2, fill, fill");
+		
 		tableSinistro.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -211,12 +220,28 @@ public class PainelConsultaSinistro extends JPanel {
 		btnEditar.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-editar-48.png")));
 		btnEditar.setBackground(new Color(227, 218, 28));
 		add(btnEditar, "10, 23, fill, fill");
+		btnEditar.setEnabled(false);
 		
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-excluir-48.png")));
 		btnExcluir.setBackground(new Color(227, 218, 28));
 		add(btnExcluir, "12, 23, default, fill");
+		btnExcluir.setEnabled(false);
 		buscarSinistros();
+		
+	}
+	protected void buscarSinistrosComFiltros() {
+		seletor = new SinistroSeletor();
+		seletor.setLimite(TAMANHO_PAGINA);
+		seletor.setPagina(paginaAtual);
+		
+		sinistros = (ArrayList<Sinistro>) controller.consultarComFiltros(seletor);
+		limparTabela();
+		atualizarTabela();
+		atualizarQuantidadePaginas();
+	}
+	private void atualizarQuantidadePaginas() {
+		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);
 		
 	}
 	public JButton getBtnEditar() {

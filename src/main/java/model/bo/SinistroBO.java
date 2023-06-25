@@ -5,6 +5,7 @@ import java.util.List;
 import model.dao.SinistroDAO;
 import model.exception.PessoaInvalidaException;
 import model.exception.VeiculoInvalidaException;
+import model.seletor.SinistroSeletor;
 import model.vo.Pessoa;
 import model.vo.Sinistro;
 import model.vo.Veiculo;
@@ -41,6 +42,14 @@ public class SinistroBO {
 	public Sinistro consultarPorId(int id) {
 		// TODO Auto-generated method stub
 		return dao.consultarPorId(id);
+	}
+
+	public List<Sinistro> consultarComFiltros(SinistroSeletor seletor) {
+		return dao.consultarComFiltros(seletor);
+	}
+
+	public int concontarTotalRegistrosComFiltros(SinistroSeletor seletor) {
+		return dao.contarTotalRegistrosComFiltros(seletor);
 	}
 
 
