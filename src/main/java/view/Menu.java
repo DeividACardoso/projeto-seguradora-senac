@@ -156,7 +156,7 @@ public class Menu {
 		JMenuItem mnItemCadastroSinistro = new JMenuItem("Cadastrar");
 		mnItemCadastroSinistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PainelCadastroSinistro painelCadastroSinistro = new PainelCadastroSinistro(null);
+				painelCadastroSinistro = new PainelCadastroSinistro(null);
 				painelCadastroSinistro.setVisible(true);
 				registrarCliqueBotaoVoltarDoPainelCadastroSinistro();
 				frmMenu.setContentPane(painelCadastroSinistro);
@@ -209,13 +209,13 @@ public class Menu {
 				painelConsultaSinistro = new PainelConsultaSinistro();
 				painelConsultaSinistro.setVisible(true);
 				registrarCliqueBotaoEditarDoPainelConsultaSinistro();
+				
 				frmMenu.setContentPane(painelConsultaSinistro);
 				frmMenu.revalidate();
 			}
 
 		});
 	}
-
 	protected void registrarCliqueBotaoEditarDoPainelConsultaSinistro() {
 		painelConsultaSinistro.getBtnEditar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -229,7 +229,6 @@ public class Menu {
 		});
 
 	}
-
 	//////////////////////////////////METODOS DO PAINEL SEGURO///////////////////////////////////////////////////////////////////////////
 	protected void registrarCliqueBotaoVoltarDoPainelCadastroSeguro() {
 		if (painelCadastroSeguro == null) {
