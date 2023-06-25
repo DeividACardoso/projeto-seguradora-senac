@@ -40,6 +40,12 @@ public class PainelCadastroCliente extends JPanel {
 	private DatePicker dpDataNascimento;
 	private JComboBox cbEndereco;
 	private JButton btnVoltar;
+	private JLabel lblTelefone;
+	private JLabel lblDatadeNascimento;
+	private JLabel lblEndereco;
+	private JLabel lblTitulo;
+	private JLabel lblNomeSegurado;
+	private JLabel lblCpf;
 
 	/**
 	 * Create the panel.
@@ -84,13 +90,13 @@ public class PainelCadastroCliente extends JPanel {
 						FormSpecs.DEFAULT_ROWSPEC,
 						RowSpec.decode("max(54dlu;default)"),}));
 
-		JLabel lblTitulo = new JLabel("Novo Cliente");
+		lblTitulo = new JLabel("Novo Cliente");
 		lblTitulo.setIcon(new ImageIcon(PainelCadastroCliente.class.getResource("/icones/icons8-adicionar-64.png")));
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
 		add(lblTitulo, "3, 1, 4, 1, center, default");
 
-		JLabel lblNomeSegurado = new JLabel("Nome segurado:");
+		lblNomeSegurado = new JLabel("Nome segurado:");
 		lblNomeSegurado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		lblNomeSegurado.setForeground(new Color(255, 255, 255));
 		add(lblNomeSegurado, "2, 5, center, default");
@@ -99,7 +105,7 @@ public class PainelCadastroCliente extends JPanel {
 		add(txtNome, "3, 5, 4, 1, fill, default");
 		txtNome.setColumns(10);
 
-		JLabel lblCpf = new JLabel("Cpf:");
+		lblCpf = new JLabel("Cpf:");
 		lblCpf.setForeground(Color.WHITE);
 		lblCpf.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblCpf, "2, 11, center, default");
@@ -114,7 +120,7 @@ public class PainelCadastroCliente extends JPanel {
 		txtCPF = new JFormattedTextField(mascaraCpf);
 		add(txtCPF, "3, 11, 4, 1, fill, default");
 
-		JLabel lblDatadeNascimento = new JLabel("Data de Nascimento:");
+		lblDatadeNascimento = new JLabel("Data de Nascimento:");
 		lblDatadeNascimento.setForeground(Color.WHITE);
 		lblDatadeNascimento.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblDatadeNascimento, "2, 18, center, default");
@@ -122,7 +128,7 @@ public class PainelCadastroCliente extends JPanel {
 		dpDataNascimento = new DatePicker();
 		add(dpDataNascimento, "3, 18, left, default");
 
-		JLabel lblTelefone = new JLabel("Telefone:");
+		lblTelefone = new JLabel("Telefone:");
 		lblTelefone.setForeground(Color.WHITE);
 		lblTelefone.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblTelefone, "5, 18, center, center");
@@ -135,7 +141,7 @@ public class PainelCadastroCliente extends JPanel {
 			erro.printStackTrace();
 		}
 
-		JLabel lblEndereco = new JLabel("Endere\u00E7o:");
+		lblEndereco = new JLabel("Endere\u00E7o:");
 		lblEndereco.setForeground(Color.WHITE);
 		lblEndereco.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblEndereco, "2, 23, right, default");
@@ -145,7 +151,7 @@ public class PainelCadastroCliente extends JPanel {
 		txtTelefone.setBounds(90, 60, 270, 20);
 		add(txtTelefone, "6, 18, fill, default");
 
-		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PessoaController controller = new PessoaController();
@@ -193,7 +199,8 @@ public class PainelCadastroCliente extends JPanel {
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(true);
+				//setVisible(true);
+				e.getActionCommand();
 			}
 		});
 		

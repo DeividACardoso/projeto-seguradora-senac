@@ -32,6 +32,8 @@ import model.seletor.PessoaSeletor;
 import model.vo.Pessoa;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 public class PainelConsultaCliente extends JPanel {
@@ -39,7 +41,7 @@ public class PainelConsultaCliente extends JPanel {
 	private JTextField txtNome;
 	private final JTable tblListagemPessoas = new JTable();
 	private ArrayList<Pessoa> pessoas;
-	private String[] nomesColunas = { "Nome", "CPF", "dataNascimento", "seguros", "telefone", "endereco" };
+	private String[] nomesColunas = { "Id", "Nome", "CPF", "dataNascimento", "seguros", "telefone", "endereco" };
 	private JLabel lblCpfList;
 	private JLabel lblDataNascimentoDe;
 	private JLabel lblAte;
@@ -67,8 +69,6 @@ public class PainelConsultaCliente extends JPanel {
 	private void atualizarTabelaPessoas() {
 		this.limparTabela();
 		
-		PessoaController pessoaController = new PessoaController();
-		pessoas = (ArrayList<Pessoa>) pessoaController.consultarTodos();
 
 		DefaultTableModel model = (DefaultTableModel) tblListagemPessoas.getModel();
 
@@ -181,13 +181,16 @@ public class PainelConsultaCliente extends JPanel {
 		btnBuscarTodos = new JButton("BuscarTodos");
 		btnBuscarTodos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				buscarClientesComFiltros();
+				buscarPessoasComFiltros();
 				atualizarTabelaPessoas();
 			}
 		});
 		btnBuscarTodos.setIcon(new ImageIcon(PainelConsultaCliente.class.getResource("/icones/icons8-lupa-50.png")));
 		btnBuscarTodos.setBackground(new Color(231, 200, 24));
 		add(btnBuscarTodos, "5, 11, 2, 1, left, fill");
+		
+//		tblListagemPessoas = new JTable();
+//		this.limparTabelaPessoas();
 		
 		btnGerarPlanilha = new JButton("GerarPlanilha");
 		btnGerarPlanilha.addActionListener(new ActionListener() {
@@ -217,7 +220,7 @@ public class PainelConsultaCliente extends JPanel {
 		btnEditar.setBackground(new Color(231, 200, 24));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PainelCadastroCliente telaEdicaoPessoa = new PainelCadastroCliente();
+				PainelCadastroCliente edicaoPessoa = new PainelCadastroCliente();
 			}
 		});
 		add(btnEditar, "5, 15, fill, fill");
@@ -238,6 +241,8 @@ public class PainelConsultaCliente extends JPanel {
 			}
 		});
 		add(btnExcluir, "9, 15, right, fill");
+//		btnEditar.setEnabled(true);
+//		btnExcluir.setEnabled(true);
 		
 		lblTitulo = new JLabel("Consultar Cliente");
 		lblTitulo.setIcon(new ImageIcon(PainelConsultaCliente.class.getResource("/icones/icons8-lupa-48.png")));
@@ -249,31 +254,43 @@ public class PainelConsultaCliente extends JPanel {
 		add(dpDataNascimento, "5, 7, 5, 1, fill, top");
 		
 		dpDataNascimento_1 = new DatePicker();
-		add(dpDataNascimento_1, "5, 9, 5, 1, fill, top");		
+		add(dpDataNascimento_1, "5, 9, 5, 1, fill, top");	
+		
+		
+//		tblListagemPessoas.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent erro) {
+//				int indiceSelecionado = tblListagemPessoas.getSelectedRow();
+//				
+//				if (indiceSelecionado > 0) {
+//					pessoaSelecionada = pessoas.get(indiceSelecionado - 1); 
+//					btnEditar.setEnabled(true);
+//					btnExcluir.setEnabled(true);
+//				} else {
+//					btnEditar.setEnabled(false);
+//					btnExcluir.setEnabled(false);
+//				}
+//			}
+//		});
 }
 
 	private void buscarPessoasComFiltros() {
 		seletor = new PessoaSeletor();
 		seletor.setNome(txtNome.getText());
 		
-		String cpfSemMascara;
-		try {
-			cpfSemMascara = (String) mascaraCpf.stringToValue(
-			txtCPF.getText());
-			seletor.setCpf(cpfSemMascara);
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		String cpfSemMascara;			
+			if(txtCPF.getText() != null) {
+				cpfSemMascara = txtCPF.getText().replace(".", "").replace("-", "");
+				seletor.setCpf(cpfSemMascara);				
+			}
 		
+		seletor.setNome(txtNome.getText());
 		seletor.setDataNascimentoDe(dpDataNascimento.getDate());
 		seletor.setDataNascimentoAte(dpDataNascimento_1.getDate());
 		pessoas = (ArrayList<Pessoa>) pessoaController.consultarComFiltros(seletor);
-		atualizarTabelaPessoas();	
-		return;
+		atualizarTabelaPessoas();
 	}
 	
-	//Botões ficam acessíveis externamente a classe
 	public JButton getBtnEditar() {
 		return this.btnEditar;
 	}

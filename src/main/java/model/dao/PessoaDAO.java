@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.vo.Pessoa;
+import model.vo.Seguro;
 import model.seletor.PessoaSeletor;
 import model.vo.Endereco;
 
@@ -143,14 +144,18 @@ public class PessoaDAO {
 		pessoaBuscada.setId(resultado.getInt("id"));
 		pessoaBuscada.setNome(resultado.getString("nome"));
 		pessoaBuscada.setCpf(resultado.getString("cpf"));
-		//pessoaBuscada.setData_nascimento(resultado.getDate("data_nascimento"));
+		pessoaBuscada.setDataNascimento(resultado.getDate("dtNascimento").toLocalDate());
 		pessoaBuscada.setTelefone(resultado.getString("telefone"));
 		
 		int idEnderecoDaPessoa = resultado.getInt("id_endereco");
 		EnderecoDAO enderecoDAO = new EnderecoDAO();
 		Endereco endereco = enderecoDAO.consultarPorId(idEnderecoDaPessoa);
 		pessoaBuscada.setEndereco(endereco);
-				
+		
+		SeguroDAO seguroDAO = new SeguroDAO();
+		List<Seguro> segurosDaPessoa = seguroDAO.consultarPorIdCliente(pessoaBuscada.getId());
+		pessoaBuscada.setSeguros(segurosDaPessoa);
+		
 		return pessoaBuscada;
 	}
 

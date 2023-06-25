@@ -34,7 +34,7 @@ public class PessoaBO {
 
 
 	public List<Pessoa> consultarComFiltros(PessoaSeletor seletor) {
-		//TODO validar CPF e as datas informadas
+
 		
 		return dao.consultarComFiltros(seletor);
 	}

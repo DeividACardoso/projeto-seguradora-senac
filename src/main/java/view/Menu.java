@@ -23,8 +23,8 @@ import com.privatejgoodies.forms.layout.RowSpec;
 public class Menu {
 
 	private JFrame frmMenu;
-	protected PainelCadastroSeguro painelCadastroCliente;
-	protected PainelConsultaSeguro PainelConsultaCliente;
+	protected PainelCadastroCliente painelCadastroCliente;
+	protected PainelConsultaCliente painelConsultaCliente;
 	private PainelConsultaSeguro painelConsultaSeguroAlterado;
 	private PainelCadastroSeguro painelCadastroSeguro;
 	private PainelConsultaSinistro painelConsultaSinistro;
@@ -77,32 +77,33 @@ public class Menu {
 		JMenu mnItemCliente = new JMenu("Cliente");
 		mnItemCliente.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-cliente-64 (3).png")));
 		menuBar.add(mnItemCliente);
-
-		// PARTE DE CLIENTE DO MENU//////////////////////////////////////////////////////////////////////////////////////////////
-		JMenuItem mnItemCadastroCliente = new JMenuItem("Cadastro");
-		mnItemCadastroCliente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PainelCadastroCliente painelCadastroCliente = new PainelCadastroCliente();
-				frmMenu.setContentPane(painelCadastroCliente);
-				frmMenu.revalidate();
-			}
-		});
-
-		JMenuItem mnItemConsultaCliente = new JMenuItem("Consultar");
-		mnItemConsultaCliente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PainelConsultaCliente painelConsultaCliente = new PainelConsultaCliente();
-				frmMenu.setContentPane(painelConsultaCliente);
-				frmMenu.revalidate();
-			}
-		});
-
-		mnItemCadastroCliente.setIcon(
-				new ImageIcon(Menu.class.getResource("/icones/icons8-adicionar-usu\u00E1rio-masculino-64.png")));
-		mnItemCliente.add(mnItemCadastroCliente);
-		mnItemConsultaCliente.setIcon(
-				new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
-		mnItemCliente.add(mnItemConsultaCliente);
+		
+				JMenuItem mnItemConsultaCliente = new JMenuItem("Consultar");
+				mnItemConsultaCliente.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						painelConsultaCliente = new PainelConsultaCliente();
+						frmMenu.setContentPane(painelConsultaCliente);
+						frmMenu.revalidate();
+					}
+				});
+				
+				// PARTE DE CLIENTE DO MENU//////////////////////////////////////////////////////////////////////////////////////////////
+				JMenuItem mnItemCadastroCliente = new JMenuItem("Cadastro");
+				mnItemCadastroCliente.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						painelCadastroCliente = new PainelCadastroCliente();
+						frmMenu.setContentPane(painelCadastroCliente);
+						frmMenu.revalidate();
+						registrarCliqueBotaoVoltarDoPainelCadastroPessoa();
+					}
+				});
+						
+				mnItemCadastroCliente.setIcon(
+						new ImageIcon(Menu.class.getResource("/icones/icons8-adicionar-usu\u00E1rio-masculino-64.png")));
+				mnItemCliente.add(mnItemCadastroCliente);
+				mnItemConsultaCliente.setIcon(
+						new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
+				mnItemCliente.add(mnItemConsultaCliente);
 
 		// PARTE DE SEGURO DO MENU//////////////////////////////////////////////////////////////////////////////////////////////
 		JMenu mnSeguros = new JMenu("Seguros");
@@ -203,6 +204,19 @@ public class Menu {
 		menuBar.add(mnSobre);
 		frmMenu.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {}, new RowSpec[] {}));
 	}
+	protected void registrarCliqueBotaoVoltarDoPainelCadastroPessoa() {
+		painelCadastroCliente.getbtnVoltar().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				painelConsultaCliente = new PainelConsultaCliente();
+				frmMenu.setContentPane(painelConsultaCliente);
+				frmMenu.revalidate();
+			}
+		});
+		
+	}
+
 	//////////////////////////////////METODOS DO PAINEL SINISTRO///////////////////////////////////////////////////////////////////////////
 	protected void registrarCliqueBotaoVoltarDoPainelCadastroSinistro() {
 		if (painelCadastroSinistro == null) {
