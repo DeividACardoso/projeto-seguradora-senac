@@ -17,7 +17,7 @@ public class PessoaDAO {
 
 	public Pessoa inserir(Pessoa novaPessoa) {
 		Connection conexao = Banco.getConnection();
-		String sql = " INSERT INTO PESSOA(NOME, CPF, DTNASCIMENTO, TELEFONE, ID_ENDERECO) "
+		String sql = " INSERT INTO PESSOA(NOME, CPF, DTNASCIMENTO, TELEFONE, ID_ENDERECO) " //ID_TIPO_PESSOA
 				+ " VALUES (?,?,?,?,?) ";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conexao, sql);
 		try {
@@ -25,7 +25,8 @@ public class PessoaDAO {
 			stmt.setString(2, novaPessoa.getCpf());
 			stmt.setDate(3, java.sql.Date.valueOf(novaPessoa.getDataNascimento()));
 			stmt.setString(4, novaPessoa.getTelefone());
-			stmt.setInt(5, novaPessoa.getEndereco().getId());		
+			stmt.setInt(5, novaPessoa.getEndereco().getId());
+//			stmt.setInt(6, novaPessoa.getTipoPessoa().getValor());
 			stmt.execute();
 			
 			ResultSet resultado = stmt.getGeneratedKeys();
@@ -44,7 +45,7 @@ public class PessoaDAO {
 	
 	public boolean atualizar(Pessoa pessoa) {
 		Connection conexao = Banco.getConnection();
-		String sql = " UPDATE PESSOA SET NOME=?, CPF=?, DTNASCIMENTO=?, TELEFONE=?, ID_ENDERECO=?, ID_TIPO_PESSOA=? "
+		String sql = " UPDATE PESSOA SET NOME=?, CPF=?, DTNASCIMENTO=?, TELEFONE=?, ID_ENDERECO=? " //ID_TIPO_PESSOA=?
 				+ " WHERE ID = ?";
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
 		int registrosAlterados = 0;
@@ -54,7 +55,7 @@ public class PessoaDAO {
 			stmt.setDate(3, java.sql.Date.valueOf(pessoa.getDataNascimento()));
 			stmt.setString(4, pessoa.getTelefone());
 			stmt.setInt(5, pessoa.getEndereco().getId());
-			stmt.setInt(6, pessoa.getTipoPessoa().getValor());
+//			stmt.setInt(6, pessoa.getTipoPessoa().getValor());
 			stmt.setInt(7, pessoa.getId());
 			registrosAlterados = stmt.executeUpdate();
 			 
@@ -79,11 +80,9 @@ public class PessoaDAO {
 		} catch (SQLException erro) {
 			System.out.println("Erro ao excluir pessoa.");
 			System.out.println("Erro: " + erro.getMessage());
-		}
-		
-		boolean excluiu = quantidadeLinhasAfetadas > 0;
-
-		return excluiu;
+		}		
+		boolean excluir = quantidadeLinhasAfetadas > 0;
+		return excluir;
 	}
 
 
@@ -155,8 +154,7 @@ public class PessoaDAO {
 		
 		SeguroDAO seguroDAO = new SeguroDAO();
 		List<Seguro> segurosDaPessoa = seguroDAO.consultarPorIdCliente(pessoaBuscada.getId());
-		pessoaBuscada.setSeguros(segurosDaPessoa);
-		
+		pessoaBuscada.setSeguros(segurosDaPessoa);		
 		return pessoaBuscada;
 	}
 
@@ -178,15 +176,13 @@ public class PessoaDAO {
 			while(resultado.next()) {
 				Pessoa pessoaBuscada = montarPessoaComResultadoDoBanco(resultado);
 				pessoas.add(pessoaBuscada);
-			}
-			
+			}			
 		}catch (Exception erro) {
-			System.out.println("Erro ao buscar todos as pessoas. \n Causa:" + erro.getMessage());
+			System.out.println("Erro ao buscar todas as pessoas. \n Causa:" + erro.getMessage());
 		}finally {
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conexao);
-		}
-		
+		}		
 		return pessoas;
 	}
 

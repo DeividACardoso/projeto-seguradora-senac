@@ -8,7 +8,15 @@ INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CI
 -- INSERTS DE PESSOA
 INSERT INTO `seguradora`.`pessoa` (`ID`, `NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`, `id_tipo_pessoa`) VALUES ('4', 'Ronaldo', '5596647315', '1965-07-09', '984652377', 2, 2);
 INSERT INTO `seguradora`.`pessoa` (`ID`, `NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`, `id_tipo_pessoa`) VALUES ('4', 'Adriano', '56499234601', '1978-03-25', '984594364', 3, 2);
+INSERT INTO `seguradora`.`pessoa` (`ID`, `NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `ID_ENDERECO`, `ID_TIPO_PESSOA`) VALUES ('5', 'Vilmar', '49877326108', '1988-05-27', '98649300', 1, 2);
+INSERT INTO `seguradora`.`pessoa` (`ID`, `NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `ID_ENDERECO`, `ID_TIPO_PESSOA`) VALUES ('6', 'Flavio', '26594800356', '1960-07-19', '984652311', 4, 2);
 
+
+-- INSERTS DE TIPO_PESSOA
+INSERT INTO `seguradora`.`tipo_pessoa` (`ID`, `NOME`) VALUES ('1', 'corretor');
+INSERT INTO `seguradora`.`tipo_pessoa` (`ID`, `NOME`) VALUES ('2', 'segurado');
+insert into tipo_pessoa(tipo_pessoa) values ('SEGURADO');
+insert into tipo_pessoa(tipo_pessoa) values ('CORRETOR');
 
 
 -- Inserts de 'QUASE' tudo
