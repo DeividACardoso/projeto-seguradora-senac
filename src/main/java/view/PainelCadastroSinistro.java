@@ -273,11 +273,6 @@ public class PainelCadastroSinistro extends JPanel {
 		add(btnSalvar, "5, 26");
 		
 		btnVoltar = new JButton("Voltar");
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-			}
-		});
 		btnVoltar.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-voltar-50.png")));
 		btnVoltar.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		btnVoltar.setForeground(Color.BLACK);
@@ -303,8 +298,8 @@ public class PainelCadastroSinistro extends JPanel {
 		this.txtMotivo.setText(this.sinistro.getMotivo());
 		this.cbVeiculo.setSelectedItem(this.sinistro.getVeiculo());
 	}
+	
 	public JButton getBtnVoltar() {
 		return btnVoltar;
 	}
-	
 }

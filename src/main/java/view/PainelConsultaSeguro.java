@@ -35,8 +35,8 @@ public class PainelConsultaSeguro extends JPanel {
 
 	private JTable tblListaSeguros;
 	private ArrayList<Seguro> seguros;
-	private String[] nomesColunas = { "Segurado", "Proposta", "Ve�culo", "Vig�nciaInicial ", "Vig�nciaFinal",
-			" RCFMaterial", "RCF-Corporais", "Franquia", "Assist�ncia", "CarroReserva" };
+	private String[] nomesColunas = { "Segurado", "Proposta", "Ve�culo", "Vig�nciaInicial ", "VigêciaFinal",
+			" RCFMaterial", "RCF-Corporais", "Franquia", "Assistência", "CarroReserva" };
 	private JTextField txtNumeroProposta;
 	private JLabel lnlNumeroProposta;
 	private JLabel lblVigenciaInicio;
@@ -60,7 +60,14 @@ public class PainelConsultaSeguro extends JPanel {
 	private JLabel lblPaginacao;
 
 	private void limparTabelaSeguros() {
-		tblListaSeguros.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
+		tblListaSeguros.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"Segurado", "Proposta", "Veículo", "VigênciaInicial ", "VigêciaFinal", " RCFMaterial", "RCF-Corporais", "Franquia", "Assistência", "CarroReserva"},
+			},
+			new String[] {
+				"Segurado", "Proposta", "Veículo", "VigênciaInicial ", "VigêciaFinal ", " RCFMaterial", "RCF-Corporais", "Franquia", "Assistência", "CarroReserva"
+			}
+		));
 	}
 
 	private void atualizarTabelaSeguros() {
@@ -89,7 +96,7 @@ public class PainelConsultaSeguro extends JPanel {
 		setBackground(new Color(26, 158, 230));
 		setLayout(null);
 
-		lnlNumeroProposta = new JLabel("N�mero proposta:");
+		lnlNumeroProposta = new JLabel("Número proposta:");
 		lnlNumeroProposta.setForeground(new Color(255, 255, 255));
 		lnlNumeroProposta.setBackground(new Color(255, 255, 255));
 		lnlNumeroProposta.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
@@ -102,7 +109,7 @@ public class PainelConsultaSeguro extends JPanel {
 		add(txtNumeroProposta);
 		txtNumeroProposta.setColumns(10);
 
-		lblVigenciaInicio = new JLabel("Data in\u00EDcio vig\u00EAncia De:");
+		lblVigenciaInicio = new JLabel("Data início vigência De:");
 		add(lblVigenciaInicio);
 		lblVigenciaInicio.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		lblVigenciaInicio.setForeground(new Color(255, 255, 255));
@@ -145,7 +152,7 @@ public class PainelConsultaSeguro extends JPanel {
 				}
 			}
 		});
-		tblListaSeguros.setBounds(37, 282, 1086, 143);
+		tblListaSeguros.setBounds(37, 282, 1189, 143);
 		add(tblListaSeguros);
 
 //		tblListaSeguros.setModel(new DefaultTableModel(
@@ -168,6 +175,7 @@ public class PainelConsultaSeguro extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					buscarSegurosComFiltros();
+					atualizarTabelaSeguros();
 				} catch (CampoInvalidoException e1) {
 					e1.printStackTrace();
 				}
@@ -214,7 +222,7 @@ public class PainelConsultaSeguro extends JPanel {
 		btnExcluir.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				int opcaoSelecionada = JOptionPane.showConfirmDialog(null, "Confirma a exclus�o do seguro selecionado?");
+				int opcaoSelecionada = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do seguro selecionado?");
 				if (opcaoSelecionada == JOptionPane.YES_OPTION) {
 					try {
 						controller.excluir(seguroSelecionado.getId());
@@ -222,7 +230,7 @@ public class PainelConsultaSeguro extends JPanel {
 						seguros = (ArrayList<Seguro>) controller.consultarTodos();
 						atualizarTabelaSeguros();
 					} catch (ClienteComSeguroException e1) {
-						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Aten��o", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			}
@@ -260,7 +268,7 @@ public class PainelConsultaSeguro extends JPanel {
 		btnVoltarPagina.setBounds(275, 436, 123, 23);
 		add(btnVoltarPagina);
 
-		btnAvancarPagina = new JButton("Avan�ar");
+		btnAvancarPagina = new JButton("Avançar");
 		btnAvancarPagina.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				paginaAtual++;
@@ -311,7 +319,7 @@ public class PainelConsultaSeguro extends JPanel {
 				seletor.setNumeroProposta(numeroProposta);
 
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "N�mero de proposta inv�ilido");
+				JOptionPane.showMessageDialog(null, "Número de proposta inv�lido");
 
 				return;
 			}
