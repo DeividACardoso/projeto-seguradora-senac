@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -59,27 +60,47 @@ public class PainelConsultaCliente extends JPanel {
 	private PessoaSeletor seletor = new PessoaSeletor();
 	
 	
-	private void limparTabelaPessoas() {
+	private void limparTabela() {
 		tblListagemPessoas.setModel(new DefaultTableModel(new Object[][] { nomesColunas, }, nomesColunas));
 	}
 
 	private void atualizarTabelaPessoas() {
-		this.limparTabelaPessoas();
+		this.limparTabela();
+		
+		PessoaController pessoaController = new PessoaController();
+		pessoas = (ArrayList<Pessoa>) pessoaController.consultarTodos();
 
 		DefaultTableModel model = (DefaultTableModel) tblListagemPessoas.getModel();
 
 		for (Pessoa p : pessoas) {
-			Object[] novaLinhaDaTabela = new Object[5];
+			Object[] novaLinhaDaTabela = new Object[7];
 			novaLinhaDaTabela[0] = p.getNome();
 			novaLinhaDaTabela[1] = p.getCpf();
 			novaLinhaDaTabela[2] = p.getDataNascimento();
 			novaLinhaDaTabela[3] = p.getSeguros().size();			
 			novaLinhaDaTabela[4] = p.getTelefone();
 			novaLinhaDaTabela[5] = p.getEndereco();
+			novaLinhaDaTabela[6] = p.getTipoPessoa();
 			model.addRow(novaLinhaDaTabela);
 		}
 	}	
 	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PainelConsultaCliente window = new PainelConsultaCliente();
+					window.tblListagemPessoas.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+		
 	/**
 	 * Create the panel.
 	 */
@@ -194,6 +215,11 @@ public class PainelConsultaCliente extends JPanel {
 		btnEditar = new JButton("Editar");
 		btnEditar.setIcon(new ImageIcon(PainelConsultaCliente.class.getResource("/icones/icons8-editar-48.png")));
 		btnEditar.setBackground(new Color(231, 200, 24));
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PainelCadastroCliente telaEdicaoPessoa = new PainelCadastroCliente();
+			}
+		});
 		add(btnEditar, "5, 15, fill, fill");
 		
 		btnExcluir = new JButton("Excluir");
@@ -243,10 +269,11 @@ public class PainelConsultaCliente extends JPanel {
 		seletor.setDataNascimentoDe(dpDataNascimento.getDate());
 		seletor.setDataNascimentoAte(dpDataNascimento_1.getDate());
 		pessoas = (ArrayList<Pessoa>) pessoaController.consultarComFiltros(seletor);
-		atualizarTabelaPessoas();		
+		atualizarTabelaPessoas();	
+		return;
 	}
 	
-	//Botão Editar fica acessível externamente a classe
+	//Botões ficam acessíveis externamente a classe
 	public JButton getBtnEditar() {
 		return this.btnEditar;
 	}
