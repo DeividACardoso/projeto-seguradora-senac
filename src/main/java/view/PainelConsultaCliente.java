@@ -69,7 +69,6 @@ public class PainelConsultaCliente extends JPanel {
 	private void atualizarTabelaPessoas() {
 		this.limparTabela();
 		
-
 		DefaultTableModel model = (DefaultTableModel) tblListagemPessoas.getModel();
 
 		for (Pessoa p : pessoas) {
