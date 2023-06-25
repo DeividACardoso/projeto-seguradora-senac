@@ -126,10 +126,17 @@ public class Sinistro {
 
 	@Override
 	public String toString() {
-		return "Sinistro [id=" + id + ", pessoa=" + pessoa + ", numeroSinistro=" + numeroSinistro + ", tipoSinistro="
-				+ tipoSinistro + ", veiculo=" + veiculo + ", dataSinistro=" + dataSinistro + ", valorFranquia="
-				+ valorFranquia + ", valorOrcado=" + valorOrcado + ", valorPago=" + valorPago + ", situacao=" + situacao
-				+ ", motivo=" + motivo + "]\n";
+		return "Id: " + id 
+				+ "\nPessoa: " + pessoa 
+				+ "\nNúmero Sinistro: " + numeroSinistro 
+				+ "\nTipo Sinistro: " + tipoSinistro 
+				+ "\nVeículo: " + veiculo 
+				+ "\nData Sinistro: " + dataSinistro 
+				+ "\nValor Franquia: " + valorFranquia 
+				+ "\nValor Orcado: " + valorOrcado 
+				+ "\nValor Pago: " + valorPago 
+				+ "\nSituação: " + situacao
+				+ "\nMotivo: " + motivo;
 	}	
 	
 	

@@ -2,8 +2,10 @@ package controller;
 
 import java.util.List;
 
+
 import model.bo.PessoaBO;
 import model.exception.CampoInvalidoException;
+import model.gerador.GeradorPlanilha;
 import model.vo.Pessoa;
 
 
@@ -77,5 +79,14 @@ public class PessoaController {
 		return bo.consultarTodos();
 	}
 	
+public String gerarPlanilha(List<Pessoa> pessoas, String destinoArquivo) throws CampoInvalidoException {
+		
+		if(pessoas == null || destinoArquivo == null || destinoArquivo.trim().isEmpty()) {
+			throw new CampoInvalidoException("Preencha todos os campos");
+		}
+		
+		GeradorPlanilha gerador = new GeradorPlanilha();
+		return gerador.gerarPlanilhaPessoas(pessoas, destinoArquivo);
+	}
 	
 }

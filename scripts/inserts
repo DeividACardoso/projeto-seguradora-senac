@@ -1,5 +1,8 @@
 INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CIDADE`, `ESTADO`) VALUES ('1', '805', '88495000', '23', 'Centro', 'Garopaba', 'SC');
 INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CIDADE`, `ESTADO`) VALUES ('2', '769', '56472036', '15', 'Centro', 'Florianópolis', 'SC');
+INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CIDADE`, `ESTADO`) VALUES ('3', '621', '65423981', '7', 'Campinas', 'São José', 'SC');
+INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CIDADE`, `ESTADO`) VALUES ('4', '943', '75910254', '30', 'Oficinas', 'Tubarão', 'SC');
+
 
 
 -- Inserts de 'QUASE' tudo

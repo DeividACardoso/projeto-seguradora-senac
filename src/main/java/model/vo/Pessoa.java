@@ -100,6 +100,5 @@ public class Pessoa {
 				+ "\nTelefone: " + telefone 
 				+ "\nEndereco: " + endereco;
 	}
-
 	
 }
