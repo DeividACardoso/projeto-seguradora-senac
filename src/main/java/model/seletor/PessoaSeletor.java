@@ -20,7 +20,9 @@ public class PessoaSeletor extends BaseSeletor{
 		return (this.nome != null && this.nome.trim().length() > 0)
 			|| (this.cpf != null && this.cpf.trim().length() > 0)
 			|| this.dataNascimento != null
-			|| this.seguros != null;
+			|| this.seguros != null
+			|| this.telefone != null
+			|| this.endereco != null;
 	}
 
 	public String getNome() {
