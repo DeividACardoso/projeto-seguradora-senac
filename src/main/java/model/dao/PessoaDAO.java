@@ -44,7 +44,7 @@ public class PessoaDAO {
 	
 	public boolean atualizar(Pessoa pessoa) {
 		Connection conexao = Banco.getConnection();
-		String sql = " UPDATE PESSOA SET NOME=?, CPF=?, DTNASCIMENTO=?, TELEFONE=?, ID_ENDERECO=? "
+		String sql = " UPDATE PESSOA SET NOME=?, CPF=?, DTNASCIMENTO=?, TELEFONE=?, ID_ENDERECO=?, ID_TIPO_PESSOA=? "
 				+ " WHERE ID = ?";
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
 		int registrosAlterados = 0;
@@ -54,7 +54,8 @@ public class PessoaDAO {
 			stmt.setDate(3, java.sql.Date.valueOf(pessoa.getDataNascimento()));
 			stmt.setString(4, pessoa.getTelefone());
 			stmt.setInt(5, pessoa.getEndereco().getId());
-			stmt.setInt(6, pessoa.getId());
+			stmt.setInt(6, pessoa.getTipoPessoa().getValor());
+			stmt.setInt(7, pessoa.getId());
 			registrosAlterados = stmt.executeUpdate();
 			 
 		} catch (SQLException erro) {

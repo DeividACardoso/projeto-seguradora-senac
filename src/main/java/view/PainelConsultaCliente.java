@@ -59,6 +59,7 @@ public class PainelConsultaCliente extends JPanel {
 
 	private PessoaController pessoaController = new PessoaController();
 	private Pessoa pessoaSelecionada;
+//	private PainelConsultaCliente painelConsultaCliente;
 	private PessoaSeletor seletor = new PessoaSeletor();
 	
 	
@@ -107,14 +108,14 @@ public class PainelConsultaCliente extends JPanel {
 		setBackground(new Color(26, 158, 230));
 		setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("1px"),
-				ColumnSpec.decode("39px"),
-				ColumnSpec.decode("46px"),
+				ColumnSpec.decode("262px"),
+				ColumnSpec.decode("right:46px"),
 				ColumnSpec.decode("120px"),
 				ColumnSpec.decode("134px"),
 				ColumnSpec.decode("29px"),
 				ColumnSpec.decode("32px"),
 				ColumnSpec.decode("39px"),
-				ColumnSpec.decode("156px"),},
+				ColumnSpec.decode("380px"),},
 			new RowSpec[] {
 				RowSpec.decode("1px"),
 				RowSpec.decode("21px"),
@@ -239,7 +240,7 @@ public class PainelConsultaCliente extends JPanel {
 				}
 			}
 		});
-		add(btnExcluir, "9, 15, right, fill");
+		add(btnExcluir, "9, 15, center, fill");
 //		btnEditar.setEnabled(true);
 //		btnExcluir.setEnabled(true);
 		

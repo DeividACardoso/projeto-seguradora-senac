@@ -23,8 +23,8 @@ import com.privatejgoodies.forms.layout.RowSpec;
 public class Menu {
 
 	private JFrame frmMenu;
-	protected PainelCadastroCliente painelCadastroCliente;
-	protected PainelConsultaCliente painelConsultaCliente;
+	private PainelCadastroCliente painelCadastroCliente;
+	private PainelConsultaCliente painelConsultaCliente;
 	private PainelConsultaSeguro painelConsultaSeguroAlterado;
 	private PainelCadastroSeguro painelCadastroSeguro;
 	private PainelConsultaSinistro painelConsultaSinistro;
@@ -188,10 +188,6 @@ public class Menu {
 				new ImageIcon(Menu.class.getResource("/icones/icons8-análise-de-crescimento-financeiro-64.png")));
 		mnSinistro.add(mnItemConsultarSinistro);
 
-		JMenu mnRelatorios = new JMenu("Relatórios");
-		mnRelatorios.setIcon(new ImageIcon(Menu.class.getResource("/icones/icons8-partilhar-2-64 (1).png")));
-		menuBar.add(mnRelatorios);
-
 		JMenu mnSobre = new JMenu("Sobre");
 		mnSobre.addMouseListener(new MouseAdapter() {
 			@Override
@@ -204,6 +200,9 @@ public class Menu {
 		menuBar.add(mnSobre);
 		frmMenu.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {}, new RowSpec[] {}));
 	}
+	
+//////////////////////////////////METODOS DO PAINEL PESSOA///////////////////////////////////////////////////////////////////////////
+	
 	protected void registrarCliqueBotaoVoltarDoPainelCadastroPessoa() {
 		painelCadastroCliente.getbtnVoltar().addActionListener(new ActionListener() {
 			
@@ -214,8 +213,20 @@ public class Menu {
 				frmMenu.revalidate();
 			}
 		});
-		
 	}
+	
+	protected void registrarCliqueBotaoEditarDoPainelConsultaCliente() {
+		painelConsultaCliente.getBtnEditar().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				painelConsultaCliente = new PainelConsultaCliente();//painelConsultaCliente.getPessoaSelecionada()
+				painelConsultaCliente.setVisible(true);
+				registrarCliqueBotaoEditarDoPainelConsultaCliente();
+				frmMenu.setContentPane(painelConsultaCliente);
+				frmMenu.revalidate();
+			}
+		});
+	}
+	
 
 	//////////////////////////////////METODOS DO PAINEL SINISTRO///////////////////////////////////////////////////////////////////////////
 	protected void registrarCliqueBotaoVoltarDoPainelCadastroSinistro() {
@@ -249,6 +260,7 @@ public class Menu {
 		});
 
 	}
+	
 	//////////////////////////////////METODOS DO PAINEL SEGURO///////////////////////////////////////////////////////////////////////////
 	protected void registrarCliqueBotaoVoltarDoPainelCadastroSeguro() {
 		if (painelCadastroSeguro == null) {
