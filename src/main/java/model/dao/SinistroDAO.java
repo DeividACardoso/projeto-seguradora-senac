@@ -227,7 +227,7 @@ public class SinistroDAO {
 				sql += " AND ";
 			}
 			
-			sql += " nome_segurado LIKE '%" + seletor.getNomeSegurado() + "%'";
+			sql += " nome_segurado WHERE '%" + seletor.getNomeSegurado() + "%'";
 			primeiro = false;
 		}
 		
