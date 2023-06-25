@@ -53,7 +53,7 @@ public class SeguroDAO {
 	public boolean atualizar(Seguro seguroAtualizado) {
 		boolean atualizou = false;
 		Connection conexao = Banco.getConnection();
-		String sql = " UPDATE SEGURO " + " SET NOME_SEGURADO = ?, NUMERO_PROPOSTA = ?, PLACA_VEICULO = ? " + " DT_INICIO_VIGENCIA = ?,"
+		String sql = " UPDATE SEGURO " + " SET NOME_SEGURADO = ?, NUMERO_PROPOSTA = ?, PLACA_VEICULO = ?, " + " DT_INICIO_VIGENCIA = ?,"
 				+ " DT_FIM_VIGENCIA = ?, RCF_DANOS_MATERIAIS = ?, RCF_DANOS_CORPORAIS = ?, FRANQUIA = ?, ASSISTENCIA = ?, CARRO_RESERVA = ? "
 				+ " WHERE ID = ? ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
