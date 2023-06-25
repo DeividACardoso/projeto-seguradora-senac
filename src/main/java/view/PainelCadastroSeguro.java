@@ -25,6 +25,7 @@ import controller.SeguroController;
 import model.exception.CampoInvalidoException;
 import model.exception.ClienteComSeguroException;
 import model.seletor.SeguroSeletor;
+import model.util.DateUtil;
 import model.vo.Seguro;
 
 public class PainelCadastroSeguro extends JPanel {
@@ -54,7 +55,8 @@ public class PainelCadastroSeguro extends JPanel {
 	private JComboBox cbCarro_reserva;
 	private JButton btnSalvar;
 	private JButton btnVoltar;
-	private String[] rcfDanosMaeriais = { "350.000", "300.000", "250.000", "200.000", "150.000", "100.000" };;
+	private Double[] rcfDanosMaeriais = { 350.000, 300.000, 250.000, 200.000, 150.000, 100.000 };
+	private Double[] rcfDanosCorporais = { 350.000, 300.000, 250.000, 200.000, 150.000, 100.000 };
 
 	private SeguroSeletor seletor = new SeguroSeletor();
 	private JLabel lblNewLabel;
@@ -180,7 +182,7 @@ public class PainelCadastroSeguro extends JPanel {
 		lblRcfDanosCorporais.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblRcfDanosCorporais, "6, 26");
 
-		String[] rcfDanosCorporais = { "350.000", "300.000", "250.000", "200.000", "150.000", "100.000" };
+		
 		cbRCFDanosCorporais = new JComboBox(rcfDanosCorporais);
 		add(cbRCFDanosCorporais, "10, 26, 4, 1, fill, default");
 
@@ -227,8 +229,8 @@ public class PainelCadastroSeguro extends JPanel {
 				seguro.setPlacaVeiculo(txtPlaca.getText());
 				seguro.setDtInicioVigencia(dataVigenciaInicial.getDate());
 				seguro.setDtFimVigencia(dataVigenciaFinal.getDate());
-				seguro.setRcfDanosMateriais(Double.parseDouble((String) cbRCFDanosMateriais.getSelectedItem()));
-				seguro.setRcfDanosCorporais(Double.parseDouble((String) cbRCFDanosCorporais.getSelectedItem()));
+				seguro.setRcfDanosMateriais((double) cbRCFDanosMateriais.getSelectedItem());
+				seguro.setRcfDanosCorporais((double) cbRCFDanosCorporais.getSelectedItem());
 				seguro.setFranquia((String) cbFranquia.getSelectedItem());
 				seguro.setAssistencia((String) cbAssistencia.getSelectedItem());
 				seguro.setCarroReserva((String) cbCarro_reserva.getSelectedItem());
@@ -275,15 +277,15 @@ public class PainelCadastroSeguro extends JPanel {
 		this.txtPlaca.setText(this.seguro.getPlacaVeiculo());
 		this.seguro.setDtInicioVigencia(this.seguro.getDtInicioVigencia());
 		this.seguro.setDtFimVigencia(this.seguro.getDtFimVigencia());
-		String valorRcfDanosMateriais = "";
-		for (int i = 0; i < rcfDanosMaeriais.length; i++) {
-			double valor = Double.valueOf(rcfDanosMaeriais[i]);
-			if( valor == this.seguro.getRcfDanosMateriais()) {
-				valorRcfDanosMateriais = rcfDanosMaeriais[i];
-				break;
-			}
-		}
-		this.cbRCFDanosMateriais.setSelectedItem(valorRcfDanosMateriais);
+//		String valorRcfDanosMateriais = "";
+//		for (int i = 0; i < rcfDanosMaeriais.length; i++) {
+//			double valor = Double.valueOf(rcfDanosMaeriais[i]);
+//			if( valor == this.seguro.getRcfDanosMateriais()) {
+//				valorRcfDanosMateriais = rcfDanosMaeriais[i];
+//				break;
+//			}
+//		}
+		this.cbRCFDanosMateriais.setSelectedItem(this.seguro.getRcfDanosMateriais());
 		this.cbRCFDanosCorporais.setSelectedItem(this.seguro.getRcfDanosCorporais() );
 		this.cbFranquia.setSelectedItem(this.seguro.getFranquia());
 		this.cbAssistencia.setSelectedItem(this.seguro.getAssistencia());
