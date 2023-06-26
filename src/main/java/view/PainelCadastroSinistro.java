@@ -215,7 +215,6 @@ public class PainelCadastroSinistro extends JPanel {
 		
 		txtMotivo = new JTextField();
 		txtMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		txtMotivo.setText("batata\r\n");
 		txtMotivo.setColumns(10);
 		add(txtMotivo, "10, 20, 1, 4");
 		
