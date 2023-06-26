@@ -180,12 +180,12 @@ public class Menu {
 
 
 		mnItemConsultarSinistro.setIcon(
-				new ImageIcon(Menu.class.getResource("/icones/icons8-an√°lise-de-crescimento-financeiro-64.png")));
+				new ImageIcon(Menu.class.getResource("/icones/icons8-an·lise-de-crescimento-financeiro-64.png")));
 
-			new ImageIcon(Menu.class.getResource("/icones/icons8-an√°lise-de-crescimento-financeiro-64.png"));
+			new ImageIcon(Menu.class.getResource("/icones/icons8-an·lise-de-crescimento-financeiro-64.png"));
 
 		mnItemConsultarSinistro.setIcon(
-				new ImageIcon(Menu.class.getResource("/icones/icons8-an√°lise-de-crescimento-financeiro-64.png")));
+				new ImageIcon(Menu.class.getResource("/icones/icons8-an·lise-de-crescimento-financeiro-64.png")));
 		mnSinistro.add(mnItemConsultarSinistro);
 
 		JMenu mnSobre = new JMenu("Sobre");

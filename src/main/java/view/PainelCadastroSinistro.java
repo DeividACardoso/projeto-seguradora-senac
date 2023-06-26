@@ -29,8 +29,10 @@ import com.jgoodies.forms.layout.RowSpec;
 import controller.SinistroController;
 import model.dao.PessoaDAO;
 import model.dao.VeiculoDAO;
+import model.exception.CampoInvalidoException;
 import model.exception.PessoaInvalidaException;
 import model.exception.VeiculoInvalidaException;
+import model.util.JNumberFormatField;
 import model.vo.Pessoa;
 import model.vo.Sinistro;
 import model.vo.Situacao;
@@ -147,7 +149,7 @@ public class PainelCadastroSinistro extends JPanel {
 		lblValorFranquia.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblValorFranquia, "8, 8, right, default");
 		
-		fTxtValorFranquia = new JTextField();
+		fTxtValorFranquia = new JNumberFormatField(2);
 		fTxtValorFranquia.setColumns(10);
 		add(fTxtValorFranquia, "10, 8, fill, default");
 		
@@ -166,7 +168,7 @@ public class PainelCadastroSinistro extends JPanel {
 		lblValorOrcado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblValorOrcado, "8, 11, right, default");
 		
-		fTxtValorOrcado = new JTextField();
+		fTxtValorOrcado = new JNumberFormatField(2);
 		fTxtValorOrcado.setColumns(10);
 		add(fTxtValorOrcado, "10, 11, fill, default");
 		
@@ -189,7 +191,7 @@ public class PainelCadastroSinistro extends JPanel {
 		lblValorPago.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblValorPago, "8, 14, right, default");
 		
-		fTxtValorPago = new JTextField();
+		fTxtValorPago = new JNumberFormatField(2);
 		fTxtValorPago.setColumns(10);
 		add(fTxtValorPago, "10, 14, fill, default");
 		
@@ -230,6 +232,7 @@ public class PainelCadastroSinistro extends JPanel {
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				SinistroController sinController = new SinistroController();
 				Sinistro sin = new Sinistro();
 				sin.setNumeroSinistro(txtNumeroSinistro.getText());
@@ -246,7 +249,7 @@ public class PainelCadastroSinistro extends JPanel {
 					sinController.inserir(sin);
 					JOptionPane.showMessageDialog(null, "Sinistro salvo com sucesso!", 
 							"Sucesso!", JOptionPane.INFORMATION_MESSAGE);
-				} catch (PessoaInvalidaException | VeiculoInvalidaException excecao) {
+				} catch (PessoaInvalidaException | VeiculoInvalidaException | CampoInvalidoException excecao) {
 					JOptionPane.showMessageDialog(null, excecao.getMessage(),
 							"Erro", JOptionPane.ERROR_MESSAGE);
 				}

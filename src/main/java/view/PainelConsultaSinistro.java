@@ -62,11 +62,11 @@ public class PainelConsultaSinistro extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) tableSinistro.getModel();
 		
 		for(Sinistro s : this.sinistros) {
-			Object[] novaLinhaDaTabela = new Object[10];
+			Object[] novaLinhaDaTabela = new Object[7];
 			novaLinhaDaTabela[0] = s.getId();
 			novaLinhaDaTabela[1] = s.getNumeroSinistro();
-			novaLinhaDaTabela[2] = s.getPessoa();
-			novaLinhaDaTabela[3] = s.getVeiculo();
+			novaLinhaDaTabela[2] = s.getPessoa().getNome();
+			novaLinhaDaTabela[3] = s.getVeiculo().getPlacaVeiculo();
 			novaLinhaDaTabela[4] = s.getTipoSinistro();
 			novaLinhaDaTabela[5] = s.getDataSinistro();
 			novaLinhaDaTabela[6] = s.getSituacao();

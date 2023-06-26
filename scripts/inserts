@@ -1,13 +1,10 @@
--- INSERTS DE ENDEREÇOS
+-- INSERTS DE ENDERE�OS
 INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CIDADE`, `ESTADO`) VALUES ('1', '805', '88495000', '23', 'Centro', 'Garopaba', 'SC');
 INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CIDADE`, `ESTADO`) VALUES ('2', '769', '56472036', '15', 'Centro', 'Florianópolis', 'SC');
 INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CIDADE`, `ESTADO`) VALUES ('3', '621', '65423981', '7', 'Campinas', 'São José', 'SC');
 INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CIDADE`, `ESTADO`) VALUES ('4', '943', '75910254', '30', 'Oficinas', 'Tubarão', 'SC');
 
 
--- INSERTS DE PESSOA
-INSERT INTO `seguradora`.`pessoa` (`ID`, `NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`, `id_tipo_pessoa`) VALUES ('4', 'Ronaldo', '5596647315', '1965-07-09', '984652377', 2, 2);
-INSERT INTO `seguradora`.`pessoa` (`ID`, `NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`, `id_tipo_pessoa`) VALUES ('4', 'Adriano', '56499234601', '1978-03-25', '984594364', 3, 2);
 
 
 
@@ -15,14 +12,18 @@ INSERT INTO `seguradora`.`pessoa` (`ID`, `NOME`, `CPF`, `DTNASCIMENTO`, `TELEFON
 insert into tipo_pessoa(tipo_pessoa) values ('SEGURADO');
 insert into tipo_pessoa(tipo_pessoa) values ('CORRETOR');
 
+
 insert into endereco(numero, cep, rua, bairro, cidade, estado) values (12, '80205060', 'Rua de testes', 'Bairro de funfa pfv', 'Florianópolis', 'SC'); 
 insert into endereco(numero, cep, rua, bairro, cidade, estado) values (123, '89765423', 'Rua Ingabaú', 'Monte Verde', 'Florianópolis', 'SC'); 
 insert into endereco(numero, cep, rua, bairro, cidade, estado) values (345, '23146589', 'Ser. São Lázaro', 'Monte Verde', 'Florianópolis', 'SC'); 
-
+-- INSERTS DE PESSOA
 -- SUBSTITUIR NULLS NA APRESENTAÇÃO.
 insert into pessoa(nome, cpf, dtnascimento, telefone, id_endereco, id_tipo_pessoa) values ('Deivid', '11144477722', '1999-05-09', '515949132', null, 1);
 insert into pessoa(nome, cpf, dtnascimento, telefone, id_endereco, id_tipo_pessoa) values ('Wesley', '91537597836', '2004-10-21', '328746123', null, 2);
 insert into pessoa(nome, cpf, dtnascimento, telefone, id_endereco, id_tipo_pessoa) values ('Ian', '19575397845', '2000-11-05', '159951256', null, 2);
+INSERT INTO `seguradora`.`pessoa` (`ID`, `NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`, `id_tipo_pessoa`) VALUES ('4', 'Ronaldo', '5596647315', '1965-07-09', '984652377', 2, 2);
+INSERT INTO `seguradora`.`pessoa` (`ID`, `NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`, `id_tipo_pessoa`) VALUES ('4', 'Adriano', '56499234601', '1978-03-25', '984594364', 3, 2);
+
 
 INSERT INTO `seguradora`.`seguro` VALUES ( 1, 'SUERDI SANDER', 15878, 'KJI2D34', '2023/06/22', '2024/06/22', 350000, 350000, 'REDUZIDA', 'COMPLETA', '15 DIAS COMPLETO' );
 INSERT INTO `seguradora`.`seguro` VALUES ( 2, 'LEONARDO COUTINHO', 12548, 'MKH0D48', '2020/10/15', '2021/10/15', 250000, 250000, 'PADRAO', 'BASICA', '7 DIAS BASICO' );
