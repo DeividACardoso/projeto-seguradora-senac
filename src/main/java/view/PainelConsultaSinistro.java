@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -215,6 +216,10 @@ public class PainelConsultaSinistro extends JPanel {
 		
 		
 		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnEditar.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-editar-48.png")));
 		btnEditar.setBackground(new Color(227, 218, 28));
 		add(btnEditar, "10, 23, fill, fill");
@@ -222,6 +227,21 @@ public class PainelConsultaSinistro extends JPanel {
 		
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-excluir-48.png")));
+		btnEditar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int opcaoSelecionada = JOptionPane.showConfirmDialog(null, "Confirma a exclusão?");
+				if (opcaoSelecionada == JOptionPane.YES_OPTION) {
+					if(controller.excluir(sinistroSelecionado.getId())) {
+						JOptionPane.showMessageDialog(null, "Excluido com sucesso");
+						limparTabela();
+						atualizarTabela();
+					}
+				}
+			}
+			
+		});
 		btnExcluir.setBackground(new Color(227, 218, 28));
 		add(btnExcluir, "12, 23, default, fill");
 		btnExcluir.setEnabled(false);
