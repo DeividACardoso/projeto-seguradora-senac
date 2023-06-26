@@ -14,7 +14,6 @@ public class PessoaBO {
 	public Pessoa inserir(Pessoa pessoa) {
 		return dao.inserir(pessoa);
 	}
-	
 
 	public boolean atualizar(Pessoa pessoa) {
 		return dao.atualizar(pessoa);
@@ -32,13 +31,9 @@ public class PessoaBO {
 		return dao.consultarTodos();
 	}
 
-
 	public List<Pessoa> consultarComFiltros(PessoaSeletor seletor) {
-
-		
 		return dao.consultarComFiltros(seletor);
 	}
-
 
 	public int contarTotalRegistrosComFiltros(PessoaSeletor seletor) {
 		return dao.contarTotalRegistrosComFiltros(seletor);
