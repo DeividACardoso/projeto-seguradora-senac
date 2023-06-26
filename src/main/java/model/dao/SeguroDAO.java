@@ -168,7 +168,7 @@ public class SeguroDAO {
 	public List<Seguro> consultarPorIdCliente(Integer id) {
 		List<Seguro> seguros = new ArrayList<Seguro>();
 		Connection conexao = Banco.getConnection();
-		String sql = " SELECT * FROM SEGURO " + " WHERE ID_PESSOA = ? ";
+		String sql = " SELECT * FROM SEGURO " + " WHERE ID = ? ";
 		PreparedStatement query = Banco.getPreparedStatement(conexao, sql);
 
 		try {

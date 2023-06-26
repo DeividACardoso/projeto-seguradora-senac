@@ -73,14 +73,15 @@ public class PainelConsultaCliente extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) tblListagemPessoas.getModel();
 
 		for (Pessoa p : pessoas) {
-			Object[] novaLinhaDaTabela = new Object[7];
-			novaLinhaDaTabela[0] = p.getNome();
-			novaLinhaDaTabela[1] = p.getCpf();
-			novaLinhaDaTabela[2] = p.getDataNascimento();
-			novaLinhaDaTabela[3] = p.getSeguros().size();			
-			novaLinhaDaTabela[4] = p.getTelefone();
-			novaLinhaDaTabela[5] = p.getEndereco();
-			novaLinhaDaTabela[6] = p.getTipoPessoa();
+			Object[] novaLinhaDaTabela = new Object[8];
+			novaLinhaDaTabela[0] = p.getId();
+			novaLinhaDaTabela[1] = p.getNome();
+			novaLinhaDaTabela[2] = p.getCpf();
+			novaLinhaDaTabela[3] = p.getDataNascimento();
+			novaLinhaDaTabela[4] = p.getSeguros().size();			
+			novaLinhaDaTabela[5] = p.getTelefone();
+			novaLinhaDaTabela[6] = p.getEndereco();
+			novaLinhaDaTabela[7] = p.getTipoPessoa();
 			model.addRow(novaLinhaDaTabela);
 		}
 	}	
@@ -94,8 +95,8 @@ public class PainelConsultaCliente extends JPanel {
 				try {
 					PainelConsultaCliente window = new PainelConsultaCliente();
 					window.tblListagemPessoas.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (Exception erro) {
+					erro.printStackTrace();
 				}
 			}
 		});
