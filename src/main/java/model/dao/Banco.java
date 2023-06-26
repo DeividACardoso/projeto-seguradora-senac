@@ -18,8 +18,8 @@ public class Banco {
 	private static final String USER = "root";
 
 	//private static final String PASSWORD = "admin";
-	private static final String PASSWORD = "admin";
-	//private static final String PASSWORD = "root";
+	//private static final String PASSWORD = "admin";
+	private static final String PASSWORD = "root";
 
 	public static Connection getConnection() {
 		try {

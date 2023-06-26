@@ -227,7 +227,7 @@ public class PainelConsultaSinistro extends JPanel {
 		
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-excluir-48.png")));
-		btnEditar.addActionListener(new ActionListener() {
+		btnExcluir.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -235,8 +235,8 @@ public class PainelConsultaSinistro extends JPanel {
 				if (opcaoSelecionada == JOptionPane.YES_OPTION) {
 					if(controller.excluir(sinistroSelecionado.getId())) {
 						JOptionPane.showMessageDialog(null, "Excluido com sucesso");
-						limparTabela();
 						atualizarTabela();
+						buscarSinistros();
 					}
 				}
 			}

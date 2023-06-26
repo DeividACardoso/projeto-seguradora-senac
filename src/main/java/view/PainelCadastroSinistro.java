@@ -203,16 +203,6 @@ public class PainelCadastroSinistro extends JPanel {
 		dpData= new DatePicker();
 		add(dpData, "5, 17, fill, fill");
 		
-		lblHora = new JLabel("Hora:");
-		lblHora.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblHora.setForeground(Color.WHITE);
-		lblHora.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblHora, "8, 17");
-		
-		fTxtHora = new JFormattedTextField();
-		fTxtHora.setColumns(10);
-		add(fTxtHora, "10, 17, fill, default");
-		
 		txtMotivo = new JTextField();
 		txtMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		txtMotivo.setColumns(10);
@@ -241,9 +231,11 @@ public class PainelCadastroSinistro extends JPanel {
 				sin.setDataSinistro(dpData.getDate());
 				sin.setMotivo(txtMotivo.getText());
 				sin.setSituacao((Situacao) cbSituacao.getSelectedItem());
-				sin.setValorFranquia(Double.parseDouble(fTxtValorFranquia.getText()));
-				sin.setValorOrcado(Double.parseDouble(fTxtValorOrcado.getText()));
-				sin.setValorPago(Double.parseDouble(fTxtValorPago.getText()));
+				String valorFranquiaSemMascara = fTxtValorFranquia.getText().replace(".", "");
+				valorFranquiaSemMascara.replace(",", ".");
+				sin.setValorFranquia((double) Double.parseDouble(valorFranquiaSemMascara));
+				sin.setValorOrcado((double) Double.parseDouble(fTxtValorOrcado.getText()));
+				sin.setValorPago((double) Double.parseDouble(fTxtValorPago.getText()));
 				try {
 					sinController.inserir(sin);
 					JOptionPane.showMessageDialog(null, "Sinistro salvo com sucesso!", 
