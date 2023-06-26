@@ -87,7 +87,7 @@ public class Menu {
 				mnItemCadastroCliente = new JMenuItem("Cadastro");
 				mnItemCadastroCliente.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						painelCadastroCliente = new PainelCadastroCliente();
+						painelCadastroCliente = new PainelCadastroCliente(null);
 						registrarCliqueBotaoVoltarDoPainelCadastroPessoa();
 						// ATUALIZA TELA PRINCIPAL
 						frmMenu.setContentPane(painelCadastroCliente);
@@ -218,8 +218,8 @@ public class Menu {
 
 	
 	protected void registrarCliqueBotaoVoltarDoPainelCadastroPessoa() {
-		if (painelConsultaCliente == null) {
-			painelConsultaCliente = new PainelConsultaCliente();
+		if (painelCadastroCliente == null) {
+			painelCadastroCliente = new PainelCadastroCliente(null);
 		}
 		painelCadastroCliente.getbtnVoltar().addActionListener(new ActionListener() {
 
@@ -241,10 +241,10 @@ public class Menu {
 	protected void registrarCliqueBotaoEditarDoPainelConsultaCliente() {
 		painelConsultaCliente.getBtnEditar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				painelConsultaCliente = new PainelConsultaCliente();//painelConsultaCliente.getPessoaSelecionada()
-				painelConsultaCliente.setVisible(true);
-				registrarCliqueBotaoEditarDoPainelConsultaCliente();
-				frmMenu.setContentPane(painelConsultaCliente);
+				painelCadastroCliente = new PainelCadastroCliente(painelConsultaCliente.getPessoaSelecionada());
+				painelCadastroCliente.setVisible(true);
+				registrarCliqueBotaoVoltarDoPainelCadastroPessoa();
+				frmMenu.setContentPane(painelCadastroCliente);
 				frmMenu.revalidate();
 			}
 		});

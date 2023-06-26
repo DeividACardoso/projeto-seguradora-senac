@@ -221,7 +221,7 @@ public class PainelConsultaCliente extends JPanel {
 		btnEditar.setBackground(new Color(231, 200, 24));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PainelCadastroCliente edicaoPessoa = new PainelCadastroCliente();
+				
 			}
 		});
 		add(btnEditar, "5, 15, fill, fill");
@@ -258,21 +258,21 @@ public class PainelConsultaCliente extends JPanel {
 		add(dpDataNascimento_1, "5, 9, 5, 1, fill, top");	
 		
 		
-//		tblListagemPessoas.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent erro) {
-//				int indiceSelecionado = tblListagemPessoas.getSelectedRow();
-//				
-//				if (indiceSelecionado > 0) {
-//					pessoaSelecionada = pessoas.get(indiceSelecionado - 1); 
-//					btnEditar.setEnabled(true);
-//					btnExcluir.setEnabled(true);
-//				} else {
-//					btnEditar.setEnabled(false);
-//					btnExcluir.setEnabled(false);
-//				}
-//			}
-//		});
+		tblListagemPessoas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int indiceSelecionado = tblListagemPessoas.getSelectedRow();
+				
+				if (indiceSelecionado > 0) {
+					pessoaSelecionada = pessoas.get(indiceSelecionado - 1); 
+					btnEditar.setEnabled(true);
+					btnExcluir.setEnabled(true);
+				} else {
+					btnEditar.setEnabled(false);
+					btnExcluir.setEnabled(false);
+				}
+			}
+		});
 }
 
 	private void buscarPessoasComFiltros() {

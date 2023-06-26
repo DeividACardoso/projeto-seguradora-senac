@@ -50,7 +50,7 @@ public class PainelCadastroCliente extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PainelCadastroCliente() {
+	public PainelCadastroCliente(Pessoa pessoaParaEditar) {
 		setBackground(new Color(26, 158, 230));
 		setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("max(120dlu;default)"),

@@ -204,9 +204,9 @@ public class PainelConsultaSinistro extends JPanel {
 				int indiceSelecionado = tableSinistro.getSelectedRow();
 
 				if (indiceSelecionado > 0) {
+					sinistroSelecionado = sinistros.get(indiceSelecionado - 1);
 					btnEditar.setEnabled(true);
 					btnExcluir.setEnabled(true);
-					sinistroSelecionado = sinistros.get(indiceSelecionado - 1);
 				} else {
 					btnEditar.setEnabled(false);
 					btnExcluir.setEnabled(false);
