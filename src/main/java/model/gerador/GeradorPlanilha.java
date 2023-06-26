@@ -13,6 +13,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import model.util.DateUtil;
 import model.vo.Pessoa;
 import model.vo.Seguro;
+import model.vo.Sinistro;
 
 public class GeradorPlanilha {
 
@@ -73,6 +74,40 @@ public class GeradorPlanilha {
 			return salvarNoDisco(arquivoExcel, destinoArquivo);
 	}
 	
+	public String gerarPlanilhaSinistros(List<Sinistro> sinistros, String destinoArquivo) {
+		HSSFWorkbook arquivoExcel = new HSSFWorkbook();
+		HSSFSheet abaPlanilha = arquivoExcel.createSheet("Sinistros");
+		
+		HSSFRow linhaCabecalho = abaPlanilha.createRow(0);
+		linhaCabecalho.createCell(0).setCellValue("Número Sinistro");
+		linhaCabecalho.createCell(1).setCellValue("Tipo Sinistro");
+		linhaCabecalho.createCell(2).setCellValue("Segurado");
+		linhaCabecalho.createCell(3).setCellValue("Veículo");
+		linhaCabecalho.createCell(4).setCellValue("Data do Sinistro");
+		linhaCabecalho.createCell(5).setCellValue("Valor da Franquia");
+		linhaCabecalho.createCell(6).setCellValue("Valor da Orçado");
+		linhaCabecalho.createCell(7).setCellValue("Valor da Pago");
+		linhaCabecalho.createCell(8).setCellValue("Situação");
+		linhaCabecalho.createCell(9).setCellValue("Motivo");
+		
+		int contadorLinhas = 1;
+		for(Sinistro sin : sinistros) {
+			HSSFRow novaLinha = abaPlanilha.createRow(contadorLinhas);
+			novaLinha.createCell(0).setCellValue(sin.getNumeroSinistro());
+			novaLinha.createCell(1).setCellValue(sin.getTipoSinistro().name());
+			novaLinha.createCell(2).setCellValue(sin.getPessoa().getNome());
+			novaLinha.createCell(3).setCellValue(sin.getVeiculo().getPlacaVeiculo());
+			novaLinha.createCell(4).setCellValue(DateUtil.formatarDataPadraoBrasil(sin.getDataSinistro()));
+			novaLinha.createCell(5).setCellValue(sin.getValorFranquia());
+			novaLinha.createCell(6).setCellValue(sin.getValorOrcado());
+			novaLinha.createCell(7).setCellValue(sin.getValorPago());
+			novaLinha.createCell(8).setCellValue(sin.getSituacao().toString());
+			novaLinha.createCell(9).setCellValue(sin.getMotivo());
+			contadorLinhas++;
+		}
+		
+		return salvarNoDisco(arquivoExcel, destinoArquivo);
+	}
 	private String salvarNoDisco(HSSFWorkbook planilha, String caminhoArquivo) {
 		String mensagem = "";
 		FileOutputStream saida = null;

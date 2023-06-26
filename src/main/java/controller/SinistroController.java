@@ -6,8 +6,10 @@ import model.bo.SinistroBO;
 import model.exception.CampoInvalidoException;
 import model.exception.PessoaInvalidaException;
 import model.exception.VeiculoInvalidaException;
+import model.gerador.GeradorPlanilha;
 import model.seletor.SinistroSeletor;
 import model.vo.Pessoa;
+import model.vo.Seguro;
 import model.vo.Sinistro;
 import model.vo.Veiculo;
 
@@ -34,13 +36,13 @@ public class SinistroController {
 			mensagemValidacao += "Motivo";
 		}
 		if(sinistro.getSituacao() == null || sinistro.getSituacao().toString().trim().isEmpty()) {
-			mensagemValidacao += "Situação";
+			mensagemValidacao += "Situaï¿½ï¿½o";
 		}
 		if(sinistro.getValorFranquia() == 0 || String.valueOf(sinistro.getValorFranquia()).isEmpty()) {
 			mensagemValidacao += "Valor da Franquia";
 		}
 		if(sinistro.getValorOrcado() == 0 || String.valueOf(sinistro.getValorOrcado()).isEmpty()) {
-			mensagemValidacao += "Valor Orçado";
+			mensagemValidacao += "Valor Orï¿½ado";
 		}
 		if(sinistro.getValorPago() == 0 || String.valueOf(sinistro.getValorPago()).isEmpty()) {
 			mensagemValidacao += "Valor Pago";
@@ -73,6 +75,13 @@ public class SinistroController {
 		return bo.concontarTotalRegistrosComFiltros(seletor);
 	}
 
-
+	public String gerarPlanilha(List<Sinistro> sinistros, String destinoArquivo) throws CampoInvalidoException {
+		if(sinistros == null || destinoArquivo == null || destinoArquivo.trim().isEmpty()) {
+			throw new CampoInvalidoException("Preencha todos os campos");
+		}
+		
+		GeradorPlanilha gerador = new GeradorPlanilha();
+		return gerador.gerarPlanilhaSinistros(sinistros, destinoArquivo);
+	}
 
 }

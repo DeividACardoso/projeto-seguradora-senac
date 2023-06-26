@@ -231,8 +231,8 @@ public class PainelCadastroSinistro extends JPanel {
 				sin.setDataSinistro(dpData.getDate());
 				sin.setMotivo(txtMotivo.getText());
 				sin.setSituacao((Situacao) cbSituacao.getSelectedItem());
-				String valorFranquiaSemMascara = fTxtValorFranquia.getText().replace(".", "");
-				valorFranquiaSemMascara.replace(",", ".");
+				String valorFranquiaSemMascara = fTxtValorFranquia.getText().replaceAll(".", "");
+				valorFranquiaSemMascara.replaceAll(",", ".");
 				sin.setValorFranquia((double) Double.parseDouble(valorFranquiaSemMascara));
 				sin.setValorOrcado((double) Double.parseDouble(fTxtValorOrcado.getText()));
 				sin.setValorPago((double) Double.parseDouble(fTxtValorPago.getText()));

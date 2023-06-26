@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,6 +29,7 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import controller.SinistroController;
+import model.exception.CampoInvalidoException;
 import model.seletor.SinistroSeletor;
 import model.vo.Sinistro;
 import model.vo.Situacao;
@@ -53,6 +55,7 @@ public class PainelConsultaSinistro extends JPanel {
 	private DatePicker dpDataInicio;
 	private DatePicker dpDataFim;
 	private JComboBox cbSituacao;
+	private JButton btnGerarPlanilha;
 
 	private void limparTabela() {
 		tableSinistro.setModel(new DefaultTableModel(new Object[][] {nomeColunas, }, nomeColunas));
@@ -191,10 +194,32 @@ public class PainelConsultaSinistro extends JPanel {
 		cbSituacao = new JComboBox();
 		add(cbSituacao, "4, 13, fill, center");
 		
-		JButton btnGerarplanilha = new JButton("GerarPlanilha");
-		btnGerarplanilha.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-planilha-50.png")));
-		btnGerarplanilha.setBackground(new Color(227, 218, 28));
-		add(btnGerarplanilha, "8, 16, default, fill");
+		btnGerarPlanilha = new JButton("GerarPlanilha");
+		btnGerarPlanilha.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-planilha-50.png")));
+		btnGerarPlanilha.setBackground(new Color(227, 218, 28));
+		btnGerarPlanilha.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser janelaSelecaoDestinoArquivo = new JFileChooser();
+				janelaSelecaoDestinoArquivo.setDialogTitle("Selecione um destino para a planilha...");
+
+				int opcaoSelecionada = janelaSelecaoDestinoArquivo.showSaveDialog(null);
+				if (opcaoSelecionada == JFileChooser.APPROVE_OPTION) {
+					String caminhoEscolhido = janelaSelecaoDestinoArquivo.getSelectedFile().getAbsolutePath();
+					String resultado;
+					try {
+						resultado = controller.gerarPlanilha(sinistros, caminhoEscolhido);
+						JOptionPane.showMessageDialog(null, resultado);
+					} catch (CampoInvalidoException e1) {
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Aten��o", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			}
+		});
+		add(btnGerarPlanilha, "8, 16, default, fill");
+		
+		
 		add(tableSinistro, "2, 19, 13, 2, fill, fill");
 		
 		tableSinistro.addMouseListener(new MouseAdapter() {
@@ -207,9 +232,11 @@ public class PainelConsultaSinistro extends JPanel {
 					sinistroSelecionado = sinistros.get(indiceSelecionado - 1);
 					btnEditar.setEnabled(true);
 					btnExcluir.setEnabled(true);
+					btnGerarPlanilha.setEnabled(true);
 				} else {
 					btnEditar.setEnabled(false);
 					btnExcluir.setEnabled(false);
+					btnGerarPlanilha.setEnabled(false);
 				}
 			}
 		});
