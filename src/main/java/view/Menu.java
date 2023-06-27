@@ -110,7 +110,7 @@ public class Menu {
 					}
 				});	
 				mnItemConsultarCliente.setIcon(
-						new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
+						new ImageIcon(Menu.class.getResource("/icones/icons8-analise-de-crescimento-financeiro-64.png")));
 				mnItemCliente.add(mnItemConsultarCliente);
 
 
@@ -139,7 +139,7 @@ public class Menu {
 
 		});
 		mnItemConsultaSeguro.setIcon(
-				new ImageIcon(Menu.class.getResource("/icones/icons8-an\u00E1lise-de-crescimento-financeiro-64.png")));
+				new ImageIcon(Menu.class.getResource("/icones/icons8-analise-de-crescimento-financeiro-64.png")));
 		mnSeguros.add(mnItemConsultaSeguro);
 
 		JMenuItem mnItemCadastroSeguro = new JMenuItem("Cadastro");
@@ -190,12 +190,12 @@ public class Menu {
 
 
 		mnItemConsultarSinistro.setIcon(
-		new ImageIcon(Menu.class.getResource("/icones/icons8-análise-de-crescimento-financeiro-64.png")));
+		new ImageIcon(Menu.class.getResource("/icones/icons8-analise-de-crescimento-financeiro-64.png")));
 
-		new ImageIcon(Menu.class.getResource("/icones/icons8-análise-de-crescimento-financeiro-64.png"));
+		new ImageIcon(Menu.class.getResource("/icones/icons8-analise-de-crescimento-financeiro-64.png"));
 
 		mnItemConsultarSinistro.setIcon(
-				new ImageIcon(Menu.class.getResource("/icones/icons8-análise-de-crescimento-financeiro-64.png")));
+				new ImageIcon(Menu.class.getResource("/icones/icons8-analise-de-crescimento-financeiro-64.png")));
 		mnSinistro.add(mnItemConsultarSinistro);
 
 				

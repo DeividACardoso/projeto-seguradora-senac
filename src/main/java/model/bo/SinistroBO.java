@@ -15,12 +15,12 @@ public class SinistroBO {
 	SinistroDAO dao = new SinistroDAO(); 
 	
 	public Sinistro inserir(Sinistro sinistro) throws PessoaInvalidaException, VeiculoInvalidaException {
-		if(sinistro.getPessoa() == null) {
-			throw new PessoaInvalidaException("Campo de Segurado deve ser Preenchido!");
-		}
-		if(sinistro.getVeiculo() == null) {
-			throw new VeiculoInvalidaException("Campo de veículo deve ser Preenchido!");
-		}
+//		if(sinistro.getPessoa() == null) {
+//			throw new PessoaInvalidaException("Campo de Segurado deve ser Preenchido!");
+//		}
+//		if(sinistro.getVeiculo() == null) {
+//			throw new VeiculoInvalidaException("Campo de veículo deve ser Preenchido!");
+//		}
 		return dao.inserir(sinistro);
 	}
 	

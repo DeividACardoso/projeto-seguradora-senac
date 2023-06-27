@@ -1,22 +1,22 @@
 package executavel;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 
-import controller.SinistroController;
-import model.dao.PessoaDAO;
-import model.dao.VeiculoDAO;
-import model.exception.PessoaInvalidaException;
-import model.exception.VeiculoInvalidaException;
-import model.vo.Pessoa;
+import model.dao.SinistroDAO;
 import model.vo.Sinistro;
-import model.vo.Situacao;
-import model.vo.TipoSinistro;
-import model.vo.Veiculo;
 
 public class Executavel {
 
 	public static void main(String[] args) throws SQLException {
+		
+		Sinistro sin = new Sinistro();
+		SinistroDAO sinDAO = new SinistroDAO();
+		String valorOrcadoStr = "10.000,00";
+		System.out.println(valorOrcadoStr);
+		String valorOrcadoStrEditado = valorOrcadoStr.replace(".", "").replace(",", ".");
+		System.out.println(valorOrcadoStrEditado);
+		Double valorOrcadoDouble = Double.parseDouble(valorOrcadoStrEditado);
+		System.out.println("Double correto: " + valorOrcadoDouble);
 		
 		
 //		Seguro seguro1 = new SeguroController().consultarPorId(1);
@@ -50,8 +50,8 @@ public class Executavel {
 //		VeiculoDAO veiculoDAO = new VeiculoDAO();
 //		Veiculo veiculo1 = veiculoDAO.consultarPorId(7);
 //		
-		SinistroController sinCon= new SinistroController();
-		sinCon.consultarTodos();
+//		SinistroController sinCon= new SinistroController();
+//		sinCon.consultarTodos();
 //		Sinistro sin1 = new Sinistro(pessoa1, "1", TipoSinistro.CAUSAS_NATURAIS, veiculo1, null, 1533.0, 1322.0, 3555.0, Situacao.CONCLUIDO, "Bateu");
 //		try {
 //			sinCon.inserir(sin1, pessoa1, veiculo1);

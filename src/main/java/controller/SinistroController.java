@@ -21,31 +21,34 @@ public class SinistroController {
 		String mensagemValidacao = "Por favor preencha os seguintes campos: \n";
 		
 		if(sinistro.getNumeroSinistro() == null || sinistro.getNumeroSinistro().trim().isEmpty()) {
-			mensagemValidacao += "Numero Sinistro";
+			mensagemValidacao += "Numero Sinistro\n";
 		}
 		if(sinistro.getDataSinistro() == null || sinistro.getDataSinistro().toString().trim().isEmpty()) {
-			mensagemValidacao += "Data Sinistro";
+			mensagemValidacao += "Data Sinistro\n";
 		}
 		if(sinistro.getPessoa() == null) {
-			mensagemValidacao += "Cliente";
+			mensagemValidacao += "Cliente\n";
 		}
 		if(sinistro.getVeiculo() == null) {
-			mensagemValidacao += "Veiculo";
+			mensagemValidacao += "Veiculo\n";
 		}
 		if(sinistro.getMotivo() == null || sinistro.getMotivo().trim().isEmpty()) {
-			mensagemValidacao += "Motivo";
+			mensagemValidacao += "Motivo\n";
 		}
 		if(sinistro.getSituacao() == null || sinistro.getSituacao().toString().trim().isEmpty()) {
-			mensagemValidacao += "Situa��o";
+			mensagemValidacao += "Situação\n";
 		}
 		if(sinistro.getValorFranquia() == 0 || String.valueOf(sinistro.getValorFranquia()).isEmpty()) {
-			mensagemValidacao += "Valor da Franquia";
+			mensagemValidacao += "Valor da Franquia\n";
 		}
 		if(sinistro.getValorOrcado() == 0 || String.valueOf(sinistro.getValorOrcado()).isEmpty()) {
-			mensagemValidacao += "Valor Or�ado";
+			mensagemValidacao += "Valor Orçado\n";
 		}
 		if(sinistro.getValorPago() == 0 || String.valueOf(sinistro.getValorPago()).isEmpty()) {
-			mensagemValidacao += "Valor Pago";
+			mensagemValidacao += "Valor Pago\n";
+		}
+		if(mensagemValidacao != "") {
+			throw new CampoInvalidoException(mensagemValidacao);
 		}
 		return bo.inserir(sinistro);
 	}

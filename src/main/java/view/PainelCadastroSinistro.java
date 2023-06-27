@@ -42,7 +42,7 @@ import model.vo.Veiculo;
 public class PainelCadastroSinistro extends JPanel {
 	private JTextField txtNumeroSinistro;
 	private JTextField fTxtValorFranquia;
-	private JTextField fTxtValorPago;
+	private JTextField valorOrcadoSemMascara;
 	private JTextField fTxtValorOrcado;
 	private JTextField txtMotivo;
 	private JButton btnSalvar;
@@ -59,6 +59,7 @@ public class PainelCadastroSinistro extends JPanel {
 	private JComboBox cbVeiculo;
 	private JLabel lblHora;
 	private JTextField fTxtHora;
+	private JNumberFormatField fTxtValorPago;
 	/**
 	 * Create the panel.V  
 	 */
@@ -208,7 +209,7 @@ public class PainelCadastroSinistro extends JPanel {
 		txtMotivo.setColumns(10);
 		add(txtMotivo, "10, 20, 1, 4");
 		
-		JLabel lblSituacaoSinistro = new JLabel("SituaÃ§Ã£o:");
+		JLabel lblSituacaoSinistro = new JLabel("Situação:");
 		lblSituacaoSinistro.setForeground(Color.WHITE);
 		lblSituacaoSinistro.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblSituacaoSinistro, "3, 20, right, default");
@@ -231,11 +232,16 @@ public class PainelCadastroSinistro extends JPanel {
 				sin.setDataSinistro(dpData.getDate());
 				sin.setMotivo(txtMotivo.getText());
 				sin.setSituacao((Situacao) cbSituacao.getSelectedItem());
-				String valorFranquiaSemMascara = fTxtValorFranquia.getText().replaceAll(".", "");
-				valorFranquiaSemMascara.replaceAll(",", ".");
-				sin.setValorFranquia((double) Double.parseDouble(valorFranquiaSemMascara));
-				sin.setValorOrcado((double) Double.parseDouble(fTxtValorOrcado.getText()));
-				sin.setValorPago((double) Double.parseDouble(fTxtValorPago.getText()));
+				try {
+					String valorFranquiaSemMascara = fTxtValorFranquia.getText().replace(".", "").replace(",", ".");
+					sin.setValorFranquia(Double.parseDouble(valorFranquiaSemMascara));
+					String valorOrcadoSemMascara = fTxtValorOrcado.getText().replace(".", "").replace(",", ".");
+					sin.setValorOrcado(Double.parseDouble(valorOrcadoSemMascara));
+					String valorPagoSemMascara = fTxtValorPago.getText().replace(".", "").replace(",", ".");
+					sin.setValorPago(Double.parseDouble(valorPagoSemMascara));
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(null, "Erro", "Erro ao converter double para String", JOptionPane.WARNING_MESSAGE);
+				}
 				try {
 					sinController.inserir(sin);
 					JOptionPane.showMessageDialog(null, "Sinistro salvo com sucesso!", 
@@ -253,7 +259,7 @@ public class PainelCadastroSinistro extends JPanel {
 		lblMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblMotivo, "8, 20, right, default");
 		
-		JLabel lblVeculo = new JLabel("Placa VeÃ­culo:");
+		JLabel lblVeculo = new JLabel("Placa Veículo:");
 		lblVeculo.setForeground(Color.WHITE);
 		lblVeculo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblVeculo, "3, 23, right, default");
