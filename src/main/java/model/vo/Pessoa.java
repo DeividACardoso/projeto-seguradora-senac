@@ -128,14 +128,13 @@ public class Pessoa {
 
 	@Override
 	public String toString() {
-		return "Id: " + id 
-				+ "\nNome: " + nome 
-				+ "\nCpf: " + cpf 
-				+ "\nData Nascimento: " + dataNascimento
-				+ "\nSeguros: " + seguros 
-				+ "\nTelefone: " + telefone 
-				+ "\nEndereço: " + endereco 
-				+ "\nTipo Pessoa: " + tipoPessoa;
+		return nome.toUpperCase();
+//				+ " \nCPF: " + cpf;
+//				+ "\nData Nascimento: " + dataNascimento
+//				+ "\nSeguros: " + seguros 
+//				+ "\nTelefone: " + telefone 
+//				+ "\nEndereço: " + endereco 
+//				+ "\nTipo Pessoa: " + tipoPessoa;
 	}
 	
 }

@@ -22,18 +22,13 @@ INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `i
 
 
 --INSERTS PARA APRESENTAÇÃO
-INSERT INTO `seguradora`.`seguro` VALUES ( 1, 'SUERDI SANDER', 15878, 'KJI2D34', '2023/06/22', '2024/06/22', 350, 350, 'Reduzida', 'Completa', '15 Dias Completo' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 2, 'LEONARDO COUTINHO', 12548, 'MKH0D48', '2020/10/15', '2021/10/15', 250, 250, 'Padrao', 'Basica', '7 Dias Completo' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 3, 'ISABELLA ALEXANDRA', 14578, 'AIU4F55', '2022/07/20', '2023/07/20', 300, 300, 'Reduzida', 'Plus', '30 Dias Plus' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 4, 'JOAO VITOR', 14895, 'MLJ2J98', '2023/05/12', '2024/05/12', 150, 150, 'Padrao', 'Completa', '15 Dias Completo' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 5, 'MATHEUS CONRAD', 147852, 'DLF3D45', '2023/01/03', '2024/01/03', 200, 200, 'Reduzida', 'Plus', '7 Dias Completo' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 6, 'VILMAR CESAR', 148525, 'MDJ3D56', '2023/11/04', '2024/11/04', 200, 200, 'Padrao', 'Plus', '15 Dias Completo' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 7, 'LUANA CABRAL', 15878, 'KJI2D34', '2020/07/22', '2021/07/22', 350, 350, 'Reduzida', 'Completa', '15 Dias Completo' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 8, 'PATRICIA COUTINHO', 12548, 'MKH0D48', '2020/08/01', '2021/08/01', 2500, 2500, 'Padrao', 'Basica', '7 Dias Basico' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 9, 'LEILA OLIVEIRA', 14578, 'AIU4F55', '2022/10/20', '2023/10/20', 300, 300, 'Reduzida', 'Plus', '30 Dias Plus' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 10, 'ANA LUCIA', 14895, 'MLJ2J98', '2023/11/12', '2024/11/12', 1500, 1500, 'Padrao', 'Completa', '15 Dias Completo' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 11, 'CLARICE SILVA', 147852, 'DLF3D45', '2023/01/23', '2024/01/23', 200, 200, 'Reduzida', 'Plus', '7 Dias Basico' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 12, 'MAURICIO OLIVEIRA', 148525, 'MDJ3D56', '2023/11/14', '2024/11/14', 200, 200, 'Padrao', 'Plus', '15 Dias Completo' );
+INSERT INTO `seguradora`.`seguro` VALUES ( 1, 'SUERDI SANDER', 15878, 'KJI2D34', '2023-06-22', '2024-06-22', 350, 350, 'Reduzida', 'Completa', '15 Dias Completo' );
+INSERT INTO `seguradora`.`seguro` VALUES ( 2, 'LEONARDO COUTINHO', 12548, 'MKH0D48', '2020-10-15', '2021-10-15', 250, 250, 'Padrao', 'Basica', '7 Dias Completo' );
+INSERT INTO `seguradora`.`seguro` VALUES ( 3, 'ISABELLA ALEXANDRA', 14578, 'AIU4F55', '2022-07-20', '2023-07-20', 300, 300, 'Reduzida', 'Plus', '30 Dias Plus' );
+INSERT INTO `seguradora`.`seguro` VALUES ( 4, 'JOAO VITOR', 14895, 'MLJ2J98', '2023-05-12', '2024-05-12', 150, 150, 'Padrao', 'Completa', '15 Dias Completo' );
+INSERT INTO `seguradora`.`seguro` VALUES ( 5, 'MATHEUS CONRAD', 147852, 'DLF3D45', '2023-01-03', '2024-01-03', 200, 200, 'Reduzida', 'Plus', '7 Dias Completo' );
+INSERT INTO `seguradora`.`seguro` VALUES ( 6, 'VILMAR CESAR', 148525, 'MDJ3D56', '2023-11-04', '2024-11-04', 200, 200, 'Padrao', 'Plus', '15 Dias Completo' );
+
 
 
 -- SUBSTITUIR NULLS NA APRESENTAÇÃO.

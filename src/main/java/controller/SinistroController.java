@@ -18,36 +18,36 @@ public class SinistroController {
 	SinistroBO bo = new SinistroBO();
 	
 	public Sinistro inserir(Sinistro sinistro) throws PessoaInvalidaException, VeiculoInvalidaException, CampoInvalidoException {
-		String mensagemValidacao = "Por favor preencha os seguintes campos: \n";
+		String mensagemValidacao = "";
 		
 		if(sinistro.getNumeroSinistro() == null || sinistro.getNumeroSinistro().trim().isEmpty()) {
-			mensagemValidacao += "Numero Sinistro\n";
+			mensagemValidacao += "Preencha: Numero Sinistro\n";
 		}
 		if(sinistro.getDataSinistro() == null || sinistro.getDataSinistro().toString().trim().isEmpty()) {
-			mensagemValidacao += "Data Sinistro\n";
+			mensagemValidacao += "Preencha: Data Sinistro\n";
 		}
 		if(sinistro.getPessoa() == null) {
-			mensagemValidacao += "Cliente\n";
+			mensagemValidacao += "Preencha: Cliente\n";
 		}
 		if(sinistro.getVeiculo() == null) {
-			mensagemValidacao += "Veiculo\n";
+			mensagemValidacao += "Preencha: Veiculo\n";
 		}
-		if(sinistro.getMotivo() == null || sinistro.getMotivo().trim().isEmpty()) {
-			mensagemValidacao += "Motivo\n";
-		}
+//		if(sinistro.getMotivo() == null || sinistro.getMotivo().trim().isEmpty()) {
+//			mensagemValidacao += "Preencha: Motivo\n";
+//		}
 		if(sinistro.getSituacao() == null || sinistro.getSituacao().toString().trim().isEmpty()) {
-			mensagemValidacao += "Situação\n";
+			mensagemValidacao += "Preencha: Situação\n";
 		}
 		if(sinistro.getValorFranquia() == 0 || String.valueOf(sinistro.getValorFranquia()).isEmpty()) {
-			mensagemValidacao += "Valor da Franquia\n";
+			mensagemValidacao += "Preencha: Valor da Franquia\n";
 		}
 		if(sinistro.getValorOrcado() == 0 || String.valueOf(sinistro.getValorOrcado()).isEmpty()) {
-			mensagemValidacao += "Valor Orçado\n";
+			mensagemValidacao += "Preencha: Valor Orçado\n";
 		}
 		if(sinistro.getValorPago() == 0 || String.valueOf(sinistro.getValorPago()).isEmpty()) {
-			mensagemValidacao += "Valor Pago\n";
+			mensagemValidacao += "Preencha: Valor Pago\n";
 		}
-		if(mensagemValidacao != "") {
+		if(!mensagemValidacao.isEmpty()) {
 			throw new CampoInvalidoException(mensagemValidacao);
 		}
 		return bo.inserir(sinistro);

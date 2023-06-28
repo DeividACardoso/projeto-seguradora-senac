@@ -53,10 +53,8 @@ public class Veiculo {
 
 	@Override
 	public String toString() {
-		return "Id: " + id 
-				+ "\nIdSeguro: " + idSeguro 
-				+ "\nPlaca Veiculo: " + placaVeiculo 
-				+ "\nModelo: " + modelo;
+		return"Placa Veiculo: " + placaVeiculo;
+
 	}
 	
 }

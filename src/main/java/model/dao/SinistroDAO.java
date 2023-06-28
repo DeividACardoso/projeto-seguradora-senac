@@ -59,25 +59,28 @@ public class SinistroDAO {
 		return novoSinistro;
 	}
 	
-	public boolean atualizar(Sinistro sinistro) {
+	public boolean atualizar(Sinistro sinistroAtualizado) {
+		boolean atualizou = false;
 		Connection conn = Banco.getConnection();
 		String sql = " UPDATE SINISTRO SET NUMERO_SINISTRO=?, TIPO_SINISTRO=?, IDPESSOA=?, IDVEICULO=?, DT_SINISTRO=? "
 				+ ", VALOR_FRANQUIA=?, VALOR_ORCADO=?, VALOR_PAGO=?, SITUACAO=?, MOTIVO=? WHERE ID=? ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
-		int registrosAlterados = 0;
+		
 		try {
-			stmt.setString(1, sinistro.getNumeroSinistro());
-			stmt.setObject(2, sinistro.getTipoSinistro().toString());
-			stmt.setInt(3, sinistro.getPessoa().getId());
-			stmt.setInt(4, sinistro.getVeiculo().getId());
-			stmt.setObject(5, sinistro.getDataSinistro());
-			stmt.setDouble(6, sinistro.getValorFranquia());
-			stmt.setDouble(7, sinistro.getValorOrcado());
-			stmt.setDouble(8, sinistro.getValorPago());
-			stmt.setString(9, sinistro.getMotivo());
-			stmt.setString(10, sinistro.getSituacao().toString());
-			stmt.setInt(11, sinistro.getId());
-			registrosAlterados = stmt.executeUpdate();
+			stmt.setString(1, sinistroAtualizado.getNumeroSinistro());
+			stmt.setObject(2, sinistroAtualizado.getTipoSinistro().toString());
+			stmt.setInt(3, sinistroAtualizado.getPessoa().getId());
+			stmt.setInt(4, sinistroAtualizado.getVeiculo().getId());
+			stmt.setObject(5, sinistroAtualizado.getDataSinistro());
+			stmt.setDouble(6, sinistroAtualizado.getValorFranquia());
+			stmt.setDouble(7, sinistroAtualizado.getValorOrcado());
+			stmt.setDouble(8, sinistroAtualizado.getValorPago());
+			stmt.setString(9, sinistroAtualizado.getMotivo());
+			stmt.setString(10, sinistroAtualizado.getSituacao().toString());
+			stmt.setInt(11, sinistroAtualizado.getId());
+			
+			int registrosAlterados = stmt.executeUpdate();
+			atualizou = registrosAlterados > 0;
 		} catch (SQLException e) {
 			System.out.println("Erro ao atualizar Sinistro.");
 			System.out.println("Erro: " + e.getMessage());
@@ -86,7 +89,7 @@ public class SinistroDAO {
 			Banco.closeConnection(conn);
 		}
 		
-		return registrosAlterados > 0;
+		return atualizou;
 	}
 	
 	public boolean excluir(int id) {
@@ -191,7 +194,7 @@ public class SinistroDAO {
 		public List<Sinistro> consultarComFiltros(SinistroSeletor seletor) {
 			List<Sinistro> sinistros = new ArrayList<Sinistro>();
 			Connection conexao = Banco.getConnection();
-			String sql = " select * from sinistro ";
+			String sql = " select * from sinistro inner join pessoa on sinistro.idpessoa = pessoa.id ";
 
 			if (seletor.temFiltro()) {
 				sql = preencherFiltros(sql, seletor);
@@ -209,7 +212,7 @@ public class SinistroDAO {
 				}
 
 			} catch (Exception e) {
-				System.out.println("Erro ao buscar todos os seguros. \n Causa:" + e.getMessage());
+				System.out.println("Erro ao buscar todos os Sinistros. \n Causa:" + e.getMessage());
 			} finally {
 				Banco.closePreparedStatement(query);
 				Banco.closeConnection(conexao);
@@ -227,7 +230,7 @@ public class SinistroDAO {
 				sql += " AND ";
 			}
 			
-			sql += " nome_segurado WHERE '%" + seletor.getNomeSegurado() + "%'";
+			sql += " nome LIKE '%" + seletor.getNomeSegurado() + "%'";
 			primeiro = false;
 		}
 		
@@ -258,7 +261,7 @@ public class SinistroDAO {
 				sql += " AND ";
 			}
 			
-			sql +=  "sinistro where dt_sinistro > '%"+ seletor.getDtInicio() + "%' ";
+			sql +=  "sinistro where dt_sinistro >= '%"+ validarDataParaOBanco(seletor.getDtInicio()) + "%' ";
 		}
 		if(seletor.getDtFim() != null && seletor.getDtFim().toString().trim().isEmpty()) {
 			if(primeiro) {
@@ -266,12 +269,9 @@ public class SinistroDAO {
 			} else {
 				sql += " AND ";
 			}
-			
-			if(seletor.getDtInicio() == null || seletor.getDtInicio().toString().trim().length() > 0) {
-				JOptionPane.showMessageDialog(null, "Sem data de Inicio", "Você deve colocar uma data de Inicio para a pesquisa.", JOptionPane.WARNING_MESSAGE);
-			} else {
-				sql +=  "sinistro where dt_sinistro < '%"+ seletor.getDtFim() + "%' ";
-			}
+
+			sql +=  "sinistro where dt_sinistro <= '%"+ validarDataParaOBanco(seletor.getDtFim()) + "%' ";
+			primeiro = false;
 		}		
 			
 		return sql;
@@ -286,7 +286,7 @@ public class SinistroDAO {
 	public int contarTotalRegistrosComFiltros(SinistroSeletor seletor) {
 		int total = 0;
 		Connection conexao = Banco.getConnection();
-		String sql = " select count(*) from sinistro ";
+		String sql = " select count(*) from sinistro inner join pessoa on sinistro.id = pessoa.id ";
 
 		if (seletor.temFiltro()) {
 			sql = preencherFiltros(sql, seletor);

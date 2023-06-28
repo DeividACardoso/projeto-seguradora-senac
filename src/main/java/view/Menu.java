@@ -223,7 +223,6 @@ public class Menu {
 		}
 		painelCadastroCliente.getbtnVoltar().addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				// CLIQUE DO BOTÃO VOLTAR
 				// ABRE PAINEL CONSULTA
@@ -258,7 +257,7 @@ public class Menu {
 		}
 		painelCadastroSinistro.getBtnVoltar().addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				painelConsultaSinistro = new PainelConsultaSinistro();
 				painelConsultaSinistro.setVisible(true);

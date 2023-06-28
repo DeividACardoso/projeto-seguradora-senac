@@ -191,7 +191,7 @@ public class PainelConsultaSinistro extends JPanel {
 		lblSitucao.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblSitucao, "2, 13, right, center");
 		
-		cbSituacao = new JComboBox();
+		cbSituacao = new JComboBox(Situacao.values());
 		add(cbSituacao, "4, 13, fill, center");
 		
 		btnGerarPlanilha = new JButton("GerarPlanilha");
