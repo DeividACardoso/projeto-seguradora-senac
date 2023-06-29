@@ -75,8 +75,8 @@ public class SinistroDAO {
 			stmt.setDouble(6, sinistroAtualizado.getValorFranquia());
 			stmt.setDouble(7, sinistroAtualizado.getValorOrcado());
 			stmt.setDouble(8, sinistroAtualizado.getValorPago());
-			stmt.setString(9, sinistroAtualizado.getMotivo());
-			stmt.setString(10, sinistroAtualizado.getSituacao().toString());
+			stmt.setString(9, sinistroAtualizado.getSituacao().toString());
+			stmt.setString(10, sinistroAtualizado.getMotivo());
 			stmt.setInt(11, sinistroAtualizado.getId());
 			
 			int registrosAlterados = stmt.executeUpdate();
@@ -230,7 +230,7 @@ public class SinistroDAO {
 				sql += " AND ";
 			}
 			
-			sql += " nome LIKE '%" + seletor.getNomeSegurado() + "%'";
+			sql += " nome ILIKE '%" + seletor.getNomeSegurado() + "%'";
 			primeiro = false;
 		}
 		
@@ -244,14 +244,14 @@ public class SinistroDAO {
 			sql += "numero_sinistro LIKE '%"+ seletor.getNumeroSinistro() + "%'";
 			primeiro = false;
 		}
-		if(seletor.getSituacao() != null && seletor.getSituacao().toString().trim().isEmpty()) {
+		if(seletor.getSituacao() != null && !seletor.getSituacao().toString().trim().isEmpty()) {
 			if(primeiro) {
 				sql += " WHERE ";
 			} else {
 				sql += " AND ";
 			}
 			
-			sql += "situacao LIKE '%"+ seletor.getSituacao().toString().toUpperCase() + "%'";
+			sql += "situacao = '"+ seletor.getSituacao().toString().toUpperCase() + "'";
 			primeiro = false;
 		}
 		if(seletor.getDtInicio() != null && seletor.getDtInicio().toString().trim().isEmpty()) {
@@ -261,7 +261,8 @@ public class SinistroDAO {
 				sql += " AND ";
 			}
 			
-			sql +=  "sinistro where dt_sinistro >= '%"+ validarDataParaOBanco(seletor.getDtInicio()) + "%' ";
+			sql +=  "dt_sinistro >= '%"+ validarDataParaOBanco(seletor.getDtInicio()) + "%' ";
+			primeiro = false;
 		}
 		if(seletor.getDtFim() != null && seletor.getDtFim().toString().trim().isEmpty()) {
 			if(primeiro) {
@@ -270,7 +271,7 @@ public class SinistroDAO {
 				sql += " AND ";
 			}
 
-			sql +=  "sinistro where dt_sinistro <= '%"+ validarDataParaOBanco(seletor.getDtFim()) + "%' ";
+			sql +=  "dt_sinistro <= '%"+ validarDataParaOBanco(seletor.getDtFim()) + "%' ";
 			primeiro = false;
 		}		
 			

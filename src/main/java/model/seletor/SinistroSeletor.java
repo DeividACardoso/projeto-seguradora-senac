@@ -10,7 +10,7 @@ public class SinistroSeletor extends BaseSeletor{
 	private String nomeSegurado;
 	private LocalDate dtInicio;
 	private LocalDate dtFim;
-	private Situacao situacao;
+	private String situacao;
 	
 	@Override
 	public boolean temFiltro() {
@@ -54,11 +54,11 @@ public class SinistroSeletor extends BaseSeletor{
 		this.dtFim = dtFim;
 	}
 
-	public Situacao getSituacao() {
+	public String getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(Situacao situacao) {
+	public void setSituacao(String situacao) {
 		this.situacao = situacao;
 	}
 

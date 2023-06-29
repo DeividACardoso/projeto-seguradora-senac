@@ -201,7 +201,7 @@ public class PainelConsultaSeguro extends JPanel {
 						resultado = controller.gerarPlanilha(seguros, caminhoEscolhido);
 						JOptionPane.showMessageDialog(null, resultado);
 					} catch (CampoInvalidoException e1) {
-						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Aten��o", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			}
@@ -220,7 +220,6 @@ public class PainelConsultaSeguro extends JPanel {
 
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
-			
 			public void actionPerformed(ActionEvent e) {
 				int opcaoSelecionada = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do seguro selecionado?");
 				if (opcaoSelecionada == JOptionPane.YES_OPTION) {

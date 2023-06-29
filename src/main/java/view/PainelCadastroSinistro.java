@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +11,11 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -60,10 +57,11 @@ public class PainelCadastroSinistro extends JPanel {
 	private JLabel lblHora;
 	private JTextField fTxtHora;
 	private JNumberFormatField fTxtValorPago;
+	private Sinistro sin;
 	/**
 	 * Create the panel.V  
 	 */
-	public PainelCadastroSinistro(final Sinistro sinistroParaEditar) {
+	public PainelCadastroSinistro(Sinistro sinistroParaEditar) {
 		if(sinistroParaEditar != null) {
 			this.sinistro = sinistroParaEditar;
 		} else {
@@ -209,7 +207,7 @@ public class PainelCadastroSinistro extends JPanel {
 		txtMotivo.setColumns(10);
 		add(txtMotivo, "10, 20, 1, 4");
 
-		JLabel lblSituacaoSinistro = new JLabel("Situa��o:");
+		JLabel lblSituacaoSinistro = new JLabel("Situação:");
 		lblSituacaoSinistro.setForeground(Color.WHITE);
 		lblSituacaoSinistro.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblSituacaoSinistro, "3, 20, right, default");
@@ -222,50 +220,43 @@ public class PainelCadastroSinistro extends JPanel {
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				SinistroController sinController = new SinistroController();
-				Sinistro sin = new Sinistro();
-				sin.setNumeroSinistro(txtNumeroSinistro.getText());
-				sin.setTipoSinistro((TipoSinistro) cbTipoSinistro.getSelectedItem());
-				sin.setPessoa((Pessoa) cbSegurado.getSelectedItem());
-				sin.setVeiculo((Veiculo) cbVeiculo.getSelectedItem());
-				sin.setDataSinistro(dpData.getDate());
-				sin.setMotivo(txtMotivo.getText());
-				sin.setSituacao((Situacao) cbSituacao.getSelectedItem());
+				sinistro.setNumeroSinistro(txtNumeroSinistro.getText());
+				sinistro.setTipoSinistro((TipoSinistro) cbTipoSinistro.getSelectedItem());
+				sinistro.setPessoa((Pessoa) cbSegurado.getSelectedItem());
+				sinistro.setVeiculo((Veiculo) cbVeiculo.getSelectedItem());
+				sinistro.setDataSinistro(dpData.getDate());
+				sinistro.setMotivo(txtMotivo.getText());
+				sinistro.setSituacao((Situacao) cbSituacao.getSelectedItem());
 				try {
 					String valorFranquiaSemMascara = fTxtValorFranquia.getText().replace(".", "").replace(",", ".");
-					sin.setValorFranquia(Double.parseDouble(valorFranquiaSemMascara));
+					sinistro.setValorFranquia(Double.parseDouble(valorFranquiaSemMascara));
 					String valorOrcadoSemMascara = fTxtValorOrcado.getText().replace(".", "").replace(",", ".");
-					sin.setValorOrcado(Double.parseDouble(valorOrcadoSemMascara));
+					sinistro.setValorOrcado(Double.parseDouble(valorOrcadoSemMascara));
 					String valorPagoSemMascara = fTxtValorPago.getText().replace(".", "").replace(",", ".");
-					sin.setValorPago(Double.parseDouble(valorPagoSemMascara));
+					sinistro.setValorPago(Double.parseDouble(valorPagoSemMascara));
 				} catch (NumberFormatException e1) {
 					JOptionPane.showMessageDialog(null, "Erro", "Erro ao converter double para String", JOptionPane.WARNING_MESSAGE);
 				}
-				if(sin.getId() == null) {
+				
+				if(sinistro.getId() == null) {
 					try {
-						sinController.inserir(sin);
+						sinController.inserir(sinistro);
 						JOptionPane.showMessageDialog(null, "Sinistro salvo com sucesso!", 
 								"Sucesso!", JOptionPane.INFORMATION_MESSAGE);
-
-						txtNumeroSinistro.setText("");
-						cbTipoSinistro.setSelectedIndex(0);
-						cbSegurado.setSelectedIndex(0);
-						cbVeiculo.setSelectedIndex(0);
-						dpData.clear();
-						txtMotivo.setText("");
-						cbSituacao.setSelectedIndex(0);
-						fTxtValorFranquia.setText("");
-						fTxtValorOrcado.setText("");
-						fTxtValorPago.setText("");
+						limparCamposDoPainel();
 					} catch (PessoaInvalidaException | VeiculoInvalidaException | CampoInvalidoException excecao) {
 						JOptionPane.showMessageDialog(null, excecao.getMessage(),
 								"Erro", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
 					sinController.atualizar(sinistro);
+					JOptionPane.showMessageDialog(null, "Sinistro alterado com sucesso!", 
+							"Sucesso!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
+
+		
 		});
 
 		JLabel lblMotivo = new JLabel("Motivo:");
@@ -315,6 +306,19 @@ public class PainelCadastroSinistro extends JPanel {
 		this.cbVeiculo.setSelectedItem(this.sinistro.getVeiculo());
 	}
 
+	private void limparCamposDoPainel() {
+		txtNumeroSinistro.setText("");
+		cbTipoSinistro.setSelectedIndex(0);
+		cbSegurado.setSelectedIndex(0);
+		cbVeiculo.setSelectedIndex(0);
+		dpData.clear();
+		txtMotivo.setText("");
+		cbSituacao.setSelectedIndex(0);
+		fTxtValorFranquia.setText("");
+		fTxtValorOrcado.setText("");
+		fTxtValorPago.setText("");
+	}
+	
 	public JButton getBtnVoltar() {
 		return btnVoltar;
 	}

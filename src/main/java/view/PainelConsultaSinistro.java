@@ -56,6 +56,7 @@ public class PainelConsultaSinistro extends JPanel {
 	private DatePicker dpDataFim;
 	private JComboBox cbSituacao;
 	private JButton btnGerarPlanilha;
+	private JButton btnLimpar;
 
 	private void limparTabela() {
 		tableSinistro.setModel(new DefaultTableModel(new Object[][] {nomeColunas, }, nomeColunas));
@@ -144,7 +145,7 @@ public class PainelConsultaSinistro extends JPanel {
 		add(lblNumeroSinistro, "2, 4, right, top");
 		
 		txtNumero = new JTextField();
-		add(txtNumero, "4, 4, 5, 1, fill, fill");
+		add(txtNumero, "4, 4, 7, 1, fill, fill");
 		txtNumero.setColumns(10);
 		
 		JLabel lblNomeSegurado = new JLabel("Nome Segurado:");
@@ -154,7 +155,7 @@ public class PainelConsultaSinistro extends JPanel {
 		
 		txtNomeSegurado = new JTextField();
 		txtNomeSegurado.setColumns(10);
-		add(txtNomeSegurado, "4, 7, 5, 1, fill, fill");
+		add(txtNomeSegurado, "4, 7, 7, 1, fill, fill");
 		
 		JLabel lblDe = new JLabel("De: ");
 		lblDe.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
@@ -169,10 +170,10 @@ public class PainelConsultaSinistro extends JPanel {
 		lblAte.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblAte.setForeground(Color.WHITE);
 		lblAte.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblAte, "6, 10");
+		add(lblAte, "8, 10");
 		
 		dpDataFim = new DatePicker();
-		add(dpDataFim, "8, 10, fill, fill");
+		add(dpDataFim, "10, 10, fill, fill");
 		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBackground(new Color(227, 218, 28));
@@ -180,21 +181,21 @@ public class PainelConsultaSinistro extends JPanel {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					buscarSinistrosComFiltros();
-					limparTabela();
 					atualizarTabela();
 			}
 		});
 		add(btnBuscar, "4, 16, fill, fill");
 		
-		JLabel lblSitucao = new JLabel("Situação:");
-		lblSitucao.setForeground(Color.WHITE);
-		lblSitucao.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblSitucao, "2, 13, right, center");
+		JLabel lblSituacao = new JLabel("Situação:");
+		lblSituacao.setForeground(Color.WHITE);
+		lblSituacao.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+		add(lblSituacao, "2, 13, right, center");
 		
 		cbSituacao = new JComboBox(Situacao.values());
+		cbSituacao.setSelectedIndex(-1);
 		add(cbSituacao, "4, 13, fill, center");
 		
-		btnGerarPlanilha = new JButton("GerarPlanilha");
+		btnGerarPlanilha = new JButton("Gerar Planilha");
 		btnGerarPlanilha.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-planilha-50.png")));
 		btnGerarPlanilha.setBackground(new Color(227, 218, 28));
 		btnGerarPlanilha.addActionListener(new ActionListener() {
@@ -218,6 +219,19 @@ public class PainelConsultaSinistro extends JPanel {
 			}
 		});
 		add(btnGerarPlanilha, "8, 16, default, fill");
+		
+		btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNumero.setText("");
+				txtNomeSegurado.setText("");
+				cbSituacao.setSelectedIndex(-1);
+				dpDataInicio.clear();
+				dpDataFim.clear();
+			}
+		});
+		btnLimpar.setBackground(new Color(227, 218, 28));
+		add(btnLimpar, "10, 16");
 		
 		
 		add(tableSinistro, "2, 19, 13, 2, fill, fill");
@@ -284,7 +298,11 @@ public class PainelConsultaSinistro extends JPanel {
 		seletor.setNumeroSinistro(txtNumero.getText());
 		seletor.setDtInicio(dpDataInicio.getDate());
 		seletor.setDtInicio(dpDataFim.getDate());
-		seletor.setSituacao((Situacao) cbSituacao.getSelectedItem());
+		if(cbSituacao.getSelectedIndex() == -1) {
+			seletor.setSituacao("");
+		} else {
+			seletor.setSituacao(cbSituacao.getSelectedItem().toString());
+		}
 		
 		sinistros = (ArrayList<Sinistro>) controller.consultarComFiltros(seletor);
 		this.atualizarTabela();
