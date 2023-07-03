@@ -10,15 +10,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
-import model.seletor.SeguroSeletor;
 import model.seletor.SinistroSeletor;
-import model.vo.Pessoa;
+import model.vo.Seguro;
 import model.vo.Sinistro;
 import model.vo.Situacao;
 import model.vo.TipoSinistro;
-import model.vo.Veiculo;
 
 public class SinistroDAO {
 	
@@ -27,7 +23,7 @@ public class SinistroDAO {
 	
 	public Sinistro inserir(Sinistro novoSinistro) {
 		Connection conn = Banco.getConnection();
-		String sql = " INSERT INTO SINISTRO(NUMERO_SINISTRO, TIPO_SINISTRO, IDPESSOA, IDVEICULO, DT_SINISTRO,"
+		String sql = " INSERT INTO SINISTRO(NUMERO_SINISTRO, TIPO_SINISTRO, ID_SEGURO, DT_SINISTRO,"
 				+ " VALOR_FRANQUIA, VALOR_ORCADO, VALOR_PAGO, SITUACAO, MOTIVO ) "
 				+ " VALUES (?,?,?,?,?,?,?,?,?,?) ";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql);
@@ -35,13 +31,12 @@ public class SinistroDAO {
 		try {
 			stmt.setString(1, novoSinistro.getNumeroSinistro());
 			stmt.setString(2, novoSinistro.getTipoSinistro().toString());		
-			stmt.setInt(3, novoSinistro.getPessoa().getId());
-			stmt.setInt(4, novoSinistro.getVeiculo().getId());
-			stmt.setObject(5, validarDataParaOBanco(novoSinistro.getDataSinistro()));
-			stmt.setDouble(6, novoSinistro.getValorFranquia());
-			stmt.setDouble(7, novoSinistro.getValorOrcado());
-			stmt.setDouble(8, novoSinistro.getValorPago());
-			stmt.setString(9, novoSinistro.getSituacao().toString());
+			stmt.setInt(3, novoSinistro.getSeguro().getId());
+			stmt.setObject(4, validarDataParaOBanco(novoSinistro.getDataSinistro()));
+			stmt.setDouble(5, novoSinistro.getValorFranquia());
+			stmt.setDouble(6, novoSinistro.getValorOrcado());
+			stmt.setDouble(7, novoSinistro.getValorPago());
+			stmt.setString(8, novoSinistro.getSituacao().toString());
 			stmt.setString(10, novoSinistro.getMotivo());
 			stmt.execute();
 			
@@ -62,22 +57,21 @@ public class SinistroDAO {
 	public boolean atualizar(Sinistro sinistroAtualizado) {
 		boolean atualizou = false;
 		Connection conn = Banco.getConnection();
-		String sql = " UPDATE SINISTRO SET NUMERO_SINISTRO=?, TIPO_SINISTRO=?, IDPESSOA=?, IDVEICULO=?, DT_SINISTRO=? "
+		String sql = " UPDATE SINISTRO SET NUMERO_SINISTRO=?, TIPO_SINISTRO=?, ID_SEGURO=?, DT_SINISTRO=? "
 				+ ", VALOR_FRANQUIA=?, VALOR_ORCADO=?, VALOR_PAGO=?, SITUACAO=?, MOTIVO=? WHERE ID=? ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
 		
 		try {
 			stmt.setString(1, sinistroAtualizado.getNumeroSinistro());
 			stmt.setObject(2, sinistroAtualizado.getTipoSinistro().toString());
-			stmt.setInt(3, sinistroAtualizado.getPessoa().getId());
-			stmt.setInt(4, sinistroAtualizado.getVeiculo().getId());
-			stmt.setObject(5, sinistroAtualizado.getDataSinistro());
-			stmt.setDouble(6, sinistroAtualizado.getValorFranquia());
-			stmt.setDouble(7, sinistroAtualizado.getValorOrcado());
-			stmt.setDouble(8, sinistroAtualizado.getValorPago());
-			stmt.setString(9, sinistroAtualizado.getSituacao().toString());
-			stmt.setString(10, sinistroAtualizado.getMotivo());
-			stmt.setInt(11, sinistroAtualizado.getId());
+			stmt.setInt(3, sinistroAtualizado.getSeguro().getId());
+			stmt.setObject(4, sinistroAtualizado.getDataSinistro());
+			stmt.setDouble(5, sinistroAtualizado.getValorFranquia());
+			stmt.setDouble(6, sinistroAtualizado.getValorOrcado());
+			stmt.setDouble(7, sinistroAtualizado.getValorPago());
+			stmt.setString(8, sinistroAtualizado.getSituacao().toString());
+			stmt.setString(9, sinistroAtualizado.getMotivo());
+			stmt.setInt(10, sinistroAtualizado.getId());
 			
 			int registrosAlterados = stmt.executeUpdate();
 			atualizou = registrosAlterados > 0;
@@ -142,7 +136,7 @@ public class SinistroDAO {
 	public List<Sinistro> consultarTodos(){
 		List<Sinistro> sinistros = new ArrayList<Sinistro>();
 		Connection conn = Banco.getConnection();
-		String sql = " SELECT * FROM SINISTRO";
+		String sql = " SELECT * FROM SINISTRO ";
 		
 		PreparedStatement query = Banco.getPreparedStatement(conn, sql);
 		
@@ -171,15 +165,10 @@ public class SinistroDAO {
 		String tipoSinistroDoBanco = resultado.getString("tipo_sinistro");
 		sinistroBuscado.setTipoSinistro(TipoSinistro.valueOf(tipoSinistroDoBanco));
 		
-		int idVeiculo = resultado.getInt("idveiculo");
-		VeiculoDAO veiculoDAO = new VeiculoDAO();
-		Veiculo veiculo = veiculoDAO.consultarPorId(idVeiculo);
-		sinistroBuscado.setVeiculo(veiculo);
-		
-		int idPessoa = resultado.getInt("idpessoa");
-		PessoaDAO pessoaDAO = new PessoaDAO();
-		Pessoa pessoa = pessoaDAO.consultarPorId(idPessoa);
-		sinistroBuscado.setPessoa(pessoa);
+		int idSeguro = resultado.getInt("id_seguro");
+		SeguroDAO seguroDAO = new SeguroDAO();
+		Seguro seguro = seguroDAO.consultarPorId(idSeguro);
+		sinistroBuscado.setSeguro(seguro);
 		
 		String situacaoDoBanco = resultado.getString("situacao");
 		sinistroBuscado.setSituacao(Situacao.valueOf(situacaoDoBanco));
@@ -194,7 +183,9 @@ public class SinistroDAO {
 		public List<Sinistro> consultarComFiltros(SinistroSeletor seletor) {
 			List<Sinistro> sinistros = new ArrayList<Sinistro>();
 			Connection conexao = Banco.getConnection();
-			String sql = " select * from sinistro inner join pessoa on sinistro.idpessoa = pessoa.id ";
+			String sql = " select * from sinistro "
+					+ " inner join seguro on sinistro.id_seguro = seguro.id "
+					+ " inner join pessoa on seguro.idpessoa = pessoa.id ";
 
 			if (seletor.temFiltro()) {
 				sql = preencherFiltros(sql, seletor);
@@ -230,7 +221,7 @@ public class SinistroDAO {
 				sql += " AND ";
 			}
 			
-			sql += " nome ILIKE '%" + seletor.getNomeSegurado() + "%'";
+			sql += " nome LIKE '%" + seletor.getNomeSegurado() + "%'";
 			primeiro = false;
 		}
 		

@@ -24,17 +24,16 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import controller.SinistroController;
-import model.dao.PessoaDAO;
+import model.dao.SeguroDAO;
 import model.dao.VeiculoDAO;
 import model.exception.CampoInvalidoException;
 import model.exception.PessoaInvalidaException;
 import model.exception.VeiculoInvalidaException;
 import model.util.JNumberFormatField;
-import model.vo.Pessoa;
+import model.vo.Seguro;
 import model.vo.Sinistro;
 import model.vo.Situacao;
 import model.vo.TipoSinistro;
-import model.vo.Veiculo;
 
 public class PainelCadastroSinistro extends JPanel {
 	private JTextField txtNumeroSinistro;
@@ -47,13 +46,11 @@ public class PainelCadastroSinistro extends JPanel {
 	private DatePicker dpData;
 	private JComboBox cbSituacao;
 	private List<Situacao> situacaoEnum = new ArrayList<Situacao>();
-	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
-	private List<Veiculo> veiculos = new ArrayList<Veiculo>();
+	private List<Seguro> seguros = new ArrayList<Seguro>();
 	private JComboBox cbTipoSinistro;
 	private Sinistro sinistro;
 	private JLabel lblTitulo;
-	private JComboBox cbSegurado;
-	private JComboBox cbVeiculo;
+	private JComboBox cbSeguro;
 	private JLabel lblHora;
 	private JTextField fTxtHora;
 	private JNumberFormatField fTxtValorPago;
@@ -171,19 +168,17 @@ public class PainelCadastroSinistro extends JPanel {
 		fTxtValorOrcado.setColumns(10);
 		add(fTxtValorOrcado, "10, 11, fill, default");
 
-		JLabel lblSegurado = new JLabel("Segurado:");
+		JLabel lblSegurado = new JLabel("Seguro:");
 		lblSegurado.setForeground(Color.WHITE);
 		lblSegurado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblSegurado, "3, 14, right, default");
 
-		PessoaDAO pessoaDAO = new PessoaDAO();
-		pessoas.addAll(pessoaDAO.consultarTodos());
-		cbSegurado = new JComboBox(pessoas.toArray());
-		cbSegurado.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		add(cbSegurado, "5, 14, fill, default");
+		SeguroDAO seguroDAO = new SeguroDAO();
+		seguros.addAll(seguroDAO.consultarTodos());
+		cbSeguro = new JComboBox(seguros.toArray());
+		cbSeguro.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		add(cbSeguro, "5, 14, fill, default");
 
-		VeiculoDAO veiculoDAO = new VeiculoDAO();
-		veiculos.addAll(veiculoDAO.consultarTodos());
 
 		JLabel lblValorPago = new JLabel("Valor Pago:");
 		lblValorPago.setForeground(Color.WHITE);
@@ -223,8 +218,7 @@ public class PainelCadastroSinistro extends JPanel {
 				SinistroController sinController = new SinistroController();
 				sinistro.setNumeroSinistro(txtNumeroSinistro.getText());
 				sinistro.setTipoSinistro((TipoSinistro) cbTipoSinistro.getSelectedItem());
-				sinistro.setPessoa((Pessoa) cbSegurado.getSelectedItem());
-				sinistro.setVeiculo((Veiculo) cbVeiculo.getSelectedItem());
+				sinistro.setSeguro((Seguro) cbSeguro.getSelectedItem());
 				sinistro.setDataSinistro(dpData.getDate());
 				sinistro.setMotivo(txtMotivo.getText());
 				sinistro.setSituacao((Situacao) cbSituacao.getSelectedItem());
@@ -264,14 +258,6 @@ public class PainelCadastroSinistro extends JPanel {
 		lblMotivo.setForeground(Color.WHITE);
 		lblMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblMotivo, "8, 20, right, default");
-
-		JLabel lblVeculo = new JLabel("Placa Ve�culo:");
-		lblVeculo.setForeground(Color.WHITE);
-		lblVeculo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblVeculo, "3, 23, right, default");
-		cbVeiculo = new JComboBox(veiculos.toArray());
-		cbVeiculo.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		add(cbVeiculo, "5, 23, fill, default");
 		btnSalvar.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-salvar-50.png")));
 		btnSalvar.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		btnSalvar.setBackground(new Color(231, 200, 24));
@@ -290,30 +276,27 @@ public class PainelCadastroSinistro extends JPanel {
 			preencherCamposDaTela();
 			txtNumeroSinistro.setEditable(false);
 			dpData.setEnabled(false);
-			cbVeiculo.setEnabled(false);
 		}
 	}
 	private void preencherCamposDaTela() {
 		this.txtNumeroSinistro.setText(this.sinistro.getNumeroSinistro());
 		this.cbTipoSinistro.setSelectedItem(this.sinistro.getTipoSinistro());
-		this.cbSegurado.setSelectedItem(this.sinistro.getPessoa().getNome().toUpperCase());
+		//this.cbSeguro.setSelectedItem(this.sinistro.getSeguro();
 		this.dpData.setDate(this.sinistro.getDataSinistro());
 		this.fTxtValorFranquia.setText(String.valueOf(this.sinistro.getValorFranquia()));
 		this.fTxtValorOrcado.setText(String.valueOf(this.sinistro.getValorOrcado()));
 		this.fTxtValorPago.setText(String.valueOf(this.sinistro.getValorPago()));
 		this.cbSituacao.setSelectedItem(this.sinistro.getSituacao());
 		this.txtMotivo.setText(this.sinistro.getMotivo());
-		this.cbVeiculo.setSelectedItem(this.sinistro.getVeiculo());
 	}
 
 	private void limparCamposDoPainel() {
 		txtNumeroSinistro.setText("");
-		cbTipoSinistro.setSelectedIndex(0);
-		cbSegurado.setSelectedIndex(0);
-		cbVeiculo.setSelectedIndex(0);
+		cbTipoSinistro.setSelectedIndex(-1);
+		cbSeguro.setSelectedIndex(-1);
 		dpData.clear();
 		txtMotivo.setText("");
-		cbSituacao.setSelectedIndex(0);
+		cbSituacao.setSelectedIndex(-1);
 		fTxtValorFranquia.setText("");
 		fTxtValorOrcado.setText("");
 		fTxtValorPago.setText("");

@@ -17,7 +17,7 @@ public class PessoaDAO {
 
 	public Pessoa inserir(Pessoa novaPessoa) {
 		Connection conexao = Banco.getConnection();
-		String sql = " INSERT INTO PESSOA(NOME, CPF, DTNASCIMENTO, TELEFONE, ID_ENDERECO) " //ID_TIPO_PESSOA
+		String sql = " INSERT INTO PESSOA(NOME, CPF, DTNASCIMENTO, TELEFONE, ID_ENDERECO) " 
 				+ " VALUES (?,?,?,?,?) ";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conexao, sql);
 		try {
@@ -26,7 +26,6 @@ public class PessoaDAO {
 			stmt.setDate(3, java.sql.Date.valueOf(novaPessoa.getDataNascimento()));
 			stmt.setString(4, novaPessoa.getTelefone());
 			stmt.setInt(5, novaPessoa.getEndereco().getId());
-//			stmt.setInt(6, novaPessoa.getTipoPessoa().getValor());
 			stmt.execute();
 			
 			ResultSet resultado = stmt.getGeneratedKeys();
@@ -37,7 +36,10 @@ public class PessoaDAO {
 		} catch (SQLException erro) {
 			System.out.println("Erro ao inserir nova pessoa.");
 			System.out.println("Erro: " + erro.getMessage());
-		}		
+		} finally {
+			Banco.closePreparedStatement(stmt);
+			Banco.closeConnection(conexao);
+		}
 		return novaPessoa;
 	}
 	
@@ -45,7 +47,7 @@ public class PessoaDAO {
 	
 	public boolean atualizar(Pessoa pessoa) {
 		Connection conexao = Banco.getConnection();
-		String sql = " UPDATE PESSOA SET NOME=?, CPF=?, DTNASCIMENTO=?, TELEFONE=?, ID_ENDERECO=? " //ID_TIPO_PESSOA=?
+		String sql = " UPDATE PESSOA SET NOME=?, CPF=?, DTNASCIMENTO=?, TELEFONE=?, ID_ENDERECO=? "
 				+ " WHERE ID = ?";
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
 		int registrosAlterados = 0;
@@ -55,14 +57,16 @@ public class PessoaDAO {
 			stmt.setDate(3, java.sql.Date.valueOf(pessoa.getDataNascimento()));
 			stmt.setString(4, pessoa.getTelefone());
 			stmt.setInt(5, pessoa.getEndereco().getId());
-//			stmt.setInt(6, pessoa.getTipoPessoa().getValor());
-			stmt.setInt(7, pessoa.getId());
+			stmt.setInt(6, pessoa.getId());
 			registrosAlterados = stmt.executeUpdate();
 			 
 		} catch (SQLException erro) {
 			System.out.println("Erro ao inserir nova pessoa.");
 			System.out.println("Erro: " + erro.getMessage());
-		}		
+		} finally {
+			Banco.closePreparedStatement(stmt);
+			Banco.closeConnection(conexao);
+		}	
 		return registrosAlterados > 0;
 	}
 	
@@ -80,7 +84,10 @@ public class PessoaDAO {
 		} catch (SQLException erro) {
 			System.out.println("Erro ao excluir pessoa.");
 			System.out.println("Erro: " + erro.getMessage());
-		}		
+		} finally {
+			Banco.closePreparedStatement(stmt);
+			Banco.closeConnection(conn);
+		}
 		boolean excluir = quantidadeLinhasAfetadas > 0;
 		return excluir;
 	}
@@ -152,9 +159,6 @@ public class PessoaDAO {
 		Endereco endereco = enderecoDAO.consultarPorId(idEnderecoDaPessoa);
 		pessoaBuscada.setEndereco(endereco);
 		
-		SeguroDAO seguroDAO = new SeguroDAO();
-		List<Seguro> segurosDaPessoa = seguroDAO.consultarPorIdCliente(pessoaBuscada.getId());
-		pessoaBuscada.setSeguros(segurosDaPessoa);		
 		return pessoaBuscada;
 	}
 
@@ -242,16 +246,6 @@ public class PessoaDAO {
 				}
 				//NASCEU 'ATÉ' A DATA FINAL
 				sql += " DT_NASCIMENTO <= '" + seletor.getDataNascimentoAte() + "' "; 
-				primeiro = false;
-			}
-			if(seletor.getSeguros() != null) {
-				if(primeiro) {
-					sql += " WHERE ";
-				} else {
-					sql += " AND ";
-				}
-				
-				sql += " seguros LIKE '%" + seletor.getSeguros() + "%'";
 				primeiro = false;
 			}
 			if(seletor.getTelefone() != null) {

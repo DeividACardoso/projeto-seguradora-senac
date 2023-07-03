@@ -18,7 +18,6 @@ public class Executavel {
 		Double valorOrcadoDouble = Double.parseDouble(valorOrcadoStrEditado);
 		System.out.println("Double correto: " + valorOrcadoDouble);
 		
-		
 //		Seguro seguro1 = new SeguroController().consultarPorId(1);
 //
 //		SeguroController controladorDeSeguros = new SeguroController();

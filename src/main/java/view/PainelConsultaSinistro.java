@@ -45,7 +45,7 @@ public class PainelConsultaSinistro extends JPanel {
 	private DatePicker dataFim;
 	private SinistroController controller = new SinistroController();
 	private List<Sinistro> sinistros = new ArrayList();
-	private String[] nomeColunas = {"ID", "Número Sinistro", "Segurado", "Veículo", "TipoSinistro", "Data", "Situação"};
+	private String[] nomeColunas = {"ID", "Número Sinistro", "Seguro", "Veículo", "TipoSinistro", "Data", "Situação"};
 	private final JTable tableSinistro = new JTable();
 	private JButton btnEditar;
 	private JButton btnExcluir;
@@ -70,11 +70,10 @@ public class PainelConsultaSinistro extends JPanel {
 			Object[] novaLinhaDaTabela = new Object[7];
 			novaLinhaDaTabela[0] = s.getId();
 			novaLinhaDaTabela[1] = s.getNumeroSinistro();
-			novaLinhaDaTabela[2] = s.getPessoa().getNome();
-			novaLinhaDaTabela[3] = s.getVeiculo().getPlacaVeiculo();
-			novaLinhaDaTabela[4] = s.getTipoSinistro();
-			novaLinhaDaTabela[5] = s.getDataSinistro();
-			novaLinhaDaTabela[6] = s.getSituacao();
+			novaLinhaDaTabela[2] = s.getSeguro().getPessoa().getNome();
+			novaLinhaDaTabela[3] = s.getTipoSinistro();
+			novaLinhaDaTabela[4] = s.getDataSinistro();
+			novaLinhaDaTabela[5] = s.getSituacao();
 			
 			model.addRow(novaLinhaDaTabela);
 		}

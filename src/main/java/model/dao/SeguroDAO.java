@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.seletor.SeguroSeletor;
+import model.vo.Pessoa;
 import model.vo.Seguro;
+import model.vo.Veiculo;
 
 public class SeguroDAO {
 
@@ -19,8 +21,8 @@ public class SeguroDAO {
 				+ " VALUES (?,?,?,?,?,?,?,?,?,?) ";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conexao, sql);
 		try {
-			stmt.setInt(1, novoSeguro.getIdPessoa() == null ? 0 : novoSeguro.getIdPessoa());
-			stmt.setInt(2, novoSeguro.getIdVeiculo());
+			stmt.setInt(1, novoSeguro.getPessoa().getId());
+			stmt.setInt(2, novoSeguro.getVeiculo().getId());
 			stmt.setInt(3, novoSeguro.getNumeroProposta());
 			stmt.setDate(4, java.sql.Date.valueOf(novoSeguro.getDtInicioVigencia()));
 			stmt.setDate(5, java.sql.Date.valueOf(novoSeguro.getDtFimVigencia()));
@@ -57,8 +59,8 @@ public class SeguroDAO {
 				+ " WHERE ID = ? ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
 		try {
-			stmt.setInt(1, seguroAtualizado.getIdPessoa());
-			stmt.setInt(2, seguroAtualizado.getIdVeiculo());
+			stmt.setInt(1, seguroAtualizado.getPessoa().getId());
+			stmt.setInt(2, seguroAtualizado.getVeiculo().getId());
 			stmt.setInt(3, seguroAtualizado.getNumeroProposta());
 			stmt.setDate(4, java.sql.Date.valueOf(seguroAtualizado.getDtInicioVigencia()));
 			stmt.setDate(5, java.sql.Date.valueOf(seguroAtualizado.getDtFimVigencia()));
@@ -149,8 +151,17 @@ public class SeguroDAO {
 	private Seguro converterDeResultSetParaEntidade(ResultSet resultado) throws SQLException {
 		Seguro seguroConsultado = new Seguro();
 		seguroConsultado.setId(resultado.getInt("id"));
-		seguroConsultado.setIdPessoa(resultado.getInt("idpessoa"));
-		seguroConsultado.setIdPessoa(resultado.getInt("idveiculo"));
+		
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		int idPessoa = resultado.getInt("idpessoa");
+		Pessoa pessoa = pessoaDAO.consultarPorId(idPessoa);
+		seguroConsultado.setPessoa(pessoa);
+		
+		VeiculoDAO veiculoDAO = new VeiculoDAO();
+		int idVeiculo= resultado.getInt("idveiculo");
+		Veiculo veiculo = veiculoDAO.consultarPorId(idVeiculo);
+		seguroConsultado.setVeiculo(veiculo);
+		
 		seguroConsultado.setNumeroProposta(resultado.getInt("numero_proposta"));
 		seguroConsultado.setDtInicioVigencia(resultado.getTimestamp("dt_inicio_vigencia").toLocalDateTime().toLocalDate());
 		seguroConsultado.setDtFimVigencia(resultado.getTimestamp("dt_fim_vigencia").toLocalDateTime().toLocalDate());
@@ -211,8 +222,8 @@ public class SeguroDAO {
 		} finally {
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conexao);
-			return seguros;
 		}
+		return seguros;
 
 	}
 

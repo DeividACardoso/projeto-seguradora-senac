@@ -12,7 +12,6 @@ public class PessoaSeletor extends BaseSeletor{
 	private String cpf;
 	private LocalDate dataNascimentoDe;
 	private LocalDate dataNascimentoAte;
-	private List<Seguro> seguros;
 	private String telefone;
 	private Endereco endereco;
 	
@@ -22,7 +21,6 @@ public class PessoaSeletor extends BaseSeletor{
 			|| (this.cpf != null && this.cpf.trim().length() > 0)
 			|| this.dataNascimentoDe != null
 			|| this.dataNascimentoAte != null
-			|| this.seguros != null
 			|| this.telefone != null
 			|| this.endereco != null;
 	}
@@ -57,14 +55,6 @@ public class PessoaSeletor extends BaseSeletor{
 
 	public void setDataNascimentoAte(LocalDate dataNascimentoAte) {
 		this.dataNascimentoAte = dataNascimentoAte;
-	}
-
-	public List<Seguro> getSeguros() {
-		return seguros;
-	}
-
-	public void setSeguros(List<Seguro> seguros) {
-		this.seguros = seguros;
 	}
 	
 	public void setTelefone(String telefone) {

@@ -4,7 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,11 +23,14 @@ import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 import controller.SeguroController;
+import model.dao.PessoaDAO;
+import model.dao.VeiculoDAO;
 import model.exception.CampoInvalidoException;
 import model.exception.ClienteComSeguroException;
 import model.seletor.SeguroSeletor;
-import model.util.DateUtil;
+import model.vo.Pessoa;
 import model.vo.Seguro;
+import model.vo.Veiculo;
 
 public class PainelCadastroSeguro extends JPanel {
 
@@ -35,8 +39,8 @@ public class PainelCadastroSeguro extends JPanel {
 
 	private Seguro seguro;
 	private JTextField txtNumeroProposta;
-	private JTextField txtNome;
-	private JTextField txtPlaca;
+	private JComboBox cbNome;
+	private JComboBox cbPlaca;
 	private JLabel lblTItulo;
 	private JLabel lblNumeroProposta;
 	private JLabel lblDataDeVigenciaInicial;
@@ -55,6 +59,8 @@ public class PainelCadastroSeguro extends JPanel {
 	private JComboBox cbCarro_reserva;
 	private JButton btnSalvar;
 	private JButton btnVoltar;
+	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
+	private List<Veiculo> veiculos = new ArrayList<Veiculo>();
 	private Double[] rcfDanosMaeriais = { 350.000, 300.000, 250.000, 200.000, 150.000, 100.000 };
 	private Double[] rcfDanosCorporais = { 350.000, 300.000, 250.000, 200.000, 150.000, 100.000 };
 
@@ -150,18 +156,22 @@ public class PainelCadastroSeguro extends JPanel {
 		lblNomeSegurado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblNomeSegurado, "6, 16, right, default");
 
-		txtNome = new JTextField();
-		txtNome.setColumns(10);
-		add(txtNome, "10, 15, 8, 2, fill, default");
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		pessoas.addAll(pessoaDAO.consultarTodos());
+		cbNome = new JComboBox(pessoas.toArray());
+		cbNome.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		add(cbNome, "10, 15, 8, 2, fill, default");
 
 		lblVeculoPlaca = new JLabel("Placa Veículo:");
 		lblVeculoPlaca.setForeground(Color.WHITE);
 		lblVeculoPlaca.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblVeculoPlaca, "14, 18, right, default");
 
-		txtPlaca = new JTextField();
-		txtPlaca.setColumns(10);
-		add(txtPlaca, "16, 18, 2, 2, fill, default");
+		VeiculoDAO veiculoDAO = new VeiculoDAO();
+		veiculos.addAll(veiculoDAO.consultarTodos());
+		cbPlaca = new JComboBox(veiculos.toArray());
+		cbPlaca.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+		add(cbPlaca, "16, 18, 2, 2, fill, default");
 
 		lblCoberturas = new JLabel("Coberturas");
 		lblCoberturas.setForeground(Color.WHITE);
@@ -216,7 +226,7 @@ public class PainelCadastroSeguro extends JPanel {
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				seguro.setIdPessoa(Integer.parseInt(txtNome.getText()));
+				seguro.setPessoa((Pessoa) cbNome.getSelectedItem());
 				seguro.setNumeroProposta(Integer.parseInt(txtNumeroProposta.getText()));
 				if (txtNumeroProposta != null && !txtNumeroProposta.getText().isEmpty()) {
 					try {
@@ -226,7 +236,7 @@ public class PainelCadastroSeguro extends JPanel {
 						JOptionPane.showMessageDialog(null, "N�mero de proposta inv�ilido");
 					}
 				}
-				seguro.setIdVeiculo(Integer.parseInt(txtPlaca.getText()));
+				seguro.setVeiculo((Veiculo) cbPlaca.getSelectedItem());
 				seguro.setDtInicioVigencia(dataVigenciaInicial.getDate());
 				seguro.setDtFimVigencia(dataVigenciaFinal.getDate());
 				seguro.setRcfDanosMateriais((double) cbRCFDanosMateriais.getSelectedItem());
@@ -272,9 +282,9 @@ public class PainelCadastroSeguro extends JPanel {
 	
 	
 	private void preencherCamposDaTela() {
-		this.txtNome.setText(Integer.toString(this.seguro.getIdPessoa()));
+		this.cbNome.setSelectedItem(this.seguro.getPessoa());;
 		this.txtNumeroProposta.setText(Integer.toString(this.seguro.getNumeroProposta()));
-		this.txtPlaca.setText(Integer.toString(this.seguro.getIdVeiculo()));
+		this.cbPlaca.setSelectedItem(this.seguro.getVeiculo());
 		this.seguro.setDtInicioVigencia(this.seguro.getDtInicioVigencia());
 		this.seguro.setDtFimVigencia(this.seguro.getDtFimVigencia());
 		this.cbRCFDanosMateriais.setSelectedItem(this.seguro.getRcfDanosMateriais());

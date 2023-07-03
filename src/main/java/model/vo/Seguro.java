@@ -1,12 +1,14 @@
 package model.vo;
 
 import java.time.LocalDate;
+import model.vo.Pessoa;
+import model.vo.Veiculo;
 
 public class Seguro {
 
 	private Integer id;
-	private Integer idPessoa;
-	private Integer idVeiculo;
+	private Pessoa Pessoa;
+	private Veiculo Veiculo;
 	private int numeroProposta;
 	private LocalDate dtInicioVigencia;
 	private LocalDate dtFimVigencia;
@@ -16,17 +18,13 @@ public class Seguro {
 	private String assistencia;
 	private String carroReserva;
 
-	public Seguro() {
-
-	}
-
-	public Seguro(Integer id, Integer idPessoa, Integer idVeiculo, int numeroProposta, LocalDate dtInicioVigencia,
-			LocalDate dtFimVigencia, double rcfDanosMateriais, double rcfDanosCorporais, String franquia,
-			String assistencia, String carroReserva) {
+	public Seguro(Integer id, Pessoa pessoa, Veiculo veiculo, int numeroProposta,
+			LocalDate dtInicioVigencia, LocalDate dtFimVigencia, double rcfDanosMateriais, double rcfDanosCorporais,
+			String franquia, String assistencia, String carroReserva) {
 		super();
 		this.id = id;
-		this.idPessoa = idPessoa;
-		this.idVeiculo = idVeiculo;
+		Pessoa = pessoa;
+		Veiculo = veiculo;
 		this.numeroProposta = numeroProposta;
 		this.dtInicioVigencia = dtInicioVigencia;
 		this.dtFimVigencia = dtFimVigencia;
@@ -36,6 +34,10 @@ public class Seguro {
 		this.assistencia = assistencia;
 		this.carroReserva = carroReserva;
 	}
+	public Seguro() {
+
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -45,20 +47,20 @@ public class Seguro {
 		this.id = id;
 	}
 
-	public Integer getIdPessoa() {
-		return idPessoa;
+	public Pessoa getPessoa() {
+		return Pessoa;
 	}
 
-	public void setIdPessoa(Integer idPessoa) {
-		this.idPessoa = idPessoa;
+	public void setPessoa(Pessoa pessoa) {
+		Pessoa = pessoa;
 	}
 
-	public Integer getIdVeiculo() {
-		return idVeiculo;
+	public Veiculo getVeiculo() {
+		return Veiculo;
 	}
 
-	public void setIdVeiculo(Integer idVeiculo) {
-		this.idVeiculo = idVeiculo;
+	public void setVeiculo(Veiculo veiculo) {
+		Veiculo = veiculo;
 	}
 
 	public int getNumeroProposta() {
@@ -124,5 +126,6 @@ public class Seguro {
 	public void setCarroReserva(String carroReserva) {
 		this.carroReserva = carroReserva;
 	}
+
 
 }

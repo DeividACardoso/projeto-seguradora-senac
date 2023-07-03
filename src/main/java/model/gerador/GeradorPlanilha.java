@@ -22,6 +22,7 @@ public class GeradorPlanilha {
 		HSSFSheet abaPlanilha = arquivoExcel.createSheet("Clientes");
 
 		HSSFRow linhaCabecalho = abaPlanilha.createRow(0);
+		//TODO Ajustar as colunas. 
 		linhaCabecalho.createCell(0).setCellValue("Nome");
 		linhaCabecalho.createCell(1).setCellValue("CPF");
 		linhaCabecalho.createCell(2).setCellValue("Data de Nascimento");
@@ -32,9 +33,9 @@ public class GeradorPlanilha {
 		int contadorLinhas = 1;
 			for (Seguro c : seguros) {
 				HSSFRow novaLinha = abaPlanilha.createRow(contadorLinhas);
-				novaLinha.createCell(0).setCellValue(c.getIdPessoa());
+				novaLinha.createCell(0).setCellValue(c.getPessoa().getNome());
 				novaLinha.createCell(1).setCellValue(c.getNumeroProposta());
-				novaLinha.createCell(2).setCellValue(c.getIdVeiculo());
+				novaLinha.createCell(2).setCellValue(c.getVeiculo().toString());
 				novaLinha.createCell(3).setCellValue(DateUtil.formatarDataPadraoBrasil(c.getDtInicioVigencia()));
 				novaLinha.createCell(4).setCellValue(DateUtil.formatarDataPadraoBrasil(c.getDtFimVigencia()));
 				novaLinha.createCell(5).setCellValue(c.getRcfDanosMateriais());
@@ -56,9 +57,8 @@ public class GeradorPlanilha {
 		linhaCabecalho.createCell(0).setCellValue("Nome");
 		linhaCabecalho.createCell(1).setCellValue("CPF");
 		linhaCabecalho.createCell(2).setCellValue("Data de Nascimento");
-		linhaCabecalho.createCell(3).setCellValue("Seguros");
-		linhaCabecalho.createCell(4).setCellValue("Telefones");
-		linhaCabecalho.createCell(5).setCellValue("Endereco resumido (Cidade - UF)");
+		linhaCabecalho.createCell(3).setCellValue("Telefones");
+		linhaCabecalho.createCell(4).setCellValue("Endereco resumido (Cidade - UF)");
 
 		int contadorLinhas = 1;
 			for (Pessoa p : pessoas) {
@@ -66,9 +66,8 @@ public class GeradorPlanilha {
 				novaLinha.createCell(0).setCellValue(p.getNome());
 				novaLinha.createCell(1).setCellValue(p.getCpf());
 				novaLinha.createCell(2).setCellValue(DateUtil.formatarDataPadraoBrasil(p.getDataNascimento()));		
-				novaLinha.createCell(4).setCellValue(p.getSeguros().size());
-				novaLinha.createCell(4).setCellValue(p.getTelefone());
-				novaLinha.createCell(3).setCellValue(p.getEndereco().getCidade() + " - " + p.getEndereco().getEstado());
+				novaLinha.createCell(3).setCellValue(p.getTelefone());
+				novaLinha.createCell(4).setCellValue(p.getEndereco().getCidade() + " - " + p.getEndereco().getEstado());
 				contadorLinhas++;
 			}
 			return salvarNoDisco(arquivoExcel, destinoArquivo);
@@ -95,8 +94,7 @@ public class GeradorPlanilha {
 			HSSFRow novaLinha = abaPlanilha.createRow(contadorLinhas);
 			novaLinha.createCell(0).setCellValue(sin.getNumeroSinistro());
 			novaLinha.createCell(1).setCellValue(sin.getTipoSinistro().name());
-			novaLinha.createCell(2).setCellValue(sin.getPessoa().getNome());
-			novaLinha.createCell(3).setCellValue(sin.getVeiculo().getPlacaVeiculo());
+			novaLinha.createCell(2).setCellValue(sin.getSeguro().getPessoa().getNome());
 			novaLinha.createCell(4).setCellValue(DateUtil.formatarDataPadraoBrasil(sin.getDataSinistro()));
 			novaLinha.createCell(5).setCellValue(sin.getValorFranquia());
 			novaLinha.createCell(6).setCellValue(sin.getValorOrcado());

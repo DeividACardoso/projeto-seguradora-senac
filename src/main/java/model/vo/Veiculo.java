@@ -3,14 +3,12 @@ package model.vo;
 public class Veiculo {
 
 	private Integer id;
-	private Integer idSeguro;
 	private String placaVeiculo;
 	private String modelo;
 	
-	public Veiculo(Integer id, Integer idSeguro, String placaVeiculo, String modelo) {
+	public Veiculo(Integer id, String placaVeiculo, String modelo) {
 		super();
 		this.id = id;
-		this.idSeguro = idSeguro;
 		this.placaVeiculo = placaVeiculo;
 		this.modelo = modelo;
 	}
@@ -26,15 +24,7 @@ public class Veiculo {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	public Integer getIdSeguro() {
-		return idSeguro;
-	}
-	
-	public void setIdSeguro(Integer idSeguro) {
-		this.idSeguro = idSeguro;
-	}
-	
+		
 	public String getPlacaVeiculo() {
 		return placaVeiculo;
 	}
@@ -53,7 +43,7 @@ public class Veiculo {
 
 	@Override
 	public String toString() {
-		return"Placa Veiculo: " + placaVeiculo;
+		return "Placa Veiculo: " + placaVeiculo;
 
 	}
 	

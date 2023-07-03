@@ -32,7 +32,7 @@ public class SeguroBO {
 	public boolean excluir(int id) throws ClienteComSeguroException {
 		Seguro seguroConsultado = dao.consultarPorId(id);
 
-		if (seguroConsultado.getIdPessoa() != null) {
+		if (seguroConsultado.getPessoa() != null) {
 			throw new ClienteComSeguroException("Cliente possui seguro(s)");
 		}
 

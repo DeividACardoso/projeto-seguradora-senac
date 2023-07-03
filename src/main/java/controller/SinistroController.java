@@ -26,15 +26,9 @@ public class SinistroController {
 		if(sinistro.getDataSinistro() == null || sinistro.getDataSinistro().toString().trim().isEmpty()) {
 			mensagemValidacao += "Preencha: Data Sinistro\n";
 		}
-		if(sinistro.getPessoa() == null) {
-			mensagemValidacao += "Preencha: Cliente\n";
+		if(sinistro.getSeguro() == null) {
+			mensagemValidacao += "Preencha: Seguro\n";
 		}
-		if(sinistro.getVeiculo() == null) {
-			mensagemValidacao += "Preencha: Veiculo\n";
-		}
-//		if(sinistro.getMotivo() == null || sinistro.getMotivo().trim().isEmpty()) {
-//			mensagemValidacao += "Preencha: Motivo\n";
-//		}
 		if(sinistro.getSituacao() == null || sinistro.getSituacao().toString().trim().isEmpty()) {
 			mensagemValidacao += "Preencha: Situação\n";
 		}

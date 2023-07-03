@@ -49,7 +49,7 @@ import model.vo.Seguro;
 					Seguro seguro = criarSeguro(linhaAtual);
 
 					if (seguro != null) {
-						seguro.setIdPessoa(null);
+						seguro.setPessoa(null);
 
 						SeguroDAO seguroDAO = new SeguroDAO();
 						seguroDAO.inserir(seguro);
@@ -93,7 +93,7 @@ import model.vo.Seguro;
 
 				// TODO incluir mais campos da planilha
 				s = new Seguro();
-				s.setIdPessoa(null);
+				s.setPessoa(null);
 			}
 
 			return s;

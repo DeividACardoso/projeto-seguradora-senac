@@ -41,7 +41,7 @@ public class PainelConsultaCliente extends JPanel {
 	private JTextField txtNome;
 	private final JTable tblListagemPessoas = new JTable();
 	private ArrayList<Pessoa> pessoas;
-	private String[] nomesColunas = { "Id", "Nome", "CPF", "dataNascimento", "seguros", "telefone", "endereco" };
+	private String[] nomesColunas = { "Id", "Nome", "CPF", "Data Nascimento", "Telefone", "Endereço" };
 	private JLabel lblCpfList;
 	private JLabel lblDataNascimentoDe;
 	private JLabel lblAte;
@@ -73,15 +73,13 @@ public class PainelConsultaCliente extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) tblListagemPessoas.getModel();
 
 		for (Pessoa p : pessoas) {
-			Object[] novaLinhaDaTabela = new Object[8];
+			Object[] novaLinhaDaTabela = new Object[6];
 			novaLinhaDaTabela[0] = p.getId();
 			novaLinhaDaTabela[1] = p.getNome();
 			novaLinhaDaTabela[2] = p.getCpf();
 			novaLinhaDaTabela[3] = p.getDataNascimento();
-			novaLinhaDaTabela[4] = p.getSeguros().size();			
-			novaLinhaDaTabela[5] = p.getTelefone();
-			novaLinhaDaTabela[6] = p.getEndereco();
-			novaLinhaDaTabela[7] = p.getTipoPessoa();
+			novaLinhaDaTabela[4] = p.getTelefone();
+			novaLinhaDaTabela[5] = p.getEndereco();
 			model.addRow(novaLinhaDaTabela);
 		}
 	}	

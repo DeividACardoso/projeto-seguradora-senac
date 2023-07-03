@@ -13,13 +13,12 @@ public class VeiculoDAO {
 	
 	public Veiculo inserir(Veiculo novoVeiculo) {
 		Connection conn = Banco.getConnection();
-		String sql = "INSERT INTO VEICULO(ID_SEGURO, PLACA_VEICULO, MARCA) VALUES (?,?,?) ";
+		String sql = " INSERT INTO VEICULO (PLACA_VEICULO, MARCA) VALUES (?,?) ";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql);
 		
 		try {
-			stmt.setInt(1, novoVeiculo.getIdSeguro());
-			stmt.setString(2, novoVeiculo.getPlacaVeiculo());
-			stmt.setString(3, novoVeiculo.getModelo());
+			stmt.setString(1, novoVeiculo.getPlacaVeiculo());
+			stmt.setString(2, novoVeiculo.getModelo());
 			stmt.execute();
 			
 			ResultSet resultado = stmt.getGeneratedKeys();
@@ -40,15 +39,14 @@ public class VeiculoDAO {
 	public boolean atualizar(Veiculo veiculoAtualizado) {
 		boolean atualizou = false;
 		Connection conn = Banco.getConnection();
-		String sql = " UPDATE VEICULO SET ID_SEGURADO = ?, PLACA_VEICULO = ?, MODELO = ? "
+		String sql = " UPDATE VEICULO SET PLACA_VEICULO = ?, MODELO = ? "
 				+ " WHERE ID = ? ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, sql);
 		
 		try {
-			stmt.setInt(1, veiculoAtualizado.getIdSeguro());
-			stmt.setString(2, veiculoAtualizado.getPlacaVeiculo());
-			stmt.setString(3, veiculoAtualizado.getModelo());
-			stmt.setInt(4, veiculoAtualizado.getId());
+			stmt.setString(1, veiculoAtualizado.getPlacaVeiculo());
+			stmt.setString(2, veiculoAtualizado.getModelo());
+			stmt.setInt(3, veiculoAtualizado.getId());
 			
 			int quantLinhasAtualizadas = stmt.executeUpdate();
 			atualizou = quantLinhasAtualizadas > 0;
@@ -101,7 +99,6 @@ public class VeiculoDAO {
 			System.out.println("Erro ao buscar veiculo por id");
 			System.out.println("Erro: " + e.getMessage());			
 		} finally {
-			Banco.closeResultSet(null);
 			Banco.closePreparedStatement(query);
 			Banco.closeConnection(conn);
 		}
@@ -123,9 +120,12 @@ public class VeiculoDAO {
 				veiculos.add(veiculoConsultado);
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao buscar todos os seguros");
+			System.out.println("Erro ao buscar todos os veículos");
 			System.out.println("Erro: " + e.getMessage());
-		}		
+		} finally {
+			Banco.closePreparedStatement(query);
+			Banco.closeConnection(conn);
+		}
 		return veiculos;
 	}
 
@@ -133,7 +133,6 @@ public class VeiculoDAO {
 		Veiculo veiculoBuscado = new Veiculo();
 		
 		veiculoBuscado.setId(resultado.getInt("id"));
-		veiculoBuscado.setIdSeguro(resultado.getInt("id_seguro"));
 		veiculoBuscado.setPlacaVeiculo(resultado.getString("placa_veiculo"));
 		veiculoBuscado.setModelo(resultado.getString("modelo"));
 		return veiculoBuscado;
