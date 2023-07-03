@@ -35,7 +35,7 @@ public class PainelConsultaSeguro extends JPanel {
 
 	private JTable tblListaSeguros;
 	private ArrayList<Seguro> seguros;
-	private String[] nomesColunas = { "Segurado", "Proposta", "Ve�culo", "Vig�nciaInicial ", "VigêciaFinal",
+	private String[] nomesColunas = { "Segurado", "Proposta", "Veículo", "VigênciaInicial ", "VigêciaFinal",
 			" RCFMaterial", "RCF-Corporais", "Franquia", "Assistência", "CarroReserva" };
 	private JTextField txtNumeroProposta;
 	private JLabel lnlNumeroProposta;
@@ -218,6 +218,28 @@ public class PainelConsultaSeguro extends JPanel {
 		btnEditar.setBounds(250, 487, 147, 38);
 		add(btnEditar);
 
+		
+//		btnExcluir = new JButton("Excluir");
+//		btnExcluir.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        int opcaoSelecionada = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do seguro selecionado?");
+//		        if (opcaoSelecionada == JOptionPane.YES_OPTION) {
+//		            try {
+//		                // cópia do objeto seguroSelecionado
+//		                Seguro seguroParaExcluir = new Seguro();
+//		                controller.excluir(seguroSelecionado.getId()); 
+//		                controller.atualizar(seguroParaExcluir);
+//		       
+//		                JOptionPane.showMessageDialog(null, "Seguro excluído com sucesso");
+//		                seguros = (ArrayList<Seguro>) controller.consultarTodos();
+//		                atualizarTabelaSeguros();
+//		            } catch (ClienteComSeguroException | CampoInvalidoException e1) {
+//		                JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
+//		           
+//					}
+//		        }
+//		    }
+//		});
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -225,7 +247,7 @@ public class PainelConsultaSeguro extends JPanel {
 				if (opcaoSelecionada == JOptionPane.YES_OPTION) {
 					try {
 						controller.excluir(seguroSelecionado.getId());
-						JOptionPane.showMessageDialog(null, "Seguro exclu�do com sucesso");
+						JOptionPane.showMessageDialog(null, "Seguro excluído com sucesso");
 						seguros = (ArrayList<Seguro>) controller.consultarTodos();
 						atualizarTabelaSeguros();
 					} catch (ClienteComSeguroException e1) {

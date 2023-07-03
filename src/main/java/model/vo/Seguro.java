@@ -34,11 +34,10 @@ public class Seguro {
 		this.assistencia = assistencia;
 		this.carroReserva = carroReserva;
 	}
+
 	public Seguro() {
-
+	
 	}
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -52,7 +51,7 @@ public class Seguro {
 	}
 
 	public void setPessoa(Pessoa pessoa) {
-		Pessoa = pessoa;
+		this.Pessoa = pessoa;
 	}
 
 	public Veiculo getVeiculo() {
@@ -60,7 +59,7 @@ public class Seguro {
 	}
 
 	public void setVeiculo(Veiculo veiculo) {
-		Veiculo = veiculo;
+		this.Veiculo = veiculo;
 	}
 
 	public int getNumeroProposta() {

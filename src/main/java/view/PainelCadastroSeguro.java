@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -25,6 +27,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import controller.SeguroController;
 import model.dao.PessoaDAO;
 import model.dao.VeiculoDAO;
+import model.exception.AtributosFaltantesException;
 import model.exception.CampoInvalidoException;
 import model.exception.ClienteComSeguroException;
 import model.seletor.SeguroSeletor;
@@ -107,7 +110,7 @@ public class PainelCadastroSeguro extends JPanel {
 						FormSpecs.RELATED_GAP_ROWSPEC, FormSpecs.DEFAULT_ROWSPEC, FormSpecs.RELATED_GAP_ROWSPEC,
 						RowSpec.decode("max(66dlu;default)"), }));
 
-		lblTItulo = new JLabel(seguro.getId() == null ? "NOVO SEGURO" : "EDI��O DE SEGURO");
+		lblTItulo = new JLabel(seguro.getId() == null ? "NOVO SEGURO" : "EDIÇÃO DE SEGURO");
 		lblTItulo.setIcon(new ImageIcon(PainelCadastroSeguro.class.getResource("/icones/icons8-adicionar-64.png")));
 		lblTItulo.setForeground(new Color(255, 255, 255));
 		lblTItulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
@@ -222,20 +225,61 @@ public class PainelCadastroSeguro extends JPanel {
 		String[] carroReserva = { "7 Dias básico", "15 Dias Completo", "30 Dias Plus" };
 		cbCarro_reserva = new JComboBox(carroReserva);
 		add(cbCarro_reserva, "10, 32, 5, 1, fill, default");
-
+//
+		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				seguro.setPessoa((Pessoa) cbNome.getSelectedItem());
+		    public void actionPerformed(ActionEvent e) {
+		    	
+		    	//VALIDAÇÃO PREENHCER ATRIBUTOS
+		         //Verifica se algum atributo está vazio ou nulo
+		        if (cbNome.getSelectedItem() == null || txtNumeroProposta.getText().isEmpty() ||
+		                cbPlaca.getSelectedItem() == null || dataVigenciaInicial.getDate() == null ||
+		                dataVigenciaFinal.getDate() == null || cbRCFDanosMateriais.getSelectedItem() == null ||
+		                cbRCFDanosCorporais.getSelectedItem() == null || cbFranquia.getSelectedItem() == null ||
+		                cbAssistencia.getSelectedItem() == null || cbCarro_reserva.getSelectedItem() == null) {
+		            try {
+		                throw new AtributosFaltantesException("Por favor, preencha todos os atributos.");
+		            } catch (AtributosFaltantesException excecao) {
+		                JOptionPane.showMessageDialog(null, excecao.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+		            }
+		            return; 
+		        }
+		        
+		        
+		        //VERIFICA NUMERO PROPOSTA
+		        String numeroPropostaTexto = txtNumeroProposta.getText();
+		        try {
+		            int numeroProposta = Integer.parseInt(numeroPropostaTexto);
+		            seguro.setNumeroProposta(numeroProposta);
+		        } catch (NumberFormatException excecao) {
+		            JOptionPane.showMessageDialog(null, "Número de proposta inválido. Insira um valor numérico.", "Erro", JOptionPane.ERROR_MESSAGE);
+		            return; 
+		        }
+		        
+		        
+		        //VALIDAÇÃO PARA DATA 
+		        
+		     // Verifica se a vigencia e de um ano com o mesmo dia e mes
+		        LocalDate inicioVigencia = LocalDate.of(
+		                dataVigenciaInicial.getDate().getYear(),
+		                dataVigenciaInicial.getDate().getMonthValue(),
+		                dataVigenciaInicial.getDate().getDayOfMonth()
+		        );
+
+		        LocalDate fimVigencia = LocalDate.of(
+		                dataVigenciaFinal.getDate().getYear(),
+		                dataVigenciaFinal.getDate().getMonthValue(),
+		                dataVigenciaFinal.getDate().getDayOfMonth()
+		        );
+
+		        if (!inicioVigencia.plusYears(1).isEqual(fimVigencia)) {
+		            JOptionPane.showMessageDialog(null, "A vigência deve ser de um ano com o mesmo dia e mês.", "Erro", JOptionPane.ERROR_MESSAGE);
+		            return;
+		        }
+		        
+		        seguro.setPessoa((Pessoa) cbNome.getSelectedItem());
 				seguro.setNumeroProposta(Integer.parseInt(txtNumeroProposta.getText()));
-				if (txtNumeroProposta != null && !txtNumeroProposta.getText().isEmpty()) {
-					try {
-						int numeroProposta = Integer.parseInt(txtNumeroProposta.getText());
-						seletor.setNumeroProposta(numeroProposta);
-					} catch (Exception e2) {
-						JOptionPane.showMessageDialog(null, "N�mero de proposta inv�ilido");
-					}
-				}
 				seguro.setVeiculo((Veiculo) cbPlaca.getSelectedItem());
 				seguro.setDtInicioVigencia(dataVigenciaInicial.getDate());
 				seguro.setDtFimVigencia(dataVigenciaFinal.getDate());

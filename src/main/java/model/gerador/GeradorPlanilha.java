@@ -24,11 +24,16 @@ public class GeradorPlanilha {
 		HSSFRow linhaCabecalho = abaPlanilha.createRow(0);
 		//TODO Ajustar as colunas. 
 		linhaCabecalho.createCell(0).setCellValue("Nome");
-		linhaCabecalho.createCell(1).setCellValue("CPF");
-		linhaCabecalho.createCell(2).setCellValue("Data de Nascimento");
-		linhaCabecalho.createCell(3).setCellValue("Endereco resumido (Cidade - UF)");
-		linhaCabecalho.createCell(4).setCellValue("Quantidade de telefones");
-		linhaCabecalho.createCell(5).setCellValue("Ativo?");
+		linhaCabecalho.createCell(1).setCellValue("Proposta");
+		linhaCabecalho.createCell(2).setCellValue("Placa");
+		linhaCabecalho.createCell(3).setCellValue("VigênciaInicial");
+		linhaCabecalho.createCell(4).setCellValue("VigênciaFinal");
+		linhaCabecalho.createCell(5).setCellValue("RCF Materiais");
+		linhaCabecalho.createCell(6).setCellValue("RCF Corporais");
+		linhaCabecalho.createCell(7).setCellValue("Franquia");
+		linhaCabecalho.createCell(8).setCellValue("Assistência");
+		linhaCabecalho.createCell(9).setCellValue("CarroReseva");
+		
 
 		int contadorLinhas = 1;
 			for (Seguro c : seguros) {
@@ -40,9 +45,9 @@ public class GeradorPlanilha {
 				novaLinha.createCell(4).setCellValue(DateUtil.formatarDataPadraoBrasil(c.getDtFimVigencia()));
 				novaLinha.createCell(5).setCellValue(c.getRcfDanosMateriais());
 				novaLinha.createCell(6).setCellValue(c.getRcfDanosCorporais());
-				novaLinha.createCell(4).setCellValue(c.getFranquia());
-				novaLinha.createCell(4).setCellValue(c.getAssistencia());
-				novaLinha.createCell(4).setCellValue(c.getCarroReserva());
+				novaLinha.createCell(7).setCellValue(c.getFranquia());
+				novaLinha.createCell(8).setCellValue(c.getAssistencia());
+				novaLinha.createCell(9).setCellValue(c.getCarroReserva());
 				contadorLinhas++;
 			}
 			return salvarNoDisco(arquivoExcel, destinoArquivo);
