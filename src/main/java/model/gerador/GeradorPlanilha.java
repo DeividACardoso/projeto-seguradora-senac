@@ -32,9 +32,9 @@ public class GeradorPlanilha {
 		int contadorLinhas = 1;
 			for (Seguro c : seguros) {
 				HSSFRow novaLinha = abaPlanilha.createRow(contadorLinhas);
-				novaLinha.createCell(0).setCellValue(c.getNomeSegurado());
+				novaLinha.createCell(0).setCellValue(c.getIdPessoa());
 				novaLinha.createCell(1).setCellValue(c.getNumeroProposta());
-				novaLinha.createCell(2).setCellValue(c.getPlacaVeiculo());
+				novaLinha.createCell(2).setCellValue(c.getIdVeiculo());
 				novaLinha.createCell(3).setCellValue(DateUtil.formatarDataPadraoBrasil(c.getDtInicioVigencia()));
 				novaLinha.createCell(4).setCellValue(DateUtil.formatarDataPadraoBrasil(c.getDtFimVigencia()));
 				novaLinha.createCell(5).setCellValue(c.getRcfDanosMateriais());

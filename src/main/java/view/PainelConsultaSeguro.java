@@ -77,9 +77,9 @@ public class PainelConsultaSeguro extends JPanel {
 
 		for (Seguro s : seguros) {
 			Object[] novaLinhaDaTabela = new Object[10];
-			novaLinhaDaTabela[0] = s.getNomeSegurado();
+			novaLinhaDaTabela[0] = s.getIdPessoa();
 			novaLinhaDaTabela[1] = s.getNumeroProposta();
-			novaLinhaDaTabela[2] = s.getPlacaVeiculo();
+			novaLinhaDaTabela[2] = s.getIdVeiculo();
 			novaLinhaDaTabela[3] = DateUtil.formatarDataPadraoBrasil(s.getDtInicioVigencia());
 			novaLinhaDaTabela[4] = DateUtil.formatarDataPadraoBrasil(s.getDtFimVigencia());
 			novaLinhaDaTabela[5] = s.getRcfDanosMateriais();

@@ -21,7 +21,13 @@ INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `i
 
 
 
---INSERTS PARA APRESENTAÇÃO
+--INSERTS TABELA SEGURO
+   
+   --insert novo modelo tabela
+INSERT INTO SEGURO (IDPESSOA, IDVEICULO, NUMERO_PROPOSTA, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, RCF_DANOS_MATERIAIS, RCF_DANOS_CORPORAIS, FRANQUIA, ASSISTENCIA, CARRO_RESERVA)
+VALUES (1, 1, '12458', '2023-07-02', '2024-07-02', 100, 100, 'Reduzida', 'Completa', '7 Dias Completo');
+
+
 INSERT INTO `seguradora`.`seguro` VALUES ( 1, 'SUERDI SANDER', 15878, 'KJI2D34', '2023-06-22', '2024-06-22', 350, 350, 'Reduzida', 'Completa', '15 Dias Completo' );
 INSERT INTO `seguradora`.`seguro` VALUES ( 2, 'LEONARDO COUTINHO', 12548, 'MKH0D48', '2020-10-15', '2021-10-15', 250, 250, 'Padrao', 'Basica', '7 Dias Completo' );
 INSERT INTO `seguradora`.`seguro` VALUES ( 3, 'ISABELLA ALEXANDRA', 14578, 'AIU4F55', '2022-07-20', '2023-07-20', 300, 300, 'Reduzida', 'Plus', '30 Dias Plus' );

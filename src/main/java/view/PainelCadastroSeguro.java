@@ -216,7 +216,7 @@ public class PainelCadastroSeguro extends JPanel {
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				seguro.setNomeSegurado(txtNome.getText());
+				seguro.setIdPessoa(Integer.parseInt(txtNome.getText()));
 				seguro.setNumeroProposta(Integer.parseInt(txtNumeroProposta.getText()));
 				if (txtNumeroProposta != null && !txtNumeroProposta.getText().isEmpty()) {
 					try {
@@ -226,7 +226,7 @@ public class PainelCadastroSeguro extends JPanel {
 						JOptionPane.showMessageDialog(null, "N�mero de proposta inv�ilido");
 					}
 				}
-				seguro.setPlacaVeiculo(txtPlaca.getText());
+				seguro.setIdVeiculo(Integer.parseInt(txtPlaca.getText()));
 				seguro.setDtInicioVigencia(dataVigenciaInicial.getDate());
 				seguro.setDtFimVigencia(dataVigenciaFinal.getDate());
 				seguro.setRcfDanosMateriais((double) cbRCFDanosMateriais.getSelectedItem());
@@ -272,19 +272,11 @@ public class PainelCadastroSeguro extends JPanel {
 	
 	
 	private void preencherCamposDaTela() {
-		this.txtNome.setText(this.seguro.getNomeSegurado());
+		this.txtNome.setText(Integer.toString(this.seguro.getIdPessoa()));
 		this.txtNumeroProposta.setText(Integer.toString(this.seguro.getNumeroProposta()));
-		this.txtPlaca.setText(this.seguro.getPlacaVeiculo());
+		this.txtPlaca.setText(Integer.toString(this.seguro.getIdVeiculo()));
 		this.seguro.setDtInicioVigencia(this.seguro.getDtInicioVigencia());
 		this.seguro.setDtFimVigencia(this.seguro.getDtFimVigencia());
-//		String valorRcfDanosMateriais = "";
-//		for (int i = 0; i < rcfDanosMaeriais.length; i++) {
-//			double valor = Double.valueOf(rcfDanosMaeriais[i]);
-//			if( valor == this.seguro.getRcfDanosMateriais()) {
-//				valorRcfDanosMateriais = rcfDanosMaeriais[i];
-//				break;
-//			}
-//		}
 		this.cbRCFDanosMateriais.setSelectedItem(this.seguro.getRcfDanosMateriais());
 		this.cbRCFDanosCorporais.setSelectedItem(this.seguro.getRcfDanosCorporais() );
 		this.cbFranquia.setSelectedItem(this.seguro.getFranquia());

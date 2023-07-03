@@ -5,40 +5,36 @@ import java.time.LocalDate;
 public class Seguro {
 
 	private Integer id;
-	private Integer idSegurado;
-	
-	private String nomeSegurado;
+	private Integer idPessoa;
+	private Integer idVeiculo;
 	private int numeroProposta;
 	private LocalDate dtInicioVigencia;
 	private LocalDate dtFimVigencia;
-	private String placaVeiculo;
 	private double rcfDanosMateriais;
 	private double rcfDanosCorporais;
 	private String franquia;
 	private String assistencia;
 	private String carroReserva;
-	
 
 	public Seguro() {
 
 	}
 
-	public Seguro(Integer id, String nomeSegurado, int numeroProposta, LocalDate dtInicioVigencia,
-			LocalDate dtFimVigencia, String placaVeiculo, double rcfDanosMateriais, double rcfDanosCorporais,
-			String franquia, String assistencia, String carroReserva) {
+	public Seguro(Integer id, Integer idPessoa, Integer idVeiculo, int numeroProposta, LocalDate dtInicioVigencia,
+			LocalDate dtFimVigencia, double rcfDanosMateriais, double rcfDanosCorporais, String franquia,
+			String assistencia, String carroReserva) {
 		super();
 		this.id = id;
-		this.nomeSegurado = nomeSegurado;
+		this.idPessoa = idPessoa;
+		this.idVeiculo = idVeiculo;
 		this.numeroProposta = numeroProposta;
 		this.dtInicioVigencia = dtInicioVigencia;
 		this.dtFimVigencia = dtFimVigencia;
-		this.placaVeiculo = placaVeiculo;
 		this.rcfDanosMateriais = rcfDanosMateriais;
 		this.rcfDanosCorporais = rcfDanosCorporais;
 		this.franquia = franquia;
 		this.assistencia = assistencia;
 		this.carroReserva = carroReserva;
-		
 	}
 
 	public Integer getId() {
@@ -49,12 +45,20 @@ public class Seguro {
 		this.id = id;
 	}
 
-	public String getNomeSegurado() {
-		return nomeSegurado;
+	public Integer getIdPessoa() {
+		return idPessoa;
 	}
 
-	public void setNomeSegurado(String nomeSegurado) {
-		this.nomeSegurado = nomeSegurado;
+	public void setIdPessoa(Integer idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
+	public Integer getIdVeiculo() {
+		return idVeiculo;
+	}
+
+	public void setIdVeiculo(Integer idVeiculo) {
+		this.idVeiculo = idVeiculo;
 	}
 
 	public int getNumeroProposta() {
@@ -79,14 +83,6 @@ public class Seguro {
 
 	public void setDtFimVigencia(LocalDate dtFimVigencia) {
 		this.dtFimVigencia = dtFimVigencia;
-	}
-
-	public String getPlacaVeiculo() {
-		return placaVeiculo;
-	}
-
-	public void setPlacaVeiculo(String placaVeiculo) {
-		this.placaVeiculo = placaVeiculo;
 	}
 
 	public double getRcfDanosMateriais() {
@@ -129,12 +125,4 @@ public class Seguro {
 		this.carroReserva = carroReserva;
 	}
 
-	public Integer getIdSegurado() {
-		return idSegurado;
-	}
-
-	public void setIdSegurado(Integer idSegurado) {
-		this.idSegurado = idSegurado;
-	}
-	
 }

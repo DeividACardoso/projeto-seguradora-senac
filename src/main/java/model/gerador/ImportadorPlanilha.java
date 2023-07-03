@@ -17,10 +17,10 @@ import model.vo.Seguro;
 
 	/**
 	 * 
-	 * @author Vilmar C. Pereira Junior Classe responsável por importar planilhas
+	 * @author Vilmar C. Pereira Junior Classe responsï¿½vel por importar planilhas
 	 *         xls
 	 * 
-	 *         Tutorial disponível em:
+	 *         Tutorial disponï¿½vel em:
 	 *         http://www.codejava.net/coding/how-to-read-excel-files-in-java-using-apache-poi
 	 *
 	 */
@@ -35,10 +35,10 @@ import model.vo.Seguro;
 				// Pega a primeira aba da planilha
 				HSSFSheet abaPlanilha = planilha.getSheetAt(0);
 
-				// Obtém o iterador de linhas da planilha escolhida
+				// Obtï¿½m o iterador de linhas da planilha escolhida
 				Iterator<Row> iteradorLinha = abaPlanilha.iterator();
 
-				// Pula a primeira linha (cabeçalho da planilha)
+				// Pula a primeira linha (cabeï¿½alho da planilha)
 				iteradorLinha.next();
 
 				int i = 1;
@@ -49,7 +49,7 @@ import model.vo.Seguro;
 					Seguro seguro = criarSeguro(linhaAtual);
 
 					if (seguro != null) {
-						seguro.setIdSegurado(null);
+						seguro.setIdPessoa(null);
 
 						SeguroDAO seguroDAO = new SeguroDAO();
 						seguroDAO.inserir(seguro);
@@ -67,7 +67,7 @@ import model.vo.Seguro;
 			Endereco e = null;
 
 			if (linhaAtual.getCell(2) != null && linhaAtual.getCell(3) != null && linhaAtual.getCell(4) != null) {
-				// Lê somente as células não-nulas
+				// Lï¿½ somente as cï¿½lulas nï¿½o-nulas
 				Cell celulaRua = linhaAtual.getCell(2);
 				Cell celulaBairro = linhaAtual.getCell(3);
 				Cell celulaNumero = linhaAtual.getCell(4);
@@ -93,7 +93,7 @@ import model.vo.Seguro;
 
 				// TODO incluir mais campos da planilha
 				s = new Seguro();
-				s.setNomeSegurado(celulaNome.toString() + celulaSobrenome.toString());
+				s.setIdPessoa(null);
 			}
 
 			return s;
