@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -160,7 +159,7 @@ public class PainelCadastroSeguro extends JPanel {
 		add(lblNomeSegurado, "6, 16, right, default");
 
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		pessoas.addAll(pessoaDAO.consultarTodos());
+		pessoas = pessoaDAO.consultarTodos();
 		cbNome = new JComboBox(pessoas.toArray());
 		cbNome.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		add(cbNome, "10, 15, 8, 2, fill, default");
@@ -171,7 +170,7 @@ public class PainelCadastroSeguro extends JPanel {
 		add(lblVeculoPlaca, "14, 18, right, default");
 
 		VeiculoDAO veiculoDAO = new VeiculoDAO();
-		veiculos.addAll(veiculoDAO.consultarTodos());
+		veiculos = veiculoDAO.consultarTodos();
 		cbPlaca = new JComboBox(veiculos.toArray());
 		cbPlaca.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		add(cbPlaca, "16, 18, 2, 2, fill, default");
@@ -326,17 +325,30 @@ public class PainelCadastroSeguro extends JPanel {
 	
 	
 	private void preencherCamposDaTela() {
-		this.cbNome.setSelectedItem(this.seguro.getPessoa());;
+		int indiceSelecionado = 0;
+		for(Pessoa p : pessoas) {
+			if(p.getId() == this.seguro.getPessoa().getId()){
+				this.cbNome.setSelectedIndex(indiceSelecionado);
+			}
+			indiceSelecionado++;
+		}
+		indiceSelecionado = 0;
+		for(Veiculo v : veiculos) {
+			if(v.getId() == this.seguro.getVeiculo().getId()){
+				this.cbPlaca.setSelectedIndex(indiceSelecionado);
+			}
+			indiceSelecionado++;
+		}
 		this.txtNumeroProposta.setText(Integer.toString(this.seguro.getNumeroProposta()));
-		this.cbPlaca.setSelectedItem(this.seguro.getVeiculo());
-		this.seguro.setDtInicioVigencia(this.seguro.getDtInicioVigencia());
-		this.seguro.setDtFimVigencia(this.seguro.getDtFimVigencia());
+		dataVigenciaInicial.setDate(this.seguro.getDtInicioVigencia());
+		dataVigenciaFinal.setDate(this.seguro.getDtFimVigencia());
 		this.cbRCFDanosMateriais.setSelectedItem(this.seguro.getRcfDanosMateriais());
 		this.cbRCFDanosCorporais.setSelectedItem(this.seguro.getRcfDanosCorporais() );
 		this.cbFranquia.setSelectedItem(this.seguro.getFranquia());
 		this.cbAssistencia.setSelectedItem(this.seguro.getAssistencia());
 		this.cbCarro_reserva.setSelectedItem(this.seguro.getCarroReserva());
 	}
+	
 
 	public JButton getbtnVoltar() {
 		return btnVoltar;

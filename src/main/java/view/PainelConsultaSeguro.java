@@ -340,7 +340,7 @@ public class PainelConsultaSeguro extends JPanel {
 				seletor.setNumeroProposta(numeroProposta);
 
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Número de proposta inv�lido");
+				JOptionPane.showMessageDialog(null, "Número de proposta inválido");
 
 				return;
 			}

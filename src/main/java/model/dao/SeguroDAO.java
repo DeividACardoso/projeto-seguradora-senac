@@ -16,14 +16,14 @@ public class SeguroDAO {
 
 	public Seguro inserir(Seguro novoSeguro) {
 		Connection conexao = Banco.getConnection();
-		String sql = " INSERT INTO SEGURO(IDPESSOA, IDVEICULO, NUMERO_PROPOSTA, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, "
+		String sql = " INSERT INTO SEGURO(IDPESSOA, NUMERO_PROPOSTA, IDVEICULO, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, "
 				+ " RCF_DANOS_MATERIAIS, RCF_DANOS_CORPORAIS, FRANQUIA, ASSISTENCIA, CARRO_RESERVA ) "
 				+ " VALUES (?,?,?,?,?,?,?,?,?,?) ";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conexao, sql);
 		try {
 			stmt.setInt(1, novoSeguro.getPessoa().getId());
-			stmt.setInt(2, novoSeguro.getVeiculo().getId());
-			stmt.setInt(3, novoSeguro.getNumeroProposta());
+			stmt.setInt(2, novoSeguro.getNumeroProposta());
+			stmt.setInt(3, novoSeguro.getVeiculo().getId());
 			stmt.setDate(4, java.sql.Date.valueOf(novoSeguro.getDtInicioVigencia()));
 			stmt.setDate(5, java.sql.Date.valueOf(novoSeguro.getDtFimVigencia()));
 			stmt.setDouble(6, novoSeguro.getRcfDanosCorporais());
@@ -53,15 +53,15 @@ public class SeguroDAO {
 	public boolean atualizar(Seguro seguroAtualizado) {
 		boolean atualizou = false;
 		Connection conexao = Banco.getConnection();
-		String sql = " UPDATE SEGURO " + " SET IDPESSOA = ?, IDVEICULO = ?, NUMERO_PROPOSTA = ?, "
+		String sql = " UPDATE SEGURO " + " SET IDPESSOA = ?, NUMERO_PROPOSTA = ?, IDVEICULO = ?, "
 				+ " DT_INICIO_VIGENCIA = ?,"
 				+ " DT_FIM_VIGENCIA = ?, RCF_DANOS_MATERIAIS = ?, RCF_DANOS_CORPORAIS = ?, FRANQUIA = ?, ASSISTENCIA = ?, CARRO_RESERVA = ? "
 				+ " WHERE ID = ? ";
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
 		try {
 			stmt.setInt(1, seguroAtualizado.getPessoa().getId());
-			stmt.setInt(2, seguroAtualizado.getVeiculo().getId());
-			stmt.setInt(3, seguroAtualizado.getNumeroProposta());
+			stmt.setInt(2, seguroAtualizado.getNumeroProposta());
+			stmt.setInt(3, seguroAtualizado.getVeiculo().getId());
 			stmt.setDate(4, java.sql.Date.valueOf(seguroAtualizado.getDtInicioVigencia()));
 			stmt.setDate(5, java.sql.Date.valueOf(seguroAtualizado.getDtFimVigencia()));
 			stmt.setDouble(6, seguroAtualizado.getRcfDanosCorporais());
@@ -162,6 +162,7 @@ public class SeguroDAO {
 		Veiculo veiculo = veiculoDAO.consultarPorId(idVeiculo);
 		seguroConsultado.setVeiculo(veiculo);
 		
+
 		seguroConsultado.setNumeroProposta(resultado.getInt("numero_proposta"));
 		seguroConsultado.setDtInicioVigencia(resultado.getTimestamp("dt_inicio_vigencia").toLocalDateTime().toLocalDate());
 		seguroConsultado.setDtFimVigencia(resultado.getTimestamp("dt_fim_vigencia").toLocalDateTime().toLocalDate());

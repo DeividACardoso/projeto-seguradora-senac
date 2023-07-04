@@ -285,9 +285,7 @@ public class Menu {
 	
 	//////////////////////////////////METODOS DO PAINEL SEGURO///////////////////////////////////////////////////////////////////////////
 	protected void registrarCliqueBotaoVoltarDoPainelCadastroSeguro() {
-		if (painelCadastroSeguro == null) {
-			painelCadastroSeguro = new PainelCadastroSeguro(null);
-		}
+		
 		painelCadastroSeguro.getbtnVoltar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Lógica do clique no botão Voltar
