@@ -25,7 +25,7 @@ public class SinistroDAO {
 		Connection conn = Banco.getConnection();
 		String sql = " INSERT INTO SINISTRO(NUMERO_SINISTRO, TIPO_SINISTRO, ID_SEGURO, DT_SINISTRO,"
 				+ " VALOR_FRANQUIA, VALOR_ORCADO, VALOR_PAGO, SITUACAO, MOTIVO ) "
-				+ " VALUES (?,?,?,?,?,?,?,?,?,?) ";
+				+ " VALUES (?,?,?,?,?,?,?,?,?) ";
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, sql);
 		
 		try {
@@ -37,7 +37,7 @@ public class SinistroDAO {
 			stmt.setDouble(6, novoSinistro.getValorOrcado());
 			stmt.setDouble(7, novoSinistro.getValorPago());
 			stmt.setString(8, novoSinistro.getSituacao().toString());
-			stmt.setString(10, novoSinistro.getMotivo());
+			stmt.setString(9, novoSinistro.getMotivo());
 			stmt.execute();
 			
 			ResultSet resultado = stmt.getGeneratedKeys();
@@ -245,26 +245,38 @@ public class SinistroDAO {
 			sql += "situacao = '"+ seletor.getSituacao().toString().toUpperCase() + "'";
 			primeiro = false;
 		}
-		if(seletor.getDtInicio() != null && seletor.getDtInicio().toString().trim().isEmpty()) {
+		if(seletor.getDtInicio() != null && seletor.getDtFim() != null) {
 			if(primeiro) {
 				sql += " WHERE ";
 			} else {
 				sql += " AND ";
 			}
-			
-			sql +=  "dt_sinistro >= '%"+ validarDataParaOBanco(seletor.getDtInicio()) + "%' ";
+			sql += " DT_SINISTRO BETWEEN '" 
+				+ seletor.getDtInicio() + "' " 
+				+ " AND '" + seletor.getDtFim() + "' ";
 			primeiro = false;
+		} else {
+			if(seletor.getDtInicio() != null && !seletor.getDtInicio().toString().trim().isEmpty()) {
+				if(primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				sql += " dt_sinistro >= '" + seletor.getDtInicio() + "' ";
+				System.out.println(sql + " inicio");
+				primeiro = false;
+			} 
+			if(seletor.getDtFim() != null && !seletor.getDtFim().toString().trim().isEmpty()) {
+				if(primeiro) {
+					sql += " WHERE ";
+				} else {
+					sql += " AND ";
+				}
+				sql += " dt_sinistro <= '" + seletor.getDtFim() + "' ";
+				System.out.println(sql + " fim");
+				primeiro = false;
+			} 
 		}
-		if(seletor.getDtFim() != null && seletor.getDtFim().toString().trim().isEmpty()) {
-			if(primeiro) {
-				sql += " WHERE ";
-			} else {
-				sql += " AND ";
-			}
-
-			sql +=  "dt_sinistro <= '%"+ validarDataParaOBanco(seletor.getDtFim()) + "%' ";
-			primeiro = false;
-		}		
 			
 		return sql;
 		}
@@ -278,7 +290,8 @@ public class SinistroDAO {
 	public int contarTotalRegistrosComFiltros(SinistroSeletor seletor) {
 		int total = 0;
 		Connection conexao = Banco.getConnection();
-		String sql = " select count(*) from sinistro inner join pessoa on sinistro.id = pessoa.id ";
+		String sql = " select count(*) from sinistro inner join seguro on sinistro.id_seguro = seguro.id "
+				+ " inner join pessoa on seguro.idpessoa = pessoa.id ";
 
 		if (seletor.temFiltro()) {
 			sql = preencherFiltros(sql, seletor);

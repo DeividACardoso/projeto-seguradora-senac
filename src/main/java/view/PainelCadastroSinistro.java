@@ -66,69 +66,68 @@ public class PainelCadastroSinistro extends JPanel {
 		}
 		setBackground(new Color(26, 158, 230));
 		setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("max(10dlu;default):grow"),
+				ColumnSpec.decode("max(46dlu;default):grow"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("69dlu:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
 				ColumnSpec.decode("max(5dlu;default)"),
 				ColumnSpec.decode("88dlu:grow"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("32dlu:grow"),},
-				new RowSpec[] {
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("fill:default"),
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						RowSpec.decode("fill:default"),
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,
-						FormSpecs.RELATED_GAP_ROWSPEC,
-						FormSpecs.DEFAULT_ROWSPEC,}));
+			new RowSpec[] {
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("fill:default"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("fill:default"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
 
 
 		lblTitulo = new JLabel(sinistro.getId() == null ? "NOVO SINISTRO" : "EDIÇÃO DE SINISTRO");
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 20));
-		add(lblTitulo, "8, 4");
+		add(lblTitulo, "7, 4");
 
 		JLabel lblNumeroSinistro = new JLabel("Número Sinistro:");
 		lblNumeroSinistro.setForeground(new Color(255, 255, 255));
@@ -143,11 +142,11 @@ public class PainelCadastroSinistro extends JPanel {
 		lblValorFranquia.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblValorFranquia.setForeground(Color.WHITE);
 		lblValorFranquia.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblValorFranquia, "8, 8, right, default");
+		add(lblValorFranquia, "7, 8, right, default");
 
 		fTxtValorFranquia = new JNumberFormatField(2);
 		fTxtValorFranquia.setColumns(10);
-		add(fTxtValorFranquia, "10, 8, fill, default");
+		add(fTxtValorFranquia, "9, 8, fill, default");
 
 		JLabel lblTipoSinistro = new JLabel("Tipo Sinistro:");
 		lblTipoSinistro.setForeground(Color.WHITE);
@@ -162,11 +161,11 @@ public class PainelCadastroSinistro extends JPanel {
 		JLabel lblValorOrcado = new JLabel("Valor Or\u00E7ado:");
 		lblValorOrcado.setForeground(Color.WHITE);
 		lblValorOrcado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblValorOrcado, "8, 11, right, default");
+		add(lblValorOrcado, "7, 11, right, default");
 
 		fTxtValorOrcado = new JNumberFormatField(2);
 		fTxtValorOrcado.setColumns(10);
-		add(fTxtValorOrcado, "10, 11, fill, default");
+		add(fTxtValorOrcado, "9, 11, fill, default");
 
 		JLabel lblSegurado = new JLabel("Seguro:");
 		lblSegurado.setForeground(Color.WHITE);
@@ -183,11 +182,11 @@ public class PainelCadastroSinistro extends JPanel {
 		JLabel lblValorPago = new JLabel("Valor Pago:");
 		lblValorPago.setForeground(Color.WHITE);
 		lblValorPago.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblValorPago, "8, 14, right, default");
+		add(lblValorPago, "7, 14, right, default");
 
 		fTxtValorPago = new JNumberFormatField(2);
 		fTxtValorPago.setColumns(10);
-		add(fTxtValorPago, "10, 14, fill, default");
+		add(fTxtValorPago, "9, 14, fill, default");
 
 		JLabel lblData = new JLabel("Data Sinistro:");
 		lblData.setForeground(Color.WHITE);
@@ -200,7 +199,7 @@ public class PainelCadastroSinistro extends JPanel {
 		txtMotivo = new JTextField();
 		txtMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		txtMotivo.setColumns(10);
-		add(txtMotivo, "10, 20, 1, 4");
+		add(txtMotivo, "9, 20, 1, 4");
 
 		JLabel lblSituacaoSinistro = new JLabel("Situação:");
 		lblSituacaoSinistro.setForeground(Color.WHITE);
@@ -257,7 +256,7 @@ public class PainelCadastroSinistro extends JPanel {
 		lblMotivo.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblMotivo.setForeground(Color.WHITE);
 		lblMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblMotivo, "8, 20, right, default");
+		add(lblMotivo, "7, 20, right, default");
 		btnSalvar.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-salvar-50.png")));
 		btnSalvar.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		btnSalvar.setBackground(new Color(231, 200, 24));
@@ -269,7 +268,7 @@ public class PainelCadastroSinistro extends JPanel {
 		btnVoltar.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		btnVoltar.setForeground(Color.BLACK);
 		btnVoltar.setBackground(new Color(231, 200, 24));
-		add(btnVoltar, "10, 26");
+		add(btnVoltar, "9, 26");
 
 
 		if(this.sinistro.getId() != null) {
@@ -281,7 +280,7 @@ public class PainelCadastroSinistro extends JPanel {
 	private void preencherCamposDaTela() {
 		this.txtNumeroSinistro.setText(this.sinistro.getNumeroSinistro());
 		this.cbTipoSinistro.setSelectedItem(this.sinistro.getTipoSinistro());
-		//this.cbSeguro.setSelectedItem(this.sinistro.getSeguro();
+		this.cbSeguro.setSelectedItem(this.sinistro.getSeguro());
 		this.dpData.setDate(this.sinistro.getDataSinistro());
 		this.fTxtValorFranquia.setText(String.valueOf(this.sinistro.getValorFranquia()));
 		this.fTxtValorOrcado.setText(String.valueOf(this.sinistro.getValorOrcado()));

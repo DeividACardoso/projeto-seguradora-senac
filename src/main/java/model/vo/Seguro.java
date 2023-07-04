@@ -124,5 +124,8 @@ public class Seguro {
 		this.carroReserva = carroReserva;
 	}
 
-
+	public String toString() {
+		return "Proposta: " + numeroProposta
+				+ "| Segurado : " + pessoa.getNome();
+	}
 }

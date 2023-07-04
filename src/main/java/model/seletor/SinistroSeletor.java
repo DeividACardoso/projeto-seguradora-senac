@@ -17,8 +17,8 @@ public class SinistroSeletor extends BaseSeletor{
 		
 		return (this.numeroSinistro != null && this.numeroSinistro.trim().length() > 0)
 				|| (this.nomeSegurado != null && this.nomeSegurado.trim().length() > 0)
-				|| (this.dtInicio != null && this.dtInicio.toString().trim().length() > 0)
-				|| (this.dtFim != null && this.dtFim.toString().trim().length() > 0)
+				|| (this.dtInicio != null)
+				|| (this.dtFim != null)
 				|| (this.situacao != null && this.situacao.toString().trim().length() > 0);
 	}
 	
