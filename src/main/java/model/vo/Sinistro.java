@@ -7,7 +7,7 @@ public class Sinistro {
 	private Integer id;
 	private Seguro seguro;
 	private String numeroSinistro;
-	private TipoSinistro tipoSinistro;//
+	private TipoSinistro tipoSinistro;
 	private LocalDate dataSinistro;
 	private double valorFranquia;
 	private double valorOrcado;

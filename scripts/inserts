@@ -5,16 +5,21 @@ INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CI
 INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CIDADE`, `ESTADO`) VALUES ('3', '621', '65423981', '7', 'Campinas', 'São José', 'SC');
 INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CIDADE`, `ESTADO`) VALUES ('4', '943', '75910254', '30', 'Oficinas', 'Tubarão', 'SC');
 
-
 -- INSERTS DE PESSOA
-INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`, `id_tipo_pessoa`) VALUES ('Ronaldo', '5596647315', '1965-07-09', '984652377', 2, 2);
-INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`, `id_tipo_pessoa`) VALUES ('Adriano', '56499234601', '1978-03-25', '984594364', 3, 2);
-INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `ID_ENDERECO`, `ID_TIPO_PESSOA`) VALUES ('Vilmar', '49877326108', '1988-05-27', '98649300', 1, 2);
+INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`)
+ VALUES ('Ronaldo', '5596647315', '1965-07-09', '984652377', 2);
+INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`)
+ VALUES ('Adriano', '56499234601', '1978-03-25', '984594364', 3);
+INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `ID_ENDERECO`)
+ VALUES ('Vilmar', '49877326108', '1988-05-27', '98649300', 1);
 INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `ID_ENDERECO`, `ID_TIPO_PESSOA`) VALUES ('Flavio', '26594800356', '1960-07-19', '984652311', 4, 2);
 INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`, `id_tipo_pessoa`) VALUES ('Nicolas', '97868745315', '1989-04-21', '984786571', 2, 2);
 INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`, `id_tipo_pessoa`) VALUES ('Wesley', '56499234601', '1981-10-21', '984892338', 3, 2); 
 
---INSERTS TABELA SEGURO
+insert into veiculo(placa_veiculo, modelo) values ('ABCD321', 'FORDKA 1.0 2017 ');
+insert into veiculo(placa_veiculo, modelo) values ('FGHI456', 'ECOSPORT 2.0 2019');
+insert into veiculo(placa_veiculo, modelo) values ('JKLM897', 'BMW 320i 2020');
+insert into veiculo(placa_veiculo, modelo) values ('MKH0D48', 'VERSA 1.6 2020');
 
 INSERT INTO SEGURO (IDPESSOA, IDVEICULO, NUMERO_PROPOSTA, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, RCF_DANOS_MATERIAIS, RCF_DANOS_CORPORAIS, FRANQUIA, ASSISTENCIA, CARRO_RESERVA)
 VALUES (1, 1, '12458', '2023-07-02', '2024-07-02', 250, 250, 'Padrao', 'Plus', '30 Dias Plus');
@@ -28,16 +33,8 @@ VALUES (3, 3, '12457', '2022-08-04', '2023-08-04', 100, 100, 'Padrao', 'Básica'
 INSERT INTO SEGURO (IDPESSOA, IDVEICULO, NUMERO_PROPOSTA, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, RCF_DANOS_MATERIAIS, RCF_DANOS_CORPORAIS, FRANQUIA, ASSISTENCIA, CARRO_RESERVA)
 VALUES (4, 4, '12455', '2023-07-04', '2024-07-04', 300, 300, 'Padrao', 'Plus', '30 Dias Plus');
 
-
--- INSERTS TABELA DE VEICULO
-
-insert into veiculo(placa_veiculo, modelo) values ('ABCD321', 'FORDKA 1.0 2017 ');
-insert into veiculo(placa_veiculo, modelo) values ('FGHI456', 'ECOSPORT 2.0 2019');
-insert into veiculo(placa_veiculo, modelo) values ('JKLM897', 'BMW 320i 2020');
-insert into veiculo(placa_veiculo, modelo) values ('MKH0D48', 'VERSA 1.6 2020');
-
-
-insert into sinistro(numero_sinistro, tipo_sinistro, dt_sinistro, valor_franquia, valor_orcado, valor_pago, situacao, motivo, idpessoa, idveiculo)
-values('1452356987', 'ROUBO_FURTO', '2023-06-20', 1500, 800, 2300, 'EM_ANDAMENTO', 'Bateu', 2, 1);
-
+insert into sinistro(numero_sinistro, tipo_sinistro, id_seguro, dt_sinistro, valor_franquia, valor_orcado, valor_pago, situacao, motivo)
+values('1452356987', 'ROUBO_FURTO', 2,  '2023-06-20', 1500, 800, 2300, 'EM_ANDAMENTO', 'Bateu');
+insert into sinistro(numero_sinistro, tipo_sinistro, id_seguro, dt_sinistro, valor_franquia, valor_orcado, valor_pago, situacao, motivo)
+values('234', 'TERCEIROS', 3,  '2023-04-07', 300, 800, 1100, 'CONCLUIDO', 'ABDUZIDO POR UM OVNI');
 
