@@ -95,6 +95,7 @@ public class GeradorPlanilha {
 			novaLinha.createCell(0).setCellValue(sin.getNumeroSinistro());
 			novaLinha.createCell(1).setCellValue(sin.getTipoSinistro().name());
 			novaLinha.createCell(2).setCellValue(sin.getSeguro().getPessoa().getNome());
+			novaLinha.createCell(3).setCellValue(sin.getSeguro().getVeiculo().getPlacaVeiculo());
 			novaLinha.createCell(4).setCellValue(DateUtil.formatarDataPadraoBrasil(sin.getDataSinistro()));
 			novaLinha.createCell(5).setCellValue(sin.getValorFranquia());
 			novaLinha.createCell(6).setCellValue(sin.getValorOrcado());

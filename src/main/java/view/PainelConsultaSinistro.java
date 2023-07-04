@@ -31,6 +31,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import controller.SinistroController;
 import model.exception.CampoInvalidoException;
 import model.seletor.SinistroSeletor;
+import model.util.DateUtil;
 import model.vo.Sinistro;
 import model.vo.Situacao;
 
@@ -45,7 +46,7 @@ public class PainelConsultaSinistro extends JPanel {
 	private DatePicker dataFim;
 	private SinistroController controller = new SinistroController();
 	private List<Sinistro> sinistros = new ArrayList();
-	private String[] nomeColunas = {"ID", "Número Sinistro", "Seguro", "Veículo", "TipoSinistro", "Data", "Situação"};
+	private String[] nomeColunas = {"ID", "Número Sinistro", "Nº Proposta", "Nome Segurado", "Tipo de Sinistro", "Data do Sinistro", "Situação"};
 	private final JTable tableSinistro = new JTable();
 	private JButton btnEditar;
 	private JButton btnExcluir;
@@ -70,10 +71,11 @@ public class PainelConsultaSinistro extends JPanel {
 			Object[] novaLinhaDaTabela = new Object[7];
 			novaLinhaDaTabela[0] = s.getId();
 			novaLinhaDaTabela[1] = s.getNumeroSinistro();
-			novaLinhaDaTabela[2] = s.getSeguro().getPessoa().getNome();
-			novaLinhaDaTabela[3] = s.getTipoSinistro();
-			novaLinhaDaTabela[4] = s.getDataSinistro();
-			novaLinhaDaTabela[5] = s.getSituacao();
+			novaLinhaDaTabela[2] = s.getSeguro().getNumeroProposta();
+			novaLinhaDaTabela[3] = s.getSeguro().getPessoa().getNome();
+			novaLinhaDaTabela[4] = s.getTipoSinistro();
+			novaLinhaDaTabela[5] = DateUtil.formatarDataPadraoBrasil(s.getDataSinistro());
+			novaLinhaDaTabela[6] = s.getSituacao();
 			
 			model.addRow(novaLinhaDaTabela);
 		}
@@ -131,6 +133,11 @@ public class PainelConsultaSinistro extends JPanel {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,}));
 		
+		DatePickerSettings dpSettings1 = new DatePickerSettings();
+		dpSettings1.setAllowEmptyDates(true);
+		DatePickerSettings dpSettings2 = new DatePickerSettings();
+		dpSettings2.setAllowEmptyDates(true);
+		
 		JLabel lblNewLabel = new JLabel("Consultar Sinistro");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setForeground(new Color(255, 255, 255));
@@ -164,6 +171,7 @@ public class PainelConsultaSinistro extends JPanel {
 		
 		dpDataInicio = new DatePicker();
 		add(dpDataInicio, "4, 10, 2, 1, fill, fill");
+		dpDataInicio.setSettings(dpSettings1);
 		
 		JLabel lblAte = new JLabel("Até: ");
 		lblAte.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -173,6 +181,7 @@ public class PainelConsultaSinistro extends JPanel {
 		
 		dpDataFim = new DatePicker();
 		add(dpDataFim, "10, 10, fill, fill");
+		dpDataFim.setSettings(dpSettings2);
 		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBackground(new Color(227, 218, 28));
@@ -296,7 +305,7 @@ public class PainelConsultaSinistro extends JPanel {
 		seletor.setNomeSegurado(txtNomeSegurado.getText());
 		seletor.setNumeroSinistro(txtNumero.getText());
 		seletor.setDtInicio(dpDataInicio.getDate());
-		seletor.setDtInicio(dpDataFim.getDate());
+		seletor.setDtFim(dpDataFim.getDate());
 		if(cbSituacao.getSelectedIndex() == -1) {
 			seletor.setSituacao("");
 		} else {

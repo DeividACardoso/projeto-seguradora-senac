@@ -7,8 +7,8 @@ import model.vo.Veiculo;
 public class Seguro {
 
 	private Integer id;
-	private Pessoa Pessoa;
-	private Veiculo Veiculo;
+	private Pessoa pessoa;
+	private Veiculo veiculo;
 	private int numeroProposta;
 	private LocalDate dtInicioVigencia;
 	private LocalDate dtFimVigencia;
@@ -23,8 +23,8 @@ public class Seguro {
 			String franquia, String assistencia, String carroReserva) {
 		super();
 		this.id = id;
-		Pessoa = pessoa;
-		Veiculo = veiculo;
+		this.pessoa = pessoa;
+		this.veiculo = veiculo;
 		this.numeroProposta = numeroProposta;
 		this.dtInicioVigencia = dtInicioVigencia;
 		this.dtFimVigencia = dtFimVigencia;
@@ -48,19 +48,19 @@ public class Seguro {
 	}
 
 	public Pessoa getPessoa() {
-		return Pessoa;
+		return pessoa;
 	}
 
 	public void setPessoa(Pessoa pessoa) {
-		Pessoa = pessoa;
+		this.pessoa = pessoa;
 	}
 
 	public Veiculo getVeiculo() {
-		return Veiculo;
+		return veiculo;
 	}
 
 	public void setVeiculo(Veiculo veiculo) {
-		Veiculo = veiculo;
+		this.veiculo = veiculo;
 	}
 
 	public int getNumeroProposta() {
@@ -127,5 +127,8 @@ public class Seguro {
 		this.carroReserva = carroReserva;
 	}
 
-
+	public String toString() {
+		return "Proposta: " + numeroProposta
+				+ "| Segurado : " + pessoa.getNome();
+	}
 }
