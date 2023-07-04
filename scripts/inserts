@@ -1,6 +1,3 @@
--- INSERTS DE TIPO_PESSOA
-insert into tipo_pessoa(tipo_pessoa) values ('SEGURADO');
-insert into tipo_pessoa(tipo_pessoa) values ('CORRETOR');
 
 -- INSERTS DE ENDEREÇOS
 INSERT INTO `seguradora`.`endereco` (`ID`, `NUMERO`, `CEP`, `RUA`, `BAIRRO`, `CIDADE`, `ESTADO`) VALUES ('1', '805', '88495000', '23', 'Centro', 'Garopaba', 'SC');
@@ -16,31 +13,29 @@ INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `I
 INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `ID_ENDERECO`, `ID_TIPO_PESSOA`) VALUES ('Flavio', '26594800356', '1960-07-19', '984652311', 4, 2);
 INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`, `id_tipo_pessoa`) VALUES ('Nicolas', '97868745315', '1989-04-21', '984786571', 2, 2);
 INSERT INTO `seguradora`.`pessoa` (`NOME`, `CPF`, `DTNASCIMENTO`, `TELEFONE`, `id_endereco`, `id_tipo_pessoa`) VALUES ('Wesley', '56499234601', '1981-10-21', '984892338', 3, 2); 
--- INSERTS DE PESSOA
--- SUBSTITUIR NULLS NA APRESENTAÇÃO.
-
-
 
 --INSERTS TABELA SEGURO
-   
-   --insert novo modelo tabela
+
 INSERT INTO SEGURO (IDPESSOA, IDVEICULO, NUMERO_PROPOSTA, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, RCF_DANOS_MATERIAIS, RCF_DANOS_CORPORAIS, FRANQUIA, ASSISTENCIA, CARRO_RESERVA)
-VALUES (1, 1, '12458', '2023-07-02', '2024-07-02', 100, 100, 'Reduzida', 'Completa', '7 Dias Completo');
+VALUES (1, 1, '12458', '2023-07-02', '2024-07-02', 250, 250, 'Padrao', 'Plus', '30 Dias Plus');
+
+INSERT INTO SEGURO (IDPESSOA, IDVEICULO, NUMERO_PROPOSTA, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, RCF_DANOS_MATERIAIS, RCF_DANOS_CORPORAIS, FRANQUIA, ASSISTENCIA, CARRO_RESERVA)
+VALUES (2, 2, '12456', '2023-10-12', '2024-10-12', 100, 100, 'Reduzida', 'Completa', '15 Dias Completo');
+
+INSERT INTO SEGURO (IDPESSOA, IDVEICULO, NUMERO_PROPOSTA, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, RCF_DANOS_MATERIAIS, RCF_DANOS_CORPORAIS, FRANQUIA, ASSISTENCIA, CARRO_RESERVA)
+VALUES (3, 3, '12457', '2022-08-04', '2023-08-04', 100, 100, 'Padrao', 'Básica', '7 Dias Básico');
+
+INSERT INTO SEGURO (IDPESSOA, IDVEICULO, NUMERO_PROPOSTA, DT_INICIO_VIGENCIA, DT_FIM_VIGENCIA, RCF_DANOS_MATERIAIS, RCF_DANOS_CORPORAIS, FRANQUIA, ASSISTENCIA, CARRO_RESERVA)
+VALUES (4, 4, '12455', '2023-07-04', '2024-07-04', 300, 300, 'Padrao', 'Plus', '30 Dias Plus');
 
 
-INSERT INTO `seguradora`.`seguro` VALUES ( 1, 'SUERDI SANDER', 15878, 'KJI2D34', '2023-06-22', '2024-06-22', 350, 350, 'Reduzida', 'Completa', '15 Dias Completo' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 2, 'LEONARDO COUTINHO', 12548, 'MKH0D48', '2020-10-15', '2021-10-15', 250, 250, 'Padrao', 'Basica', '7 Dias Completo' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 3, 'ISABELLA ALEXANDRA', 14578, 'AIU4F55', '2022-07-20', '2023-07-20', 300, 300, 'Reduzida', 'Plus', '30 Dias Plus' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 4, 'JOAO VITOR', 14895, 'MLJ2J98', '2023-05-12', '2024-05-12', 150, 150, 'Padrao', 'Completa', '15 Dias Completo' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 5, 'MATHEUS CONRAD', 147852, 'DLF3D45', '2023-01-03', '2024-01-03', 200, 200, 'Reduzida', 'Plus', '7 Dias Completo' );
-INSERT INTO `seguradora`.`seguro` VALUES ( 6, 'VILMAR CESAR', 148525, 'MDJ3D56', '2023-11-04', '2024-11-04', 200, 200, 'Padrao', 'Plus', '15 Dias Completo' );
+-- INSERTS TABELA DE VEICULO
 
+insert into veiculo(placa_veiculo, modelo) values ('ABCD321', 'FORDKA 1.0 2017 ');
+insert into veiculo(placa_veiculo, modelo) values ('FGHI456', 'ECOSPORT 2.0 2019');
+insert into veiculo(placa_veiculo, modelo) values ('JKLM897', 'BMW 320i 2020');
+insert into veiculo(placa_veiculo, modelo) values ('MKH0D48', 'VERSA 1.6 2020');
 
-
--- SUBSTITUIR NULLS NA APRESENTAÇÃO.
-insert into veiculo(placa_veiculo, modelo) values ('ABCD321', 'Um desses que corre');
-insert into veiculo(placa_veiculo, modelo) values ('FGHI456', 'Um desses que voa');
-insert into veiculo(placa_veiculo, modelo) values ('JKLM897', 'Um desses que mergulha');
 
 insert into sinistro(numero_sinistro, tipo_sinistro, dt_sinistro, valor_franquia, valor_orcado, valor_pago, situacao, motivo, idpessoa, idveiculo)
 values('1452356987', 'ROUBO_FURTO', '2023-06-20', 1500, 800, 2300, 'EM_ANDAMENTO', 'Bateu', 2, 1);
