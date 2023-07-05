@@ -7,11 +7,8 @@ public class SeguroSeletor extends BaseSeletor {
 	private String nomeSegurado;
 	private int numeroProposta;
 	
-	private LocalDate primeiraDataInicioVigencia;
-	private LocalDate ultimaDataInicioVigencia;
-	
-	private LocalDate primeiraDataFimVigencia;
-	private LocalDate ultimaDataFimVigencia;
+	private LocalDate dtInicioVigencia;
+	private LocalDate dtFimVigencia;
 	
 	private String placaVeiculo;
 	private double rcfDanosMateriais;
@@ -25,10 +22,8 @@ public class SeguroSeletor extends BaseSeletor {
 		return (this.nomeSegurado != null && this.nomeSegurado.trim().length() > 0)
 	            || (this.numeroProposta != 0 && this.numeroProposta > 0)
 	            || (this.placaVeiculo != null && this.placaVeiculo.trim().length() > 0)
-	            || (this.primeiraDataInicioVigencia != null)
-	            || (this.ultimaDataInicioVigencia != null)
-	            || (this.primeiraDataFimVigencia != null)
-	            || (this.ultimaDataFimVigencia != null)
+	            || (this.dtInicioVigencia != null)
+	            || (this.dtFimVigencia != null)
 	            || (this.rcfDanosMateriais != 0)
 	            || (this.rcfDanosCorporais != 0)
 	            || (this.franquia != null && this.franquia.trim().length() > 0)
@@ -100,37 +95,20 @@ public class SeguroSeletor extends BaseSeletor {
 		this.carroReserva = carroReserva;
 	}
 
-	public LocalDate getPrimeiraDataInicioVigencia() {
-		return primeiraDataInicioVigencia;
+	public LocalDate getDtInicioVigencia() {
+		return dtInicioVigencia;
 	}
 
-	public void setPrimeiraDataInicioVigencia(LocalDate primeiraDataInicioVigencia) {
-		this.primeiraDataInicioVigencia = primeiraDataInicioVigencia;
+	public void setDtInicioVigencia(LocalDate dtInicioVigencia) {
+		this.dtInicioVigencia = dtInicioVigencia;
 	}
 
-	public LocalDate getUltimaDataInicioVigencia() {
-		return ultimaDataInicioVigencia;
+	public LocalDate getDtFimVigencia() {
+		return dtFimVigencia;
 	}
 
-	public void setUltimaDataInicioVigencia(LocalDate ultimaDataInicioVigencia) {
-		this.ultimaDataInicioVigencia = ultimaDataInicioVigencia;
+	public void setDtFimVigencia(LocalDate dtFimVigencia) {
+		this.dtFimVigencia = dtFimVigencia;
 	}
-
-	public LocalDate getPrimeiraDataFimVigencia() {
-		return primeiraDataFimVigencia;
-	}
-
-	public void setPrimeiraDataFimVigencia(LocalDate primeiraDataFimVigencia) {
-		this.primeiraDataFimVigencia = primeiraDataFimVigencia;
-	}
-
-	public LocalDate getUltimaDataFimVigencia() {
-		return ultimaDataFimVigencia;
-	}
-
-	public void setUltimaDataFimVigencia(LocalDate ultimaDataFimVigencia) {
-		this.ultimaDataFimVigencia = ultimaDataFimVigencia;
-	}
-
 	
 }

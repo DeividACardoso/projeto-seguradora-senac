@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import controller.SeguroController;
 import model.exception.CampoInvalidoException;
@@ -30,8 +31,8 @@ import model.vo.Seguro;
 
 public class PainelConsultaSeguro extends JPanel {
 
-	private DatePicker primeiraDataVigenciaInicial;
-	private DatePicker ultimaDataVigenciaInicial;
+	private DatePicker dtInicioVigencia;
+	private DatePicker dtFimVigencia;
 
 	private JTable tblListaSeguros;
 	private ArrayList<Seguro> seguros;
@@ -75,7 +76,7 @@ public class PainelConsultaSeguro extends JPanel {
 
 		DefaultTableModel model = (DefaultTableModel) tblListaSeguros.getModel();
 
-		for (Seguro s : seguros) {
+		for (Seguro s : this.seguros) {
 			Object[] novaLinhaDaTabela = new Object[10];
 			novaLinhaDaTabela[0] = s.getPessoa().getNome();
 			novaLinhaDaTabela[1] = s.getNumeroProposta();
@@ -109,20 +110,21 @@ public class PainelConsultaSeguro extends JPanel {
 		add(txtNumeroProposta);
 		txtNumeroProposta.setColumns(10);
 
+		
+		DatePickerSettings dpSettings1 = new DatePickerSettings();
+		dpSettings1.setAllowEmptyDates(true);
+		DatePickerSettings dpSettings2 = new DatePickerSettings();
+		dpSettings2.setAllowEmptyDates(true);
+		
 		lblVigenciaInicio = new JLabel("Data início vigência De:");
 		add(lblVigenciaInicio);
 		lblVigenciaInicio.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		lblVigenciaInicio.setForeground(new Color(255, 255, 255));
 		lblVigenciaInicio.setBounds(37, 158, 205, 19);
 
-		primeiraDataVigenciaInicial = new DatePicker();
-		primeiraDataVigenciaInicial.getComponentToggleCalendarButton().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-
-		primeiraDataVigenciaInicial.setBounds(217, 157, 324, 26);
-		this.add(primeiraDataVigenciaInicial);
+		dtInicioVigencia = new DatePicker();
+		dtInicioVigencia.setBounds(217, 157, 324, 26);
+		this.add(dtInicioVigencia);
 
 		lblAte = new JLabel("Até:");
 		lblAte.setForeground(Color.WHITE);
@@ -130,9 +132,9 @@ public class PainelConsultaSeguro extends JPanel {
 		lblAte.setBounds(173, 196, 47, 19);
 		add(lblAte);
 
-		ultimaDataVigenciaInicial = new DatePicker();
-		ultimaDataVigenciaInicial.setBounds(217, 194, 324, 26);
-		this.add(ultimaDataVigenciaInicial);
+		dtFimVigencia = new DatePicker();
+		dtFimVigencia.setBounds(217, 194, 324, 26);
+		this.add(dtFimVigencia);
 
 		tblListaSeguros = new JTable();
 		this.limparTabelaSeguros();
@@ -219,27 +221,6 @@ public class PainelConsultaSeguro extends JPanel {
 		add(btnEditar);
 
 		
-//		btnExcluir = new JButton("Excluir");
-//		btnExcluir.addActionListener(new ActionListener() {
-//		    public void actionPerformed(ActionEvent e) {
-//		        int opcaoSelecionada = JOptionPane.showConfirmDialog(null, "Confirma a exclusão do seguro selecionado?");
-//		        if (opcaoSelecionada == JOptionPane.YES_OPTION) {
-//		            try {
-//		                // cópia do objeto seguroSelecionado
-//		                Seguro seguroParaExcluir = new Seguro();
-//		                controller.excluir(seguroSelecionado.getId()); 
-//		                controller.atualizar(seguroParaExcluir);
-//		       
-//		                JOptionPane.showMessageDialog(null, "Seguro excluído com sucesso");
-//		                seguros = (ArrayList<Seguro>) controller.consultarTodos();
-//		                atualizarTabelaSeguros();
-//		            } catch (ClienteComSeguroException | CampoInvalidoException e1) {
-//		                JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
-//		           
-//					}
-//		        }
-//		    }
-//		});
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -334,6 +315,7 @@ public class PainelConsultaSeguro extends JPanel {
 		seletor = new SeguroSeletor();
 		seletor.setLimite(TAMANHO_PAGINA);
 		seletor.setPagina(paginaAtual);
+		
 		if (txtNumeroProposta != null && !txtNumeroProposta.getText().isEmpty()) {
 			try {
 				int numeroProposta = Integer.parseInt(txtNumeroProposta.getText());
@@ -346,8 +328,8 @@ public class PainelConsultaSeguro extends JPanel {
 			}
 		}
 
-		seletor.setPrimeiraDataInicioVigencia(primeiraDataVigenciaInicial.getDate());
-		seletor.setUltimaDataInicioVigencia(ultimaDataVigenciaInicial.getDate());
+		seletor.setDtInicioVigencia(dtInicioVigencia.getDate());
+		seletor.setDtFimVigencia(dtFimVigencia.getDate());
 		seguros = (ArrayList<Seguro>) controller.consultarComFiltros(seletor);
 		atualizarTabelaSeguros();
 		atualizarQuantidadePaginas();

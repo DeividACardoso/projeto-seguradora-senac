@@ -74,7 +74,7 @@ public class Menu {
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setToolTipText("");
-		menuBar.setBackground(new Color(26, 158, 230));
+		menuBar.setBackground(new Color(255, 255, 255));
 		frmMenu.setJMenuBar(menuBar);
 		
 		

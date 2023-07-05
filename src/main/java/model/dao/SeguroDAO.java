@@ -151,20 +151,20 @@ public class SeguroDAO {
 	private Seguro converterDeResultSetParaEntidade(ResultSet resultado) throws SQLException {
 		Seguro seguroConsultado = new Seguro();
 		seguroConsultado.setId(resultado.getInt("id"));
-		
+
 		PessoaDAO pessoaDAO = new PessoaDAO();
 		int idPessoa = resultado.getInt("idpessoa");
 		Pessoa pessoa = pessoaDAO.consultarPorId(idPessoa);
 		seguroConsultado.setPessoa(pessoa);
-		
+
 		VeiculoDAO veiculoDAO = new VeiculoDAO();
-		int idVeiculo= resultado.getInt("idveiculo");
+		int idVeiculo = resultado.getInt("idveiculo");
 		Veiculo veiculo = veiculoDAO.consultarPorId(idVeiculo);
 		seguroConsultado.setVeiculo(veiculo);
-		
 
 		seguroConsultado.setNumeroProposta(resultado.getInt("numero_proposta"));
-		seguroConsultado.setDtInicioVigencia(resultado.getTimestamp("dt_inicio_vigencia").toLocalDateTime().toLocalDate());
+		seguroConsultado
+				.setDtInicioVigencia(resultado.getTimestamp("dt_inicio_vigencia").toLocalDateTime().toLocalDate());
 		seguroConsultado.setDtFimVigencia(resultado.getTimestamp("dt_fim_vigencia").toLocalDateTime().toLocalDate());
 		seguroConsultado.setRcfDanosMateriais(resultado.getDouble("rcf_danos_materiais"));
 		seguroConsultado.setRcfDanosCorporais(resultado.getDouble("rcf_danos_corporais"));
@@ -252,74 +252,61 @@ public class SeguroDAO {
 			primeiro = false;
 		}
 
-		if (seletor.getPrimeiraDataInicioVigencia() != null && seletor.getPrimeiraDataFimVigencia() != null) {
-			if (primeiro) {
-				sql += " WHERE ";
-			} else {
-				sql += " AND ";
-			}
-			sql += " DT_INICIO_VIGENCIA BETWEEN '" + seletor.getPrimeiraDataInicioVigencia() + "' " + " AND '"
-					+ seletor.getPrimeiraDataFimVigencia() + "' ";
-			primeiro = false;
+		if (seletor.getDtInicioVigencia() != null && seletor.getDtFimVigencia() != null) {
+			sql += " WHERE DT_INICIO_VIGENCIA >= '" + seletor.getDtInicioVigencia() + "' AND DT_FIM_VIGENCIA <= '"
+					+ seletor.getDtFimVigencia() + "'";
 		} else {
-			if (seletor.getPrimeiraDataInicioVigencia() != null) {
-				if (primeiro) {
-					sql += " WHERE ";
-				} else {
-					sql += " AND ";
-				}
-				// CLIENTES QUE NASCERAM 'A PARTIR' DA DATA INICIAL
-				sql += " DT_INICIO_VIGENCIA >= '" + seletor.getPrimeiraDataInicioVigencia() + "' ";
-				primeiro = false;
+			if (seletor.getDtInicioVigencia() != null && !seletor.getDtInicioVigencia().toString().trim().isEmpty()) {
+				sql += " WHERE DT_INICIO_VIGENCIA >= '" + seletor.getDtInicioVigencia() + "'";
 			}
-
-			if (seletor.getPrimeiraDataFimVigencia() != null) {
-				if (primeiro) {
-					sql += " WHERE ";
-				} else {
+			if (seletor.getDtFimVigencia() != null && !seletor.getDtFimVigencia().toString().trim().isEmpty()) {
+				if (sql.contains("WHERE")) {
 					sql += " AND ";
-				}
-				// CLIENTES QUE NASCERAM 'AT�' A DATA FINAL
-				sql += " DT_INCIO_VIGENCIA <= '" + seletor.getPrimeiraDataFimVigencia() + "' ";
-				primeiro = false;
-			}
-		}
-
-		if (seletor.getPrimeiraDataFimVigencia() != null && seletor.getUltimaDataFimVigencia() != null) {
-			if (primeiro) {
-				sql += " WHERE ";
-			} else {
-				sql += " AND ";
-			}
-			sql += " DT_FIM_VIGENCIA BETWEEN '" + seletor.getPrimeiraDataFimVigencia() + "' " + " AND '"
-					+ seletor.getUltimaDataFimVigencia() + "' ";
-			primeiro = false;
-		} else {
-			if (seletor.getPrimeiraDataFimVigencia() != null) {
-				if (primeiro) {
-					sql += " WHERE ";
 				} else {
-					sql += " AND ";
-				}
-				// CLIENTES QUE NASCERAM 'A PARTIR' DA DATA INICIAL
-				sql += " DT_FIM_VIGENCIA >= '" + seletor.getPrimeiraDataFimVigencia() + "' ";
-				primeiro = false;
-			}
-
-			if (seletor.getUltimaDataFimVigencia() != null) {
-				if (primeiro) {
 					sql += " WHERE ";
-				} else {
-					sql += " AND ";
 				}
-				// CLIENTES QUE NASCERAM 'AT�' A DATA FINAL
-				sql += " DT_FIM_VIGENCIA <= '" + seletor.getUltimaDataFimVigencia() + "' ";
-				primeiro = false;
+				sql += "DT_FIM_VIGENCIA <= '" + seletor.getDtFimVigencia() + "'";
 			}
 		}
 
 		return sql;
 	}
+
+//		if(seletor.getDtInicioVigencia() != null && seletor.getDtFimVigencia() != null) {
+//			if(primeiro) {
+//				sql += " WHERE ";
+//			} else {
+//				sql += " AND ";
+//			}
+//			sql += " DT_INICIO_VIGENCIA'" 
+//				+ seletor.getDtInicioVigencia() + "' " 
+//				+ " AND '" + seletor.getDtFimVigencia() + "' ";
+//			primeiro = false;
+//		} else {
+//			if(seletor.getDtInicioVigencia() != null && !seletor.getDtInicioVigencia().toString().trim().isEmpty()) {
+//				if(primeiro) {
+//					sql += " WHERE ";
+//				} else {
+//					sql += " AND ";
+//				}
+//				sql += " DT_FIM_VIGENCIA >= '" + seletor.getDtInicioVigencia() + "' ";
+//				System.out.println(sql + " inicio");
+//				primeiro = false;
+//			} 
+//			if(seletor.getDtFimVigencia() != null && !seletor.getDtFimVigencia().toString().trim().isEmpty()) {
+//				if(primeiro) {
+//					sql += " WHERE ";
+//				} else {
+//					sql += " AND ";
+//				}
+//				sql += " DT_FIM_VIGENCIA <= '" + seletor.getDtFimVigencia() + "' ";
+//				System.out.println(sql + " fim");
+//				primeiro = false;
+//			} 
+//		}
+//			
+//		return sql;
+//		}
 
 	public int contarTotalRegistrosComFiltros(SeguroSeletor seletor) {
 		int total = 0;
