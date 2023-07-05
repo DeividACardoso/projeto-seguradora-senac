@@ -40,31 +40,30 @@ public class PessoaController {
 		return bo.inserir(pessoa);
 	}
 	
-	public boolean atualizar(Pessoa pessoa) throws CampoInvalidoException {
+	public boolean atualizar(Pessoa pessoaAtualizada) throws CampoInvalidoException {
 		String mensagemValidacao = "";
 		
-		if(pessoa.getNome() == null || pessoa.getNome().trim().length() == 0) {
+		if(pessoaAtualizada.getNome() == null || pessoaAtualizada.getNome().trim().length() == 0) {
 			mensagemValidacao += "Preencha o nome \n";
 		}
-		if(pessoa.getDataNascimento() == null) {
+		if(pessoaAtualizada.getDataNascimento() == null) {
 			mensagemValidacao += "Preencha a data de nascimento \n";
 		}
-		if(pessoa.getCpf() == null) {
+		if(pessoaAtualizada.getCpf() == null) {
 			mensagemValidacao += "Preencha o CPF \n";
 		}
-		if(pessoa.getTelefone() == null) {
+		if(pessoaAtualizada.getTelefone() == null) {
 			mensagemValidacao += "Preencha o telefone \n";
 		}
-		if(pessoa.getEndereco() == null) {
+		if(pessoaAtualizada.getEndereco() == null) {
 			mensagemValidacao += "Preencha o endereço \n";
 		}
 		
 		
 		if(mensagemValidacao != "") {
 			throw new CampoInvalidoException(mensagemValidacao);
-		}
-		
-		return bo.atualizar(pessoa);
+		}		
+		return bo.atualizar(pessoaAtualizada);
 	}
 	
 	public boolean excluir(int id) {

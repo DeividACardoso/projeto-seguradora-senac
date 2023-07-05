@@ -29,7 +29,10 @@ import controller.PessoaController;
 import model.exception.CampoInvalidoException;
 import model.exception.PessoaInvalidaException;
 import model.seletor.PessoaSeletor;
+import model.seletor.SeguroSeletor;
+import model.seletor.SinistroSeletor;
 import model.vo.Pessoa;
+import model.vo.Sinistro;
 
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -61,6 +64,16 @@ public class PainelConsultaCliente extends JPanel {
 	private Pessoa pessoaSelecionada;
 //	private PainelConsultaCliente painelConsultaCliente;
 	private PessoaSeletor seletor = new PessoaSeletor();
+	private JButton btnLimpar;
+	private JButton btnVoltar;
+	private JButton btnAvancar;
+	
+	// Atributos para a PAGINA��O
+	private final int TAMANHO_PAGINA = 7;
+	private int paginaAtual = 1;
+	private int totalPaginas = 0;
+	private JLabel lblPaginacao1;
+	private JLabel lblPaginas;
 	
 	
 	private void limparTabela() {
@@ -109,12 +122,12 @@ public class PainelConsultaCliente extends JPanel {
 				ColumnSpec.decode("1px"),
 				ColumnSpec.decode("262px"),
 				ColumnSpec.decode("right:46px"),
-				ColumnSpec.decode("120px"),
+				ColumnSpec.decode("131px"),
 				ColumnSpec.decode("134px"),
 				ColumnSpec.decode("29px"),
 				ColumnSpec.decode("32px"),
-				ColumnSpec.decode("39px"),
-				ColumnSpec.decode("380px"),},
+				ColumnSpec.decode("114px"),
+				ColumnSpec.decode("292px"),},
 			new RowSpec[] {
 				RowSpec.decode("1px"),
 				RowSpec.decode("21px"),
@@ -130,7 +143,11 @@ public class PainelConsultaCliente extends JPanel {
 				FormSpecs.UNRELATED_GAP_ROWSPEC,
 				RowSpec.decode("246px"),
 				RowSpec.decode("25px"),
-				RowSpec.decode("42px"),}));
+				RowSpec.decode("42px"),
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
 
 		txtNome = new JTextField();
 		add(txtNome, "4, 5, 2, 1, fill, center");
@@ -140,6 +157,17 @@ public class PainelConsultaCliente extends JPanel {
 		lblNomeList.setForeground(new Color(255, 255, 255));
 		lblNomeList.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblNomeList, "3, 5, center, center");
+		
+		btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNome.setText("");
+				txtCPF.setText("");
+				dpDataNascimento.clear();
+				dpDataNascimento_1.clear();
+			}
+		});
+		add(btnLimpar, "8, 11, default, fill");
 		add(tblListagemPessoas, "3, 13, 7, 1, fill, fill");
 		tblListagemPessoas.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -191,7 +219,7 @@ public class PainelConsultaCliente extends JPanel {
 //		tblListagemPessoas = new JTable();
 //		this.limparTabelaPessoas();
 		
-		btnGerarPlanilha = new JButton("GerarPlanilha");
+		btnGerarPlanilha = new JButton("Gerar Planilha");
 		btnGerarPlanilha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser janelaSelecaoDestinoArquivo = new JFileChooser();
@@ -212,7 +240,21 @@ public class PainelConsultaCliente extends JPanel {
 		});
 		btnGerarPlanilha.setIcon(new ImageIcon(PainelConsultaCliente.class.getResource("/icones/icons8-planilha-50.png")));
 		btnGerarPlanilha.setBackground(new Color(231, 200, 24));
-		add(btnGerarPlanilha, "9, 11, fill, fill");
+		add(btnGerarPlanilha, "9, 11, center, fill");
+//		btnEditar.setEnabled(true);
+//		btnExcluir.setEnabled(true);
+		
+		lblTitulo = new JLabel("Consultar Cliente");
+		lblTitulo.setIcon(new ImageIcon(PainelConsultaCliente.class.getResource("/icones/icons8-lupa-48.png")));
+		lblTitulo.setForeground(new Color(255, 255, 255));
+		lblTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
+		add(lblTitulo, "4, 3, 6, 1, center, center");
+		
+		dpDataNascimento = new DatePicker();
+		add(dpDataNascimento, "5, 7, 5, 1, fill, top");
+		
+		dpDataNascimento_1 = new DatePicker();
+		add(dpDataNascimento_1, "5, 9, 5, 1, fill, top");	
 		
 		btnEditar = new JButton("Editar");
 		btnEditar.setIcon(new ImageIcon(PainelConsultaCliente.class.getResource("/icones/icons8-editar-48.png")));
@@ -222,7 +264,35 @@ public class PainelConsultaCliente extends JPanel {
 				
 			}
 		});
-		add(btnEditar, "5, 15, fill, fill");
+		
+		btnVoltar = new JButton("<< Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				paginaAtual--;
+				buscarPessoasComFiltros();
+				lblPaginas.setText(paginaAtual + " / " + totalPaginas);
+				btnVoltar.setEnabled(paginaAtual > 1);
+				btnAvancar.setEnabled(paginaAtual < totalPaginas);
+			}
+		});
+		add(btnVoltar, "5, 15, center, default");
+		
+		btnAvancar = new JButton("Avançar >>");
+		btnAvancar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				paginaAtual++;
+				buscarPessoasComFiltros();
+				lblPaginas.setText(paginaAtual + " / " + totalPaginas);
+				btnVoltar.setEnabled(paginaAtual > 1);
+				btnAvancar.setEnabled(paginaAtual < totalPaginas);
+			}
+		});
+		
+		lblPaginas = new JLabel("1/0");
+		lblPaginas.setForeground(new Color(255, 255, 255));
+		add(lblPaginas, "8, 15, center, default");
+		add(btnAvancar, "9, 15, center, default");
+		add(btnEditar, "5, 19, fill, fill");
 		
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.setIcon(new ImageIcon(PainelConsultaCliente.class.getResource("/icones/icons8-excluir-48.png")));
@@ -239,22 +309,9 @@ public class PainelConsultaCliente extends JPanel {
 				}
 			}
 		});
-		add(btnExcluir, "9, 15, center, fill");
-//		btnEditar.setEnabled(true);
-//		btnExcluir.setEnabled(true);
+		add(btnExcluir, "9, 19, center, fill");
 		
-		lblTitulo = new JLabel("Consultar Cliente");
-		lblTitulo.setIcon(new ImageIcon(PainelConsultaCliente.class.getResource("/icones/icons8-lupa-48.png")));
-		lblTitulo.setForeground(new Color(255, 255, 255));
-		lblTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
-		add(lblTitulo, "4, 3, 6, 1, center, center");
-		
-		dpDataNascimento = new DatePicker();
-		add(dpDataNascimento, "5, 7, 5, 1, fill, top");
-		
-		dpDataNascimento_1 = new DatePicker();
-		add(dpDataNascimento_1, "5, 9, 5, 1, fill, top");	
-		
+
 		
 		tblListagemPessoas.addMouseListener(new MouseAdapter() {
 			@Override
@@ -276,6 +333,9 @@ public class PainelConsultaCliente extends JPanel {
 	private void buscarPessoasComFiltros() {
 		seletor = new PessoaSeletor();
 		seletor.setNome(txtNome.getText());
+//		seletor.setCpf(txtCPF.getText());
+		seletor.setDataNascimentoDe(dpDataNascimento_1.getDate());
+		seletor.setDataNascimentoAte(dpDataNascimento.getDate());
 		
 		String cpfSemMascara;			
 			if(txtCPF.getText() != null) {
@@ -284,12 +344,24 @@ public class PainelConsultaCliente extends JPanel {
 			}
 		
 		seletor.setNome(txtNome.getText());
+//		seletor.setCpf(txtCPF.getText());
 		seletor.setDataNascimentoDe(dpDataNascimento.getDate());
 		seletor.setDataNascimentoAte(dpDataNascimento_1.getDate());
 		pessoas = (ArrayList<Pessoa>) pessoaController.consultarComFiltros(seletor);
 		atualizarTabelaPessoas();
+		this.atualizarQuantidadePaginas();
 	}
-	
+
+	private void atualizarQuantidadePaginas() {
+		int totalRegistros = pessoaController.contarTotalRegistrosComFiltros(seletor);
+		totalPaginas = totalRegistros / TAMANHO_PAGINA;
+
+		if (totalRegistros % TAMANHO_PAGINA > 0) {
+			totalPaginas++;
+		}
+		lblPaginas.setText(paginaAtual + " / " + totalPaginas);
+	}
+
 	public JButton getBtnEditar() {
 		return this.btnEditar;
 	}

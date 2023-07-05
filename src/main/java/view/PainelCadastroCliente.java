@@ -28,6 +28,7 @@ import controller.PessoaController;
 import model.exception.CampoInvalidoException;
 import model.vo.Endereco;
 import model.vo.Pessoa;
+import model.vo.Sinistro;
 
 public class PainelCadastroCliente extends JPanel {
 	private Pessoa cliente;
@@ -51,6 +52,11 @@ public class PainelCadastroCliente extends JPanel {
 	 * Create the panel.
 	 */
 	public PainelCadastroCliente(Pessoa pessoaParaEditar) {
+		if(pessoaParaEditar != null) {
+			this.cliente = pessoaParaEditar;
+		} else {
+			this.cliente = new Pessoa();
+		}
 		setBackground(new Color(26, 158, 230));
 		setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("max(120dlu;default)"),
@@ -178,10 +184,19 @@ public class PainelCadastroCliente extends JPanel {
 						controller.inserir(cliente);
 						JOptionPane.showMessageDialog(null, "Pessoa salva com sucesso!", 
 								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+						limparCamposDoPainel();
 					} catch (CampoInvalidoException e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage(), 
 								"Atenção", JOptionPane.ERROR_MESSAGE);
 					}
+				}else {
+					try {
+						controller.atualizar(cliente);
+						JOptionPane.showMessageDialog(null, "Pessoa alterada com sucesso!", 
+								"Sucesso!", JOptionPane.INFORMATION_MESSAGE);
+					} catch (CampoInvalidoException e1) {
+						e1.printStackTrace();
+					}					
 				}		
 			}
 		});
@@ -204,14 +219,19 @@ public class PainelCadastroCliente extends JPanel {
 			}
 		});
 		
-//		if(this.cliente.getId() != null) {
-//			preencherCamposDaTela();
-//		}
-
 		btnVoltar.setIcon(new ImageIcon(PainelCadastroCliente.class.getResource("/icones/icons8-voltar-50.png")));
 		btnVoltar.setBackground(new Color(231, 200, 24));
 		add(btnVoltar, "6, 28");
 			
+		if(this.cliente.getId() != null) {
+			preencherCamposDaTela();	
+//			txtNome.setEditable(true);
+//			txtCPF.setEditable(true);
+//			dpDataNascimento.setEnabled(true);
+//			txtTelefone.setEditable(true);
+//			cbEndereco.setSelectedItem(true);
+		}
+		
 	}
 	
 		private void preencherCamposDaTela() {
@@ -219,10 +239,17 @@ public class PainelCadastroCliente extends JPanel {
 			this.txtCPF.setText(this.cliente.getCpf());
 			this.dpDataNascimento.setDate(this.cliente.getDataNascimento());
 			this.txtTelefone.setText(this.cliente.getTelefone());
-			this.cbEndereco.setSelectedItem(this.cliente.getEndereco());
-		
+			this.cbEndereco.setSelectedItem(this.cliente.getEndereco());	
 	}
-
+		
+		private void limparCamposDoPainel() {
+			txtNome.setText("");
+			txtCPF.setText("");
+			dpDataNascimento.setDate(null);;
+			txtTelefone.setText("");
+			cbEndereco.setSelectedItem(this.cliente.getEndereco());
+		}
+		
 		public JButton getbtnVoltar() {
 			return btnVoltar;
 		}

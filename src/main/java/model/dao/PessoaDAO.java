@@ -10,6 +10,9 @@ import java.util.List;
 
 import model.vo.Pessoa;
 import model.vo.Seguro;
+import model.vo.Sinistro;
+import model.vo.Situacao;
+import model.vo.TipoSinistro;
 import model.seletor.PessoaSeletor;
 import model.vo.Endereco;
 
@@ -145,7 +148,6 @@ public class PessoaDAO {
 	}
 	
 	
-	
 	private Pessoa montarPessoaComResultadoDoBanco(ResultSet resultado) throws SQLException {
 		Pessoa pessoaBuscada = new Pessoa();
 		pessoaBuscada.setId(resultado.getInt("id"));
@@ -161,7 +163,6 @@ public class PessoaDAO {
 		
 		return pessoaBuscada;
 	}
-
 
 
 	public List<Pessoa> consultarComFiltros(PessoaSeletor seletor) {
@@ -189,7 +190,6 @@ public class PessoaDAO {
 		}		
 		return pessoas;
 	}
-
 
 
 	private String preencherFiltros(String sql, PessoaSeletor seletor) {
@@ -222,7 +222,7 @@ public class PessoaDAO {
 			} else {
 				sql += " AND ";
 			}
-			sql += " DT_NASCIMENTO BETWEEN '" 
+			sql += " DTNASCIMENTO BETWEEN '" 
 				+ seletor.getDataNascimentoDe() + "' " 
 				+ " AND '" + seletor.getDataNascimentoAte() + "' ";
 			primeiro = false;
@@ -234,7 +234,7 @@ public class PessoaDAO {
 					sql += " AND ";
 				}
 				//NASCEU 'A PARTIR' DA DATA INICIAL
-				sql += " DT_NASCIMENTO >= '" + seletor.getDataNascimentoDe() + "' "; 
+				sql += " DTNASCIMENTO >= '" + seletor.getDataNascimentoDe() + "' "; 
 				primeiro = false;
 			}
 			
@@ -245,7 +245,7 @@ public class PessoaDAO {
 					sql += " AND ";
 				}
 				//NASCEU 'ATÉ' A DATA FINAL
-				sql += " DT_NASCIMENTO <= '" + seletor.getDataNascimentoAte() + "' "; 
+				sql += " DTNASCIMENTO <= '" + seletor.getDataNascimentoAte() + "' "; 
 				primeiro = false;
 			}
 			if(seletor.getTelefone() != null) {
@@ -271,7 +271,6 @@ public class PessoaDAO {
 		}	
 		return sql;
 	}
-
 
 
 	public int contarTotalRegistrosComFiltros(PessoaSeletor seletor) {

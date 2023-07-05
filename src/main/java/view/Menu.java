@@ -88,6 +88,7 @@ public class Menu {
 				mnItemCadastroCliente.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						painelCadastroCliente = new PainelCadastroCliente(null);
+						painelCadastroCliente.setVisible(true);
 						registrarCliqueBotaoVoltarDoPainelCadastroPessoa();
 						// ATUALIZA TELA PRINCIPAL
 						frmMenu.setContentPane(painelCadastroCliente);
@@ -104,6 +105,12 @@ public class Menu {
 					public void actionPerformed(ActionEvent e) {
 						painelConsultaCliente = new PainelConsultaCliente();
 						registrarCliqueBotaoEditarDoPainelConsultaCliente();
+						painelConsultaCliente.getBtnEditar().addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								PainelCadastroCliente editarCliente = new PainelCadastroCliente(
+										painelConsultaCliente.getPessoaSelecionada());
+							}
+						});
 						// ATUALIZA TELA PRINCIPAL
 						frmMenu.setContentPane(painelConsultaCliente);
 						frmMenu.revalidate();
