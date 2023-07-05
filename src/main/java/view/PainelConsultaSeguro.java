@@ -63,10 +63,10 @@ public class PainelConsultaSeguro extends JPanel {
 	private void limparTabelaSeguros() {
 		tblListaSeguros.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Segurado", "Proposta", "Veículo", "VigênciaInicial ", "VigêciaFinal", " RCFMaterial", "RCF-Corporais", "Franquia", "Assistência", "CarroReserva"},
+				{"Segurado", "Proposta", "Veículo", "Modelo", "VigênciaInicial ", "VigêciaFinal", " RCFMaterial", "RCF-Corporais", "Franquia", "Assistência", "CarroReserva"},
 			},
 			new String[] {
-				"Segurado", "Proposta", "Veículo", "VigênciaInicial ", "VigêciaFinal ", " RCFMaterial", "RCF-Corporais", "Franquia", "Assistência", "CarroReserva"
+				"Segurado", "Proposta", "Veículo", "Modelo", "VigênciaInicial ", "VigêciaFinal ", " RCFMaterial", "RCF-Corporais", "Franquia", "Assistência", "CarroReserva"
 			}
 		));
 	}
@@ -77,17 +77,18 @@ public class PainelConsultaSeguro extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) tblListaSeguros.getModel();
 
 		for (Seguro s : this.seguros) {
-			Object[] novaLinhaDaTabela = new Object[10];
+			Object[] novaLinhaDaTabela = new Object[11];
 			novaLinhaDaTabela[0] = s.getPessoa().getNome();
 			novaLinhaDaTabela[1] = s.getNumeroProposta();
 			novaLinhaDaTabela[2] = s.getVeiculo().getPlacaVeiculo();
-			novaLinhaDaTabela[3] = DateUtil.formatarDataPadraoBrasil(s.getDtInicioVigencia());
-			novaLinhaDaTabela[4] = DateUtil.formatarDataPadraoBrasil(s.getDtFimVigencia());
-			novaLinhaDaTabela[5] = s.getRcfDanosMateriais();
-			novaLinhaDaTabela[6] = s.getRcfDanosCorporais();
-			novaLinhaDaTabela[7] = s.getFranquia();
-			novaLinhaDaTabela[8] = s.getAssistencia();
-			novaLinhaDaTabela[9] = s.getCarroReserva();
+			novaLinhaDaTabela[3] = s.getVeiculo().getModelo();
+			novaLinhaDaTabela[4] = DateUtil.formatarDataPadraoBrasil(s.getDtInicioVigencia());
+			novaLinhaDaTabela[5] = DateUtil.formatarDataPadraoBrasil(s.getDtFimVigencia());
+			novaLinhaDaTabela[6] = s.getRcfDanosMateriais();
+			novaLinhaDaTabela[7] = s.getRcfDanosCorporais();
+			novaLinhaDaTabela[8] = s.getFranquia();
+			novaLinhaDaTabela[9] = s.getAssistencia();
+			novaLinhaDaTabela[10] = s.getCarroReserva();
 
 			model.addRow(novaLinhaDaTabela);
 		}
