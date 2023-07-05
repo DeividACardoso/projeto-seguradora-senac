@@ -62,7 +62,7 @@ public class GeradorPlanilha {
 		linhaCabecalho.createCell(0).setCellValue("Nome");
 		linhaCabecalho.createCell(1).setCellValue("CPF");
 		linhaCabecalho.createCell(2).setCellValue("Data de Nascimento");
-		linhaCabecalho.createCell(3).setCellValue("Telefones");
+		linhaCabecalho.createCell(3).setCellValue("Telefone");
 		linhaCabecalho.createCell(4).setCellValue("Endereco resumido (Cidade - UF)");
 
 		int contadorLinhas = 1;
