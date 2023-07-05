@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +12,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.text.MaskFormatter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -25,7 +28,6 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import controller.SinistroController;
 import model.dao.SeguroDAO;
-import model.dao.VeiculoDAO;
 import model.exception.CampoInvalidoException;
 import model.exception.PessoaInvalidaException;
 import model.exception.VeiculoInvalidaException;
@@ -55,6 +57,7 @@ public class PainelCadastroSinistro extends JPanel {
 	private JTextField fTxtHora;
 	private JNumberFormatField fTxtValorPago;
 	private Sinistro sin;
+	private MaskFormatter mascaraNumeroSinistro;
 	/**
 	 * Create the panel.V  
 	 */
@@ -123,7 +126,13 @@ public class PainelCadastroSinistro extends JPanel {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.DEFAULT_ROWSPEC,}));
 
-
+		try {
+			mascaraNumeroSinistro = new MaskFormatter("#####");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		lblTitulo = new JLabel(sinistro.getId() == null ? "NOVO SINISTRO" : "EDIÇÃO DE SINISTRO");
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setFont(new Font("Trebuchet MS", Font.PLAIN, 20));
@@ -134,7 +143,7 @@ public class PainelCadastroSinistro extends JPanel {
 		lblNumeroSinistro.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblNumeroSinistro, "3, 8, right, default");
 
-		txtNumeroSinistro = new JTextField();
+		txtNumeroSinistro = new JFormattedTextField(mascaraNumeroSinistro);
 		add(txtNumeroSinistro, "5, 8, fill, default");
 		txtNumeroSinistro.setColumns(10);
 
