@@ -19,7 +19,7 @@ public class PessoaController {
 		if(pessoa.getNome() == null || pessoa.getNome().trim().length() == 0) {
 			mensagemValidacao += "Preencha o nome \n";
 		}
-		if(pessoa.getDataNascimento() == null) {
+		if(pessoa.getDataNascimento() == null ) {
 			mensagemValidacao += "Preencha a data de nascimento \n";
 		}
 		if(pessoa.getCpf() == null) {
@@ -31,12 +31,9 @@ public class PessoaController {
 		if(pessoa.getEndereco() == null) {
 			mensagemValidacao += "Preencha o endereço \n";
 		}
-
-		
 		if(mensagemValidacao != "") {
 			throw new CampoInvalidoException(mensagemValidacao);
 		}
-		
 		return bo.inserir(pessoa);
 	}
 	
@@ -58,8 +55,6 @@ public class PessoaController {
 		if(pessoaAtualizada.getEndereco() == null) {
 			mensagemValidacao += "Preencha o endereço \n";
 		}
-		
-		
 		if(mensagemValidacao != "") {
 			throw new CampoInvalidoException(mensagemValidacao);
 		}		
@@ -87,11 +82,9 @@ public class PessoaController {
 	}
 	
 	public String gerarPlanilha(List<Pessoa> pessoas, String destinoArquivo) throws CampoInvalidoException {
-		
 		if(pessoas == null || destinoArquivo == null || destinoArquivo.trim().isEmpty()) {
 			throw new CampoInvalidoException("Preencha todos os campos");
 		}
-		
 		GeradorPlanilha gerador = new GeradorPlanilha();
 		return gerador.gerarPlanilhaPessoas(pessoas, destinoArquivo);
 	}

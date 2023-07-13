@@ -31,6 +31,7 @@ import model.exception.PessoaInvalidaException;
 import model.seletor.PessoaSeletor;
 import model.seletor.SeguroSeletor;
 import model.seletor.SinistroSeletor;
+import model.util.DateUtil;
 import model.vo.Pessoa;
 import model.vo.Sinistro;
 
@@ -90,7 +91,7 @@ public class PainelConsultaCliente extends JPanel {
 			novaLinhaDaTabela[0] = p.getId();
 			novaLinhaDaTabela[1] = p.getNome();
 			novaLinhaDaTabela[2] = p.getCpf();
-			novaLinhaDaTabela[3] = p.getDataNascimento();
+			novaLinhaDaTabela[4] = DateUtil.formatarDataPadraoBrasil(p.getDataNascimento()); // >> aula pig
 			novaLinhaDaTabela[4] = p.getTelefone();
 			novaLinhaDaTabela[5] = p.getEndereco();
 			model.addRow(novaLinhaDaTabela);

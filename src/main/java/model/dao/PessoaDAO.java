@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,6 @@ public class PessoaDAO {
 			if(resultado.next()) {
 				novaPessoa.setId(resultado.getInt(1));
 			}
-
 		} catch (SQLException erro) {
 			System.out.println("Erro ao inserir nova pessoa.");
 			System.out.println("Erro: " + erro.getMessage());
@@ -110,8 +111,7 @@ public class PessoaDAO {
 			
 			if(resultado.next()) {
 				pessoaBuscada = montarPessoaComResultadoDoBanco(resultado);
-			}
-			
+			}		
 		}catch (Exception erro) {
 			System.out.println("Erro ao buscar pessoa com id: " + id 
 					+ "\n Causa:" + erro.getMessage());
@@ -136,8 +136,7 @@ public class PessoaDAO {
 			while(resultado.next()) {
 				Pessoa pessoaBuscada = montarPessoaComResultadoDoBanco(resultado);
 				pessoas.add(pessoaBuscada);
-			}
-			
+			}		
 		}catch (Exception erro) {
 			System.out.println("Erro ao buscar todas as pessoas. \n Causa:" + erro.getMessage());
 		}finally {
