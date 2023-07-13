@@ -1,6 +1,9 @@
 package controller;
 
+import java.awt.HeadlessException;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import model.bo.SinistroBO;
 import model.exception.CampoInvalidoException;
@@ -8,6 +11,7 @@ import model.exception.PessoaInvalidaException;
 import model.exception.VeiculoInvalidaException;
 import model.gerador.GeradorPlanilha;
 import model.seletor.SinistroSeletor;
+import model.util.Valid;
 import model.vo.Pessoa;
 import model.vo.Seguro;
 import model.vo.Sinistro;

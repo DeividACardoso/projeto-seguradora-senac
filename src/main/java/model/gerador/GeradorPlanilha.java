@@ -33,7 +33,6 @@ public class GeradorPlanilha {
 		linhaCabecalho.createCell(7).setCellValue("Franquia");
 		linhaCabecalho.createCell(8).setCellValue("Assistência");
 		linhaCabecalho.createCell(9).setCellValue("CarroReseva");
-		
 
 		int contadorLinhas = 1;
 			for (Seguro c : seguros) {
@@ -52,7 +51,6 @@ public class GeradorPlanilha {
 			}
 			return salvarNoDisco(arquivoExcel, destinoArquivo);
 		}
-
 
 	public String gerarPlanilhaPessoas(List<Pessoa> pessoas, String destinoArquivo) {
 		HSSFWorkbook arquivoExcel = new HSSFWorkbook();
@@ -83,35 +81,36 @@ public class GeradorPlanilha {
 		HSSFSheet abaPlanilha = arquivoExcel.createSheet("Sinistros");
 		
 		HSSFRow linhaCabecalho = abaPlanilha.createRow(0);
-		linhaCabecalho.createCell(0).setCellValue("Número Sinistro");
-		linhaCabecalho.createCell(1).setCellValue("Tipo Sinistro");
-		linhaCabecalho.createCell(2).setCellValue("Segurado");
-		linhaCabecalho.createCell(3).setCellValue("Veículo");
-		linhaCabecalho.createCell(4).setCellValue("Data do Sinistro");
-		linhaCabecalho.createCell(5).setCellValue("Valor da Franquia");
-		linhaCabecalho.createCell(6).setCellValue("Valor da Orçado");
-		linhaCabecalho.createCell(7).setCellValue("Valor da Pago");
-		linhaCabecalho.createCell(8).setCellValue("Situação");
-		linhaCabecalho.createCell(9).setCellValue("Motivo");
+		linhaCabecalho.createCell(0).setCellValue("Lista de Sinistros");
+		linhaCabecalho.createCell(1).setCellValue("Número Sinistro");
+		linhaCabecalho.createCell(2).setCellValue("Tipo Sinistro");
+		linhaCabecalho.createCell(3).setCellValue("Segurado");
+		linhaCabecalho.createCell(4).setCellValue("Veículo");
+		linhaCabecalho.createCell(5).setCellValue("Data do Sinistro");
+		linhaCabecalho.createCell(6).setCellValue("Valor da Franquia");
+		linhaCabecalho.createCell(7).setCellValue("Valor da Orçado");
+		linhaCabecalho.createCell(8).setCellValue("Valor da Pago");
+		linhaCabecalho.createCell(9).setCellValue("Situação");
 		
 		int contadorLinhas = 1;
 		for(Sinistro sin : sinistros) {
 			HSSFRow novaLinha = abaPlanilha.createRow(contadorLinhas);
-			novaLinha.createCell(0).setCellValue(sin.getNumeroSinistro());
-			novaLinha.createCell(1).setCellValue(sin.getTipoSinistro().name());
-			novaLinha.createCell(2).setCellValue(sin.getSeguro().getPessoa().getNome());
-			novaLinha.createCell(3).setCellValue(sin.getSeguro().getVeiculo().getPlacaVeiculo());
-			novaLinha.createCell(4).setCellValue(DateUtil.formatarDataPadraoBrasil(sin.getDataSinistro()));
-			novaLinha.createCell(5).setCellValue(sin.getValorFranquia());
-			novaLinha.createCell(6).setCellValue(sin.getValorOrcado());
-			novaLinha.createCell(7).setCellValue(sin.getValorPago());
-			novaLinha.createCell(8).setCellValue(sin.getSituacao().toString());
-			novaLinha.createCell(9).setCellValue(sin.getMotivo());
+			novaLinha.createCell(0).setCellValue("");
+			novaLinha.createCell(1).setCellValue(sin.getNumeroSinistro());
+			novaLinha.createCell(2).setCellValue(sin.getTipoSinistro().name());
+			novaLinha.createCell(3).setCellValue(sin.getSeguro().getPessoa().getNome());
+			novaLinha.createCell(4).setCellValue(sin.getSeguro().getVeiculo().getPlacaVeiculo());
+			novaLinha.createCell(5).setCellValue(DateUtil.formatarDataPadraoBrasil(sin.getDataSinistro()));
+			novaLinha.createCell(6).setCellValue(sin.getValorFranquia());
+			novaLinha.createCell(7).setCellValue(sin.getValorOrcado());
+			novaLinha.createCell(8).setCellValue(sin.getValorPago());
+			novaLinha.createCell(9).setCellValue(sin.getSituacao().toString());
 			contadorLinhas++;
 		}
 		
 		return salvarNoDisco(arquivoExcel, destinoArquivo);
 	}
+	
 	private String salvarNoDisco(HSSFWorkbook planilha, String caminhoArquivo) {
 		String mensagem = "";
 		FileOutputStream saida = null;

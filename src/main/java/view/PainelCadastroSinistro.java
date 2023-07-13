@@ -147,11 +147,11 @@ public class PainelCadastroSinistro extends JPanel {
 		add(txtNumeroSinistro, "5, 8, fill, default");
 		txtNumeroSinistro.setColumns(10);
 
-		JLabel lblValorFranquia = new JLabel("Valor Franquia:");
+		JLabel lblValorFranquia = new JLabel("Valor Franquia: R$");
 		lblValorFranquia.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblValorFranquia.setForeground(Color.WHITE);
 		lblValorFranquia.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblValorFranquia, "7, 8, right, default");
+		add(lblValorFranquia, "7, 8, 2, 1, right, default");
 
 		fTxtValorFranquia = new JNumberFormatField(2);
 		fTxtValorFranquia.setColumns(10);
@@ -165,12 +165,13 @@ public class PainelCadastroSinistro extends JPanel {
 		cbTipoSinistro = new JComboBox();
 		cbTipoSinistro.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		cbTipoSinistro.setModel(new DefaultComboBoxModel(TipoSinistro.values()));
+		cbTipoSinistro.setSelectedIndex(-1);
 		add(cbTipoSinistro, "5, 11, fill, default");
 
-		JLabel lblValorOrcado = new JLabel("Valor Or\u00E7ado:");
+		JLabel lblValorOrcado = new JLabel("Valor Orçado: R$");
 		lblValorOrcado.setForeground(Color.WHITE);
 		lblValorOrcado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblValorOrcado, "7, 11, right, default");
+		add(lblValorOrcado, "7, 11, 2, 1, right, default");
 
 		fTxtValorOrcado = new JNumberFormatField(2);
 		fTxtValorOrcado.setColumns(10);
@@ -184,14 +185,15 @@ public class PainelCadastroSinistro extends JPanel {
 		SeguroDAO seguroDAO = new SeguroDAO();
 		seguros.addAll(seguroDAO.consultarTodos());
 		cbSeguro = new JComboBox(seguros.toArray());
+		cbSeguro.setSelectedIndex(-1);
 		cbSeguro.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		add(cbSeguro, "5, 14, fill, default");
 
 
-		JLabel lblValorPago = new JLabel("Valor Pago:");
+		JLabel lblValorPago = new JLabel("Valor Pago: R$");
 		lblValorPago.setForeground(Color.WHITE);
 		lblValorPago.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblValorPago, "7, 14, right, default");
+		add(lblValorPago, "7, 14, 2, 1, right, default");
 
 		fTxtValorPago = new JNumberFormatField(2);
 		fTxtValorPago.setColumns(10);
@@ -204,11 +206,17 @@ public class PainelCadastroSinistro extends JPanel {
 
 		dpData= new DatePicker();
 		add(dpData, "5, 17, fill, fill");
-
-		txtMotivo = new JTextField();
-		txtMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		txtMotivo.setColumns(10);
-		add(txtMotivo, "9, 20, 1, 4");
+		
+				JLabel lblMotivo = new JLabel("Motivo:");
+				lblMotivo.setHorizontalAlignment(SwingConstants.TRAILING);
+				lblMotivo.setForeground(Color.WHITE);
+				lblMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+				add(lblMotivo, "7, 17, right, default");
+		
+				txtMotivo = new JTextField();
+				txtMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+				txtMotivo.setColumns(10);
+				add(txtMotivo, "9, 17, 1, 4");
 
 		JLabel lblSituacaoSinistro = new JLabel("Situação:");
 		lblSituacaoSinistro.setForeground(Color.WHITE);
@@ -218,6 +226,7 @@ public class PainelCadastroSinistro extends JPanel {
 		cbSituacao = new JComboBox();
 		cbSituacao.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
 		cbSituacao.setModel(new DefaultComboBoxModel(Situacao.values()));
+		cbSituacao.setSelectedIndex(-1);
 		add(cbSituacao, "5, 20, fill, default");
 
 		btnSalvar = new JButton("Salvar");
@@ -260,12 +269,6 @@ public class PainelCadastroSinistro extends JPanel {
 
 		
 		});
-
-		JLabel lblMotivo = new JLabel("Motivo:");
-		lblMotivo.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblMotivo.setForeground(Color.WHITE);
-		lblMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblMotivo, "7, 20, right, default");
 		btnSalvar.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-salvar-50.png")));
 		btnSalvar.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		btnSalvar.setBackground(new Color(231, 200, 24));
