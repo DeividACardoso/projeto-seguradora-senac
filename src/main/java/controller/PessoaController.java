@@ -19,7 +19,7 @@ public class PessoaController {
 		if(pessoa.getNome() == null || pessoa.getNome().trim().length() == 0) {
 			mensagemValidacao += "Preencha o nome \n";
 		}
-		if(pessoa.getDataNascimento() == null ) {
+		if(pessoa.getDataNascimento() == null) {
 			mensagemValidacao += "Preencha a data de nascimento \n";
 		}
 		if(pessoa.getCpf() == null) {

@@ -91,7 +91,7 @@ public class PainelConsultaCliente extends JPanel {
 			novaLinhaDaTabela[0] = p.getId();
 			novaLinhaDaTabela[1] = p.getNome();
 			novaLinhaDaTabela[2] = p.getCpf();
-			novaLinhaDaTabela[4] = DateUtil.formatarDataPadraoBrasil(p.getDataNascimento()); // >> aula pig
+			novaLinhaDaTabela[3] = DateUtil.formatarDataPadraoBrasil(p.getDataNascimento()); // >> aula pig
 			novaLinhaDaTabela[4] = p.getTelefone();
 			novaLinhaDaTabela[5] = p.getEndereco();
 			model.addRow(novaLinhaDaTabela);
