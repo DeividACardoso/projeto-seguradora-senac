@@ -95,7 +95,7 @@ public class Endereco {
 	@Override
 	public String toString() {
 		return "Cidade: " + cidade
-				+ "\nEstado: " + estado;
+				+ "\n | Estado: " + estado;
 	}
 
 }
