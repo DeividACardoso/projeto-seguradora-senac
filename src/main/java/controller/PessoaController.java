@@ -6,6 +6,7 @@ import model.bo.PessoaBO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilha;
 import model.seletor.PessoaSeletor;
+import model.util.Valid;
 import model.vo.Pessoa;
 
 

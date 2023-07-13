@@ -105,12 +105,11 @@ public class Pessoa {
 	@Override
 	public String toString() {
 		return nome.toUpperCase();
-//				+ " \nCPF: " + cpf;
+//				+ "\nCPF: " + cpf;
 //				+ "\nData Nascimento: " + dataNascimento
 //				+ "\nSeguros: " + seguros 
 //				+ "\nTelefone: " + telefone 
-//				+ "\nEndereço: " + endereco 
-//				+ "\nTipo Pessoa: " + tipoPessoa;
+//				+ "\nEndereço: " + endereco;
 	}
 	
 }
