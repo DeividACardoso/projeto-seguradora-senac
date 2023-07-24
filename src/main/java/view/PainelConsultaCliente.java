@@ -339,7 +339,7 @@ public class PainelConsultaCliente extends JPanel {
 		seletor.setDataNascimentoAte(dpDataNascimento.getDate());
 		
 		String cpfSemMascara;			
-			if(txtCPF.getText() != null) {
+			if(txtCPF.getText().trim() != null && !txtCPF.getText().trim().isEmpty()) {
 				cpfSemMascara = txtCPF.getText().replace(".", "").replace("-", "");
 				seletor.setCpf(cpfSemMascara);				
 			}
