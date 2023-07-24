@@ -6,6 +6,7 @@ import model.bo.PessoaBO;
 import model.exception.CampoInvalidoException;
 import model.gerador.GeradorPlanilha;
 import model.seletor.PessoaSeletor;
+import model.util.Valid;
 import model.vo.Pessoa;
 
 
@@ -31,12 +32,9 @@ public class PessoaController {
 		if(pessoa.getEndereco() == null) {
 			mensagemValidacao += "Preencha o endereço \n";
 		}
-
-		
 		if(mensagemValidacao != "") {
 			throw new CampoInvalidoException(mensagemValidacao);
 		}
-		
 		return bo.inserir(pessoa);
 	}
 	
@@ -58,8 +56,6 @@ public class PessoaController {
 		if(pessoaAtualizada.getEndereco() == null) {
 			mensagemValidacao += "Preencha o endereço \n";
 		}
-		
-		
 		if(mensagemValidacao != "") {
 			throw new CampoInvalidoException(mensagemValidacao);
 		}		
@@ -87,11 +83,9 @@ public class PessoaController {
 	}
 	
 	public String gerarPlanilha(List<Pessoa> pessoas, String destinoArquivo) throws CampoInvalidoException {
-		
 		if(pessoas == null || destinoArquivo == null || destinoArquivo.trim().isEmpty()) {
 			throw new CampoInvalidoException("Preencha todos os campos");
 		}
-		
 		GeradorPlanilha gerador = new GeradorPlanilha();
 		return gerador.gerarPlanilhaPessoas(pessoas, destinoArquivo);
 	}

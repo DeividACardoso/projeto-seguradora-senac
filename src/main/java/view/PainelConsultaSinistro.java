@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -35,6 +36,7 @@ import controller.SinistroController;
 import model.exception.CampoInvalidoException;
 import model.seletor.SinistroSeletor;
 import model.util.DateUtil;
+import model.util.Valid;
 import model.vo.Sinistro;
 import model.vo.Situacao;
 
@@ -49,7 +51,7 @@ public class PainelConsultaSinistro extends JPanel {
 	private DatePicker dataFim;
 	private SinistroController controller = new SinistroController();
 	private List<Sinistro> sinistros = new ArrayList();
-	private String[] nomeColunas = {"ID", "Número Sinistro", "Nº Proposta", "Nome Segurado", "Tipo de Sinistro", "Data do Sinistro", "Situação"};
+	private String[] nomeColunas = {"Número Sinistro", "Nº Proposta", "Nome Segurado", "Tipo de Sinistro", "Data do Sinistro", "Situação"};
 	private final JTable tableSinistro = new JTable();
 	private JButton btnEditar;
 	private JButton btnExcluir;
@@ -71,19 +73,19 @@ public class PainelConsultaSinistro extends JPanel {
 	}
 	private void atualizarTabela() {
 		this.limparTabela();
-		
+
 		DefaultTableModel model = (DefaultTableModel) tableSinistro.getModel();
-		
+
 		for(Sinistro s : this.sinistros) {
-			Object[] novaLinhaDaTabela = new Object[7];
-			novaLinhaDaTabela[0] = s.getId();
-			novaLinhaDaTabela[1] = s.getNumeroSinistro();
-			novaLinhaDaTabela[2] = s.getSeguro().getNumeroProposta();
-			novaLinhaDaTabela[3] = s.getSeguro().getPessoa().getNome();
-			novaLinhaDaTabela[4] = s.getTipoSinistro();
-			novaLinhaDaTabela[5] = DateUtil.formatarDataPadraoBrasil(s.getDataSinistro());
-			novaLinhaDaTabela[6] = s.getSituacao();
-			
+			Object[] novaLinhaDaTabela = new Object[6];
+			//novaLinhaDaTabela[0] = s.getId();
+			novaLinhaDaTabela[0] = s.getNumeroSinistro();
+			novaLinhaDaTabela[1] = s.getSeguro().getNumeroProposta();
+			novaLinhaDaTabela[2] = s.getSeguro().getPessoa().getNome();
+			novaLinhaDaTabela[3] = s.getTipoSinistro();
+			novaLinhaDaTabela[4] = DateUtil.formatarDataPadraoBrasil(s.getDataSinistro());
+			novaLinhaDaTabela[5] = s.getSituacao();
+
 			model.addRow(novaLinhaDaTabela);
 		}
 	}
@@ -116,117 +118,117 @@ public class PainelConsultaSinistro extends JPanel {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(51dlu;default)"),
 				ColumnSpec.decode("26px:grow"),},
-			new RowSpec[] {
-				RowSpec.decode("18px"),
-				RowSpec.decode("65px"),
-				RowSpec.decode("24px"),
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("fill:48px"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				RowSpec.decode("38px:grow"),
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,}));
-		
+				new RowSpec[] {
+						RowSpec.decode("18px"),
+						RowSpec.decode("65px"),
+						RowSpec.decode("24px"),
+						FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						RowSpec.decode("fill:48px"),
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC,
+						RowSpec.decode("38px:grow"),
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.DEFAULT_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,
+						FormSpecs.RELATED_GAP_ROWSPEC,}));
+
 		try {
 			mascaraNumeroSinistro = new MaskFormatter("#####");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		DatePickerSettings dpSettings1 = new DatePickerSettings();
 		dpSettings1.setAllowEmptyDates(true);
 		DatePickerSettings dpSettings2 = new DatePickerSettings();
 		dpSettings2.setAllowEmptyDates(true);
-		
+
 		JLabel lblNewLabel = new JLabel("Consultar Sinistro");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Trebuchet MS", Font.PLAIN, 24));
 		lblNewLabel.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-lupa-48.png")));
 		add(lblNewLabel, "2, 2, 15, 1");
-		
+
 		JLabel lblNumeroSinistro = new JLabel("Número Sinistro:");
 		lblNumeroSinistro.setForeground(new Color(255, 255, 255));
 		lblNumeroSinistro.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblNumeroSinistro, "2, 4, right, top");
-		
+
 		txtNumero = new JFormattedTextField(mascaraNumeroSinistro);
 		add(txtNumero, "4, 4, 11, 1, fill, fill");
 		txtNumero.setColumns(10);
-		
+
 		JLabel lblNomeSegurado = new JLabel("Nome Segurado:");
 		lblNomeSegurado.setForeground(Color.WHITE);
 		lblNomeSegurado.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblNomeSegurado, "2, 7, right, top");
-		
+
 		txtNomeSegurado = new JTextField();
 		txtNomeSegurado.setColumns(10);
 		add(txtNomeSegurado, "4, 7, 11, 1, fill, fill");
-		
+
 		JLabel lblDe = new JLabel("De: ");
 		lblDe.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		lblDe.setForeground(new Color(255, 255, 255));
 		lblDe.setHorizontalAlignment(SwingConstants.TRAILING);
 		add(lblDe, "2, 10");
-		
+
 		dpDataInicio = new DatePicker();
 		add(dpDataInicio, "4, 10, 2, 1, fill, fill");
 		dpDataInicio.setSettings(dpSettings1);
-		
+
 		JLabel lblAte = new JLabel("Até: ");
 		lblAte.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblAte.setForeground(Color.WHITE);
 		lblAte.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblAte, "8, 10");
-		
+
 		dpDataFim = new DatePicker();
 		add(dpDataFim, "10, 10, fill, fill");
 		dpDataFim.setSettings(dpSettings2);
-		
+
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBackground(new Color(227, 218, 28));
 		btnBuscar.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-lupa-50.png")));
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					buscarSinistrosComFiltros();
-					atualizarTabela();
+				buscarSinistrosComFiltros();
+				atualizarTabela();
 			}
 		});
 		add(btnBuscar, "4, 16, fill, fill");
-		
+
 		JLabel lblSituacao = new JLabel("Situação:");
 		lblSituacao.setForeground(Color.WHITE);
 		lblSituacao.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
 		add(lblSituacao, "2, 13, right, center");
-		
+
 		cbSituacao = new JComboBox(Situacao.values());
 		cbSituacao.setSelectedIndex(-1);
 		add(cbSituacao, "4, 13, fill, center");
-		
+
 		btnGerarPlanilha = new JButton("Gerar Planilha");
 		btnGerarPlanilha.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-planilha-50.png")));
 		btnGerarPlanilha.setBackground(new Color(227, 218, 28));
 		btnGerarPlanilha.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser janelaSelecaoDestinoArquivo = new JFileChooser();
@@ -245,7 +247,7 @@ public class PainelConsultaSinistro extends JPanel {
 				}
 			}
 		});
-		
+
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -259,10 +261,10 @@ public class PainelConsultaSinistro extends JPanel {
 		btnLimpar.setBackground(new Color(227, 218, 28));
 		add(btnLimpar, "8, 16, fill, fill");
 		add(btnGerarPlanilha, "10, 16, default, fill");
-		
-		
+
+
 		add(tableSinistro, "2, 19, 13, 2, fill, fill");
-		
+
 		tableSinistro.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -281,7 +283,7 @@ public class PainelConsultaSinistro extends JPanel {
 				}
 			}
 		});
-		
+
 		btnVoltarPagina = new JButton("<<Voltar");
 		btnVoltarPagina.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -293,20 +295,20 @@ public class PainelConsultaSinistro extends JPanel {
 			}
 		});
 		add(btnVoltarPagina, "6, 22");
-		
+
 		lblPagina = new JLabel("1/0");
 		lblPagina.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		lblPagina.setForeground(new Color(255, 255, 255));
 		lblPagina.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblPagina, "7, 22");
-		
-		
+
+
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		
+
 		btnAvancar = new JButton("Avançar>>");
 		btnAvancar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -322,7 +324,7 @@ public class PainelConsultaSinistro extends JPanel {
 		btnEditar.setBackground(new Color(227, 218, 28));
 		add(btnEditar, "4, 25, fill, fill");
 		btnEditar.setEnabled(false);
-		
+
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.setIcon(new ImageIcon(PainelConsultaSinistro.class.getResource("/icones/icons8-excluir-48.png")));
 		btnExcluir.addActionListener(new ActionListener() {
@@ -338,19 +340,18 @@ public class PainelConsultaSinistro extends JPanel {
 					}
 				}
 			}
-			
+
 		});
 		btnExcluir.setBackground(new Color(227, 218, 28));
 		add(btnExcluir, "10, 25, default, fill");
 		btnExcluir.setEnabled(false);
 		buscarSinistros();
-		
+
 	}
 	protected void buscarSinistrosComFiltros() {
 		seletor = new SinistroSeletor();
 		seletor.setLimite(TAMANHO_PAGINA);
 		seletor.setPagina(paginaAtual);
-		
 		seletor.setNomeSegurado(txtNomeSegurado.getText());
 		seletor.setNumeroSinistro(txtNumero.getText());
 		seletor.setDtInicio(dpDataInicio.getDate());
@@ -360,12 +361,12 @@ public class PainelConsultaSinistro extends JPanel {
 		} else {
 			seletor.setSituacao(cbSituacao.getSelectedItem().toString());
 		}
-		
+
 		sinistros = (ArrayList<Sinistro>) controller.consultarComFiltros(seletor);
 		this.atualizarTabela();
 		this.atualizarQuantidadePaginas();
 	}
-	
+
 	private void atualizarQuantidadePaginas() {
 		// C�lculo do total de p�ginas (poderia ser feito no backend)
 		int totalRegistros = controller.contarTotalRegistrosComFiltros(seletor);
@@ -380,12 +381,12 @@ public class PainelConsultaSinistro extends JPanel {
 
 		lblPagina.setText(paginaAtual + " / " + totalPaginas);
 	}
-	
+
 	public JButton getBtnEditar() {
 		return this.btnEditar;
 	}
 	public Sinistro getSinistroSelecionado() {
 		return sinistroSelecionado;
 	}
-	
+
 }
