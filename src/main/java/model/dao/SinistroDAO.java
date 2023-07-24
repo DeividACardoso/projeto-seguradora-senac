@@ -263,7 +263,6 @@ public class SinistroDAO {
 					sql += " AND ";
 				}
 				sql += " dt_sinistro >= '" + seletor.getDtInicio() + "' ";
-				System.out.println(sql + " inicio");
 				primeiro = false;
 			} 
 			if(seletor.getDtFim() != null && !seletor.getDtFim().toString().trim().isEmpty()) {
@@ -273,7 +272,6 @@ public class SinistroDAO {
 					sql += " AND ";
 				}
 				sql += " dt_sinistro <= '" + seletor.getDtFim() + "' ";
-				System.out.println(sql + " fim");
 				primeiro = false;
 			} 
 		}

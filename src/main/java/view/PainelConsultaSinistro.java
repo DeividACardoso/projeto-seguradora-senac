@@ -240,7 +240,7 @@ public class PainelConsultaSinistro extends JPanel {
 						resultado = controller.gerarPlanilha(sinistros, caminhoEscolhido);
 						JOptionPane.showMessageDialog(null, resultado);
 					} catch (CampoInvalidoException e1) {
-						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Aten��o", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showConfirmDialog(null, e1.getMessage(), "Atenção", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			}

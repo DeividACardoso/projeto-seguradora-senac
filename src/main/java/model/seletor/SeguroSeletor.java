@@ -7,6 +7,13 @@ public class SeguroSeletor extends BaseSeletor {
 	private String nomeSegurado;
 	private int numeroProposta;
 	
+	//TODO ajustar
+//	private LocalDate dtInicialIntervaloInicioVigencia;
+//	private LocalDate dtFinalInicioIntervaloVigencia;
+//	private LocalDate dtInicialIntervaloFimVigencia;
+//	private LocalDate dtFinalIntervaloFimVigencia;
+	
+	
 	private LocalDate dtInicioVigencia;
 	private LocalDate dtFimVigencia;
 	

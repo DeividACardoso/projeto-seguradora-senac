@@ -204,11 +204,17 @@ public class PainelCadastroSinistro extends JPanel {
 
 		dpData= new DatePicker();
 		add(dpData, "5, 17, fill, fill");
-
-		txtMotivo = new JTextField();
-		txtMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
-		txtMotivo.setColumns(10);
-		add(txtMotivo, "9, 20, 1, 4");
+		
+				JLabel lblMotivo = new JLabel("Motivo:");
+				lblMotivo.setHorizontalAlignment(SwingConstants.TRAILING);
+				lblMotivo.setForeground(Color.WHITE);
+				lblMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
+				add(lblMotivo, "7, 17, right, default");
+		
+				txtMotivo = new JTextField();
+				txtMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 11));
+				txtMotivo.setColumns(10);
+				add(txtMotivo, "9, 17, 1, 4");
 
 		JLabel lblSituacaoSinistro = new JLabel("Situação:");
 		lblSituacaoSinistro.setForeground(Color.WHITE);
@@ -260,12 +266,6 @@ public class PainelCadastroSinistro extends JPanel {
 
 		
 		});
-
-		JLabel lblMotivo = new JLabel("Motivo:");
-		lblMotivo.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblMotivo.setForeground(Color.WHITE);
-		lblMotivo.setFont(new Font("Trebuchet MS", Font.PLAIN, 15));
-		add(lblMotivo, "7, 20, right, default");
 		btnSalvar.setIcon(new ImageIcon(PainelCadastroSinistro.class.getResource("/icones/icons8-salvar-50.png")));
 		btnSalvar.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		btnSalvar.setBackground(new Color(231, 200, 24));
